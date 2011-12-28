@@ -1,0 +1,25 @@
+%\chapter{Mathematical Foundations}\label{chap:math}
+
+\section{Problem description}\label{sec:problem}
+The problem that will be tackled in this talk is called the ”Snake Charmer's Problem”.
+It is about deforming a curve (the \emph{snake}) \st its \emph{snout} follows another
+given curve (the snake charmer).
+
+More precisely: a curve $S : [0,L] \rightarrow \Rd$ of length $L$ which is
+piece-wise differentiable, has arc-length $L$ and fixed \term{tail} $S(0) = 0$ is called
+a \term{snake}. $S(L)$ is called the \term{snout}.
+
+Given a snake and a continuously differentiable curve $\gamma : [0,1] \rightarrow \Rd$.
+Find a family $S_t, t \in [0,1]$ of snakes of length $L$ \st $S_0 = S$ and its
+snouts follow $\gamma$: $S_t(L) = \gamma(t)$.
+
+In the following the necessary definitions will be given to understand the above
+description fully and to be able to reformulate the problem into a solvable
+problem.
+
+Everything will be formulated in a way that the topic is understandable without
+having deep knowledge about Topology, manifolds and so on. Only a geometric imagination
+of spheres, planes and curves in $\Rd$ (mostly $\R^3$) is needed. The purpose of this
+report and talk is to demonstrate the power of topological abstraction in solving
+problems coming from computer science.
+

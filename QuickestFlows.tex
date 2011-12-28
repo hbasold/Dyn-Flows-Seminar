@@ -1,0 +1,155 @@
+\documentclass[alg,german,seminar,pdf,article]{unitext}
+
+\usepackage[utf8]{inputenc}
+
+\usepackage{enumitem}
+\makeatletter
+\let\mdwNote\note                        % make \IEEEproof do same as \proof
+\let\note\@undefined                        % undefine \proof
+\makeatother
+
+\usepackage{calligra}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{stmaryrd}
+
+%\usepackage{algorithmic}
+%\usepackage{algorithm}
+%\numberwithin{algorithm}{chapter}
+%\usepackage{gnuplottex}
+
+\usepackage{tikz}
+\usepackage{environ}
+\makeatletter
+\newsavebox{\measure@tikzpicture}
+\NewEnviron{scaletikzpicturetowidth}[1]{%
+  \def\tikz@width{#1}%
+  \def\tikzscale{1}\begin{lrbox}{\measure@tikzpicture}%
+  \BODY
+  \end{lrbox}%
+  \pgfmathparse{#1/\wd\measure@tikzpicture}%
+  \edef\tikzscale{\pgfmathresult}%
+  \BODY
+}
+\makeatother
+
+\usepackage[final]{pdfpages}
+%\usepackage[draft]{pdfpages}
+
+\newtheoremstyle{note} % name
+                {10pt} %Space above               
+                {10pt} %Space below
+                {\itshape} %Body font
+                {} %Indent amount
+                {\bfseries} % Theorem head font
+                {:} %Punctuation after theorem head
+                {.5em} %Space after theorem head
+                {} %Theorem head spec (can be left empty, meaning ‘normal’)
+
+\newtheoremstyle{definition} % name
+                {10pt} %Space above               
+                {10pt} %Space below
+                {} %Body font
+                {} %Indent amount
+                {\bfseries} % Theorem head font
+                {} %Punctuation after theorem head
+                {\newline} %Space after theorem head
+                {} %Theorem head spec (can be left empty, meaning ‘normal’)
+
+\newtheoremstyle{theorem} % name
+                {10pt} %Space above               
+                {10pt} %Space below
+                {\itshape} %Body font
+                {} %Indent amount
+                {\bfseries} % Theorem head font
+                {} %Punctuation after theorem head
+                {.5em} %Normal Space after theorem head
+                {} %Theorem head spec (can be left empty, meaning ‘normal’)
+
+\newtheoremstyle{example} % name
+                {10pt} %Space above               
+                {10pt} %Space below
+                {} %Body font
+                {} %Indent amount
+                {\bfseries} % Theorem head font
+                {} %Punctuation after theorem head
+                {\newline} %Space after theorem head
+                {} %Theorem head spec (can be left empty, meaning ‘normal’)
+
+
+\theoremstyle{definition}
+%\newtheorem{definition}{Definition}[chapter]
+\newtheorem{definition}{Definition}[section]
+
+\theoremstyle{theorem}
+\newtheorem{theorem}[definition]{Satz}
+\newtheorem{lemma}[definition]{Lemma}
+\newtheorem{corollary}[definition]{Korollar}
+\newtheorem{problem}[definition]{Problem}
+
+\theoremstyle{example}
+\newtheorem{example}[definition]{Beispiel}
+
+\theoremstyle{remark}
+\newtheorem{remark}[definition]{Bemerkung}
+
+\renewcommand{\proofname}{Beweis}
+
+%%% named references
+\newcommand{\refRemark}[1]{Remark \ref{#1}}
+\newcommand{\theoRef}[1]{Theorem \ref{theo:#1}}
+\newcommand{\corRef}[1]{Corollary \ref{cor:#1}}
+\newcommand{\lemRef}[1]{Lemma \ref{lem:#1}}
+\newcommand{\probRef}[1]{Problem \ref{prob:#1}}
+
+%%% Highlighting and indexing of terms
+\newcommand{\term}[1]{\emph{#1}\index{#1}}
+
+% reduce space around cdot
+\let\oldcdot=\cdot
+\def\cdot{\negthinspace\oldcdot\negthinspace}
+
+\def\notmid{\!\!\:\!\not|\;}
+
+\input{indices/definitions}
+
+\graphicspath{{images/}}
+
+\title{Snake Charmer's Problem}
+\author{Henning Basold}
+\date{October 17th, 2011}
+\dozent{Dr. Iris Reinbacher}
+%\betreuer{Matthias Hanke}
+
+\renewcommand{\purposename}{Purpose}
+\renewcommand{\abstractname}{Abstract}
+
+%\keywords{Elliptic Curve Cryptography, Parallelization, Key Agreement}
+%\makeglossary
+%\makeindex
+%\makenomenclature
+
+\begin{document}
+
+%\titelblatt             %%% obligatorisch
+%\zusammenfassung        %%% obligatorisch, in der Datei abstract.tex
+%\cleardoublepage
+%\tableofcontents        %%% obligatorisch
+%\listoftables           %%% optional
+%\listoffigures          %%% optional
+%\abkuerzung             %%% optional, in der Datei abbreviation.tex
+
+\starttext
+\input{intro}
+\input{conf}
+\input{solution_descr}
+\input{solution}
+\input{glossary}
+
+\nocite{*}
+\bibliography{lit}
+%\printglossary
+%\printindex
+%\anhang
+
+\end{document}

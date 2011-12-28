@@ -1,0 +1,6 @@
+default: pdf
+
+pdf: 
+
+clean: 
+

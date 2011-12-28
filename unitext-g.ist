@@ -1,0 +1,8 @@
+keyword          "\\glossaryentry"
+
+quote '+'
+
+preamble         "\\begin{theglossary}\n\n"
+postamble        "\n\n\\end{theglossary}"
+
+delim_0          "\\quad"
