@@ -1,4 +1,4 @@
-\documentclass[alg,german,seminar,pdf,article]{unitext}
+\documentclass[alg,ngerman,seminar,pdf,article]{unitext}
 
 \usepackage[utf8]{inputenc}
 
@@ -77,30 +77,32 @@
                 {} %Theorem head spec (can be left empty, meaning ‘normal’)
 
 
+
+
 \theoremstyle{definition}
 %\newtheorem{definition}{Definition}[chapter]
 \newtheorem{definition}{Definition}[section]
 
 \theoremstyle{theorem}
-\newtheorem{theorem}[definition]{Satz}
-\newtheorem{lemma}[definition]{Lemma}
-\newtheorem{corollary}[definition]{Korollar}
-\newtheorem{problem}[definition]{Problem}
+\newtheorem{theorem}[definition]{\theoremName}
+\newtheorem{lemma}[definition]{\lemmaName}
+\newtheorem{corollary}[definition]{\corollaryName}
+\newtheorem{problem}[definition]{\problemName}
 
 \theoremstyle{example}
-\newtheorem{example}[definition]{Beispiel}
+\newtheorem{example}[definition]{\exampleName}
 
 \theoremstyle{remark}
-\newtheorem{remark}[definition]{Bemerkung}
+\newtheorem{remark}[definition]{\remarkName}
 
-\renewcommand{\proofname}{Beweis}
+\renewcommand{\proofname}{\proofName}
 
 %%% named references
-\newcommand{\refRemark}[1]{Remark \ref{#1}}
-\newcommand{\theoRef}[1]{Theorem \ref{theo:#1}}
-\newcommand{\corRef}[1]{Corollary \ref{cor:#1}}
-\newcommand{\lemRef}[1]{Lemma \ref{lem:#1}}
-\newcommand{\probRef}[1]{Problem \ref{prob:#1}}
+\newcommand{\refRemark}[1]{\remarkName \ref{#1}}
+\newcommand{\theoRef}[1]{\theoremName \ref{theo:#1}}
+\newcommand{\corRef}[1]{\corollaryName \ref{cor:#1}}
+\newcommand{\lemRef}[1]{\lemmaName \ref{lem:#1}}
+\newcommand{\probRef}[1]{\problemName \ref{prob:#1}}
 
 %%% Highlighting and indexing of terms
 \newcommand{\term}[1]{\emph{#1}\index{#1}}

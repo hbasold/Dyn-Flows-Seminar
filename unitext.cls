@@ -6,27 +6,60 @@
 \newcommand{\@bib}{plain}
 \newcommand{\@din}{din}
 \newcommand{\@bibstyle}{}
-\newcommand{\@sprache}{ngerman}
+\newcommand{\@sprache}{}
 %\newcommand{\@logo}{\includegraphics[scale=0.11]{tu-logo}}
 \newcommand{\@logo}{\includegraphics{tu-logo-4c}}
 
-\DeclareOption{bachelorarbeit}{\renewcommand{\@subjekt}{Bachelorarbeit}}
-\DeclareOption{projektarbeit}{\renewcommand{\@subjekt}{Projektarbeit}}
-\DeclareOption{masterarbeit}{\renewcommand{\@subjekt}{Masterarbeit}}
-\DeclareOption{seminar}{\renewcommand{\@subjekt}{Ausarbeitung eines Seminarvortrags}}
-\DeclareOption{praktikum}{\renewcommand{\@subjekt}{Praktikumsbericht}}
-\DeclareOption{teamprojekt}{\renewcommand{\@subjekt}{Teamprojekt}}
-\DeclareOption{studienarbeit}{\renewcommand{\@subjekt}{Studienarbeit}}
-\DeclareOption{diplomarbeit}{\renewcommand{\@subjekt}{Diplomarbeit}}
-\DeclareOption{bericht}{\renewcommand{\@subjekt}{Informatik-Bericht}}
-\DeclareOption{script}{\renewcommand{\@subjekt}{Vorlesungsskript}}
-\DeclareOption{dissertationv}{%
-  \renewcommand{\@subjekt}{Dissertation}%
-  \AtBeginDocument{\renewcommand{\maketitle}{\input{titelseite-vorher}}}%
+\AtBeginDocument{%
+\addto\captionsngerman{%
+    % Typen von Arbeiten
+    \def\bachelorsThesis{Bachelorarbeit}%
+    \def\suggestedSolution{L\"osungsvorschlag}%
+    \def\projectReport{Projektarbeit}%
+    %
+    % Verwendete Bezeichnungen
+    \def\prefaceName{Vorwort}%
+    \def\bibname{Literatur}%
+    \def\abstractname{Zusammenfassung}%
+    \def\keywordsname{Stichw\"orter}%
+    \def\titlePageName{Titel}%
+    \def\betreutDurch{betreut durch:}%
+}%
+%
+\addto\captionsenglish{%
+    % document types
+    \def\bachelorsThesis{Bachelor's Thesis}%
+    \def\suggestedSolution{Suggested Solution}%
+    \def\projectReport{Project Report}%
+    %
+    % used namings
+    \def\prefaceName{Preface}%
+    \def\bibname{Bibliography}%
+    \def\abstractname{Abstract}%
+    \def\keywordsname{Keywords}%
+    \def\titlePageName{Title}%
+    \def\betreutDurch{supervised by:}%
+}%
 }
-\DeclareOption{dissertationn}{%
-  \renewcommand{\@subjekt}{Dissertation}%
-  \AtBeginDocument{\renewcommand{\maketitle}{\input{titelseite-nachher}}}%
+\newcommand{\setSubject}[1]{\AtBeginDocument{\renewcommand{\@subjekt}{#1}}}
+
+\DeclareOption{seminar}{\setSubject{Ausarbeitung eines Seminarvortrags}}
+\DeclareOption{praktikum}{\setSubject{Praktikumsbericht}}
+\DeclareOption{teamprojekt}{\setSubject{Teamprojekt}}
+\DeclareOption{bachelorarbeit}{\setSubject{\bachelorsThesis}}
+\DeclareOption{projektarbeit}{\setSubject{\projectReport}}
+\DeclareOption{masterarbeit}{\setSubject{Masterarbeit}}
+\DeclareOption{studienarbeit}{\setSubject{Studienarbeit}}
+\DeclareOption{diplomarbeit}{\setSubject{Diplomarbeit}}
+\DeclareOption{bericht}{\setSubject{Informatik-Bericht}}
+\DeclareOption{script}{\setSubject{Vorlesungsskript}}
+\DeclareOption{uebungsScript}{\setSubject{\"Ubungsskript}}
+\DeclareOption{loesungsVorschlag}{\setSubject{\suggestedSolution}}
+\DeclareOption{dissertation}{%
+  \setSubject{Dissertation}%
+  \AtBeginDocument{%
+    \renewcommand{\maketitle}{\input{titelseite}}
+  }
 }
 \DeclareOption{titelseite}{\AtBeginDocument{\renewcommand{\maketitle}{\input{titelseite}}}}
 
@@ -52,7 +85,6 @@
 \DeclareOption{alg}{\renewcommand{\@institut}{Institut f\"ur Betriebssysteme und Rechnerverbund\\%
   Abteilung Algorithmik}}
 
-\newcommand{\titlePageName}{Titel}
 \newcommand{\betreutDurch}{betreut durch:}
 
 \DeclareOption{abbrv}{\renewcommand{\@bib}{abbrv}}
@@ -61,43 +93,31 @@
 \DeclareOption{unsrt}{\renewcommand{\@bib}{unsrt}}
 
 \DeclareOption{english}{%
-    \renewcommand{\@sprache}{english}    
-    
-    \DeclareOption{bachelorarbeit}{\renewcommand{\@subjekt}{Bachelor's Thesis}}
-    \DeclareOption{projektarbeit}{\renewcommand{\@subjekt}{Project Report}}
-    \DeclareOption{masterarbeit}{\renewcommand{\@subjekt}{Masterarbeit}}
-    \DeclareOption{seminar}{\renewcommand{\@subjekt}{Ausarbeitung eines Seminarvortrags}}
-    \DeclareOption{praktikum}{\renewcommand{\@subjekt}{Praktikumsbericht}}
-    \DeclareOption{teamprojekt}{\renewcommand{\@subjekt}{Teamprojekt}}
-    \DeclareOption{studienarbeit}{\renewcommand{\@subjekt}{Studienarbeit}}
-    \DeclareOption{diplomarbeit}{\renewcommand{\@subjekt}{Diplomarbeit}}
-    \DeclareOption{bericht}{\renewcommand{\@subjekt}{Informatik-Bericht}}
-    \DeclareOption{script}{\renewcommand{\@subjekt}{Vorlesungsskript}}
-    \DeclareOption{dissertationv}{\renewcommand{\@subjekt}{Dissertation}}
-    \DeclareOption{dissertationn}{\renewcommand{\@subjekt}{Dissertation}}
-    
-    \renewcommand{\titlePageName}{Title}
-    \renewcommand{\betreutDurch}{supervised by:}
-    
   \AtEndOfClass{%
     \RequirePackage[left]{eurosym}
-  }
-  \AtBeginDocument{%
-    \renewcommand{\keywordsname}{Keywords}
-    \renewcommand{\glossaryname}{Glossary}
-    \renewcommand{\symbolname}{Symbols}
-    \renewcommand{\abkuerzungname}{List of Abbreviations}
-    \renewcommand{\zahlname}{Numbers}
-    \renewcommand{\@bibstyle}{\@bib}
-    \selectlanguage{USenglish}
+    \AtBeginDocument{%
+        \InputIfFileExists{unitext-english.cfg}{}{}
+        \renewcommand{\keywordsname}{Keywords}
+        \renewcommand{\glossaryname}{Glossary}
+        \renewcommand{\symbolname}{Symbols}
+        \renewcommand{\abkuerzungname}{List of Abbreviations}
+        \renewcommand{\zahlname}{Numbers}
+        \renewcommand{\@bibstyle}{\@bib}
+        \bibliographystyle{\@bibstyle}
+        \selectlanguage{USenglish}
+      }
   }
 }
-\DeclareOption{german}{%
+
+\DeclareOption{ngerman}{%
   \AtEndOfClass{%
     \RequirePackage[right]{eurosym}
-  }
-  \AtBeginDocument{%
-    \renewcommand{\@bibstyle}{\@bib\@din}
+    \AtBeginDocument{%
+        \InputIfFileExists{unitext-ngerman.cfg}{}{}
+        \renewcommand{\@bibstyle}{\@bib\@din}
+        \bibliographystyle{\@bibstyle}
+        \selectlanguage{ngerman}
+      }
   }
 }
 
@@ -151,7 +171,7 @@
 \ProcessOptions\relax
 \LoadRequiredPackages
 
-\RequirePackage[utf8]{inputenc}
+\RequirePackage[english,ngerman]{babel}
 
 \RequirePackage[T1]{fontenc}
 \RequirePackage{textcomp}
@@ -166,7 +186,9 @@
 \RequirePackage{ifthen}
 \RequirePackage{xspace}
 \RequirePackage[thinspace,thinqspace,squaren,textstyle]{SIunits}
-\RequirePackage{ngerman}
+%\RequirePackage[dvips]{thumbpdf} % pdflatex wird automatisch erkannt
+%\RequirePackage[pagebackref,plainpages=false,pdfpagelabels,bookmarksnumbered,
+%  colorlinks,urlcolor=black,linkcolor=black,citecolor=black]{hyperref}
 \RequirePackage{nomencl}
 
 %\renewcommand*{\partpagestyle}{empty}
@@ -205,7 +227,7 @@
   {\sffamily\normalsize\vskip15mm\@institut\par\@dozent\par\vskip08mm\@betreuer}
 }
 
-\newcommand{\erklaerungname}{Eidesstattliche Erklärung}
+\newcommand{\erklaerungname}{Eidesstattliche Erkl\"arung}
 \newcommand{\erklaerung}{%
   \cleardoublepage
   \pdfbookmark[0]{\erklaerungname}{erklaerungname}
@@ -215,15 +237,14 @@
   \begin{center}\sffamily\bfseries\large
     \erklaerungname
   \end{center}
-  \bigskip\noindent Hiermit erkläre ich an Eides statt, dass
-  ich die vorliegende Arbeit selbstständig verfasst und keine
+  \bigskip\noindent Hiermit erkl\"are ich an Eides statt, dass
+  ich die vorliegende Arbeit selbstst\"andig verfasst und keine
   anderen als die angegebenen Hilfsmittel verwendet habe.\par
   \bigskip\noindent Braunschweig,~\datum\par
   \vskip 10mm
   \hfill\hrulefill
 }
 
-\renewcommand{\prefacename}{Vorwort}
 \newcommand{\vorwort}{%
   \cleardoublepage
   \chapter*{\prefacename}
@@ -241,8 +262,6 @@
   \InputIfFileExists{purpose}{}{}
 }
 
-\renewcommand{\abstractname}{{\normalsize Zusammenfassung}}
-\newcommand{\keywordsname}{Stichwörter}
 \newcommand{\zusammenfassung}
   {\begin{abstract}
      \markboth{\abstractname}{\abstractname}
@@ -267,7 +286,7 @@
 
 \renewcommand{\listtablename}{Verzeichnis der Tabellen}
 
-\newcommand{\abkuerzungname}{Verzeichnis der Abkürzungen}
+\newcommand{\abkuerzungname}{Verzeichnis der Abk\"urzungen}
 
 \newcommand{\abkuerzung}{%
   %\newpage
@@ -291,9 +310,6 @@
     \InputIfFileExists{appendix}{}{}
   \end{appendix}
 }
-
-\bibliographystyle{\@bibstyle}
-\renewcommand{\bibname}{Literatur}
 
 \newcommand{\glossaryname}{Glossar}
 \newenvironment{theglossary}
