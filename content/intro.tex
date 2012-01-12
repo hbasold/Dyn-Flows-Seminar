@@ -1,25 +1,58 @@
 %\chapter{Mathematical Foundations}\label{chap:math}
 
-\section{Problem description}\label{sec:problem}
-The problem that will be tackled in this talk is called the ”Snake Charmer's Problem”.
-It is about deforming a curve (the \emph{snake}) \st its \emph{snout} follows another
-given curve (the snake charmer).
+\section{Grundlegende Definitionen und Problembeschreibung}\label{sec:problem}
+%TODO: Einleitung erweitern
+In diesem Abschnitt soll kurz in die zu behandelnde Problematik eingeführt
+werden. Dazu werden die nötigen Begriffe definiert.
 
-More precisely: a curve $S : [0,L] \rightarrow \Rd$ of length $L$ which is
-piece-wise differentiable, has arc-length $L$ and fixed \term{tail} $S(0) = 0$ is called
-a \term{snake}. $S(L)$ is called the \term{snout}.
+\begin{definition}
+    Wir verwenden übliche \term{Netzwerke} bzw. gerichtete, endliche \term{Graphen}
+    $\graph = (V, \A)$ aus Knoten und Kanten wobei $n := |V|$ und $m := |\A|$.
+    
+    Zu einem Graphen gibt es einige nützliche Funktionen:
+    \begin{itemize}
+        \item $\head : \A \rightarrow V$, $(u,v) \mapsto v$
+        \item $\tail : \A \rightarrow V$, $(u,v) \mapsto u$
+        \item $\outEdges : V \rightarrow 2^\A$, $v \mapsto \setDef{e \in \A}{tail(e) = v}$
+        \item $\inEdges : V \rightarrow 2^\A$, $v \mapsto \setDef{e \in \A}{head(e) = v}$
+    \end{itemize}
+    
+    Der Graph wird mit einigen Funktionen angereichert, die mit als Eingabe
+    für die Probleme dienen.
+    \begin{itemize}
+        \item $\tau : \A \rightarrow \R$, $e \mapsto \tau_e$ -- \term{Laufzeit}
+        \item $u : \A \rightarrow \R$, $e \mapsto u_e$ -- \term{Kapazität}
+        \item $c : \A \rightarrow \R$, $e \mapsto c_e$ -- \term{Kosten} pro Flusseinheit
+    \end{itemize}
+\end{definition}
 
-Given a snake and a continuously differentiable curve $\gamma : [0,1] \rightarrow \Rd$.
-Find a family $S_t, t \in [0,1]$ of snakes of length $L$ \st $S_0 = S$ and its
-snouts follow $\gamma$: $S_t(L) = \gamma(t)$.
+Zur Einführung werden wir zuerst den \term{statischen Fluss} definieren, dieser
+hat im Gegensatz zum dynamischen keine Zeitkomponente.
 
-In the following the necessary definitions will be given to understand the above
-description fully and to be able to reformulate the problem into a solvable
-problem.
+\begin{definition}
+    Sei $S \subseteq V$ die Menge der \term{Terminale} mit $S = S^+ \;\dot{\cup}\; S^-$
+    und Funktionen
+    \begin{itemize}
+        \item $D : S^+ \rightarrow \R_+$ -- \term{Zulauf}
+        \item $D : S^- \rightarrow \R_-$ -- \term{Bedarf}
+    \end{itemize}
+    die $\sum_{v \in S} D(v) = 0$ erfüllen.
+    
+    Wenn $S^+ = \{s\}$ und $S^- = \{t\}$, dann schreiben wir kurz $d = D(s) = -D(t)$.
+\end{definition}
 
-Everything will be formulated in a way that the topic is understandable without
-having deep knowledge about Topology, manifolds and so on. Only a geometric imagination
-of spheres, planes and curves in $\Rd$ (mostly $\R^3$) is needed. The purpose of this
-report and talk is to demonstrate the power of topological abstraction in solving
-problems coming from computer science.
-
+\begin{definition}[Statischer Fluss]
+    Ein statischer Fluss ist eine Abbildung $x : \A \rightarrow \R_+$ mit
+    \[ \sum_{e \in \outEdges(v)} x(e) - \sum_{e \in \inEdges(v)} x(e) = 0 \quad, \text{alle } v \in V \setminus S. \]
+    
+    Ein solcher Fluss sollte im Allgemeinen Folgende Eigenschaften erfüllen:
+    \begin{itemize}
+        \item Erfüllung von Bedarf und Zulauf:
+            \[ \sum_{e \in \outEdges(v)} x(e) - \sum_{e \in \inEdges(v)} x(e) = D(v) \quad, \text{alle } v \in S. \]
+        \item Zulässigkeit:
+            \[ x(e) \leq u(e) \quad, \text{alle } e \in \A \]
+    \end{itemize}
+    
+    Einem Fluss können außerdem die nötigen Kosten zugeordnet werden:
+        \[ c(x) = \sum_{e \in \A} c(e) \cdot x(e). \]
+\end{definition}

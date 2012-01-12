@@ -47,10 +47,10 @@ $(text).pdf: $(tex_files) $(indices)/*.bib *.cfg $(images)
 	# makeindex -c -s nomencl.ist -t $(working_file).nlg -o $(working_file).nls $(working_file).nlo
 	# makeindex -c -g -s unitext-g.ist -t $(working_file).glg -o $(working_file).gls $(working_file).glo
 	# makeindex -c -g -s unitext-i.ist -t $(working_file).ilg -o $(working_file).ind $(working_file).idx
+	# $(PDFLATEX) -output-directory $(working_dir) $(text)
 	$(PDFLATEX) -output-directory $(working_dir) $(text)
-	$(PDFLATEX) -output-directory $(working_dir) $(text)
-	thumbpdf $(working_file)
-	$(PDFLATEX) -output-directory $(working_dir) $(text)
+	# thumbpdf $(working_file)
+	# $(PDFLATEX) -output-directory $(working_dir) $(text)
 	cp $(working_file).pdf .
 
 pdf: $(text).pdf

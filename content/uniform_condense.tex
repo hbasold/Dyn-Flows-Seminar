@@ -1,0 +1,105 @@
+\section{Gleichförmig reduzierte zeit-expandierte Netzwerke}\label{sec:unif_cond}
+
+Zu QTP:
+\begin{theorem}\label{theo:qtp_flow_ex}
+    Sei $T \geq T^*$. Setze $\Delta := \frac{\eps^2 T}{n}$ und
+    $T' := \lceil (1+\eps)^3 T / \Delta \rceil \Delta$.
+    Dann gilt:
+    \begin{enumerate}
+        \item in $\redNetw{T'}{\Delta}$ existiert ein statischer Fluss $x$ mit
+            Bedarf $|x| = (1 + \eps)D$ und Kosten $c(x) \leq (1+\eps)C$.
+        \item aus $x$ kann ein dynamischer Fluss $f$ in $\graph$ berechnet werden,
+            der bei $(1+\eps)T'$ endet und für den $|f| = D$ und $c(f) \leq C$
+            gilt.
+    \end{enumerate}
+\end{theorem}
+
+Bevor wir diesen Satz beweisen, folgern wir daraus den Algorithmus:
+
+TODO:
+\begin{theorem}
+    QTP-FPTAS-Core
+\end{theorem}
+
+TODO: Einbettung in Suchframework
+
+\begin{theorem}\label{theo:slow_flow}
+    Sei $\func{f(e)}{\ropen{0, T + \delta}}{\R_+}$ ein dynamischer Fluss in $(\graph, \tau)$
+    mit $|f| = D$ und $c(f) \leq C$ und einer endlichen Zerlegung in Flüsse $f(P)$
+    auf Pfaden $P \in \pathSet$. Sei $\eps > 0$ und $(\graph, \tau')$ das
+    gleiche Netzwerk mit geänderten Zeiten, für die
+    $\left|\tau(e) - \tau'(e)\right| \leq \frac{\eps^2T}{n}$ gilt. Definiere
+    einen Fluss in $(\graph, \tau')$
+    \[
+    \tilde{f}(P)(t) := \frac{1}{1+\eps} \frac{1}{\eps T}
+                            \int_{t - \eps T}^{t} f(P)(\theta) \; d\theta \text{ .}
+    \]
+    Dann gilt für $\tilde{f}$:
+    \begin{enumerate}
+        \item $\tilde{f}$ endet bei $\delta + T + \eps T + \eps^2 T$
+        \item $\tilde{f}$ verläuft nur auf Pfaden aus $\pathSet$
+        \item $|\tilde{f}| = \frac{D}{1 + \eps}$
+        \item $c(\tilde{f}) \leq \frac{C}{1 + \eps}$
+    \end{enumerate}
+    
+    \begin{proof}
+        TODO: in Tex und Anpassung an $T + \delta$.
+    \end{proof}
+\end{theorem}
+
+\begin{lemma}\label{lem:relaxed_flow}
+    Sei $\func{f^*(e)}{\ropen{0,T^*}}{\R_+}$ ein dynamischer Fluss in $(\graph, \tau)$
+    mit Bedarf $|f^*| = D$ und Kosten $c(f^*) \leq C$. Für alle $\delta \geq 1$ und
+    und $T \geq T^*$ existiert ein dynamischer Fluss
+    $\func{f(e)}{\ropen{0, \delta T}}{\R_+}$ mit $|f| = \delta D$ und
+    $c(f) \leq \delta C$. Dabei ist $f$ kreisfrei/kommt ohne Speicher aus, wenn $f^*$
+    dies ist/tut.
+    
+    \begin{proof}
+        TODO: in Tex
+    \end{proof}
+\end{lemma}
+
+Zu QTP:
+\begin{theorem}\label{theo:qtp_opt_flow}
+    TODO: Existenz optimaler Fluss mit Pfadzerlegung und ohne Speicher
+     (Corollary 4.5).
+\end{theorem}
+
+\begin{standaloneProof}[\theoRef{qtp_flow_ex}]
+    \begin{enumerate}
+        \item 
+    Nach \theoRef{qtp_opt_flow} existiert ein optimaler Fluss $f^*$, der
+    keinen Speicher benötigt und nur auf Pfaden verläuft.
+    Setze $\delta = (1 + \eps)^2$ und wende \lemRef{relaxed_flow} mit
+    $T \geq T^*$ an und erhalte einen Fluss $f$ der bei $(1 + \eps)^2 T$ endet.
+    $f$ besitzt damit eine endliche Pfadzerlegung, hat Bedarf
+    $|f| = (1 + \eps)^2 D$ und Kosten $c(f) \leq (1 + \eps)^2 C$.
+    
+    Setze nun $\tau'(e) := \lceil \tau(e) / \Delta \rceil \Delta$ für
+    alle $e \in \A$. Dann ist offensichtlich
+    $|\tau(e) - \tau'(e)| \leq \Delta = \frac{\eps^2 T}{n}$.
+    Da $\delta T = T + 2 \eps T + \eps^2 T$ ist, liefert
+    \theoRef{slow_flow} uns einen Fluss $\tilde{f}$ in $(\graph, \tau')$
+    der bei
+    \begin{align*}
+        & T + 2 \eps T + \eps^2 T + \eps T + \eps^2 T \\
+        & = T + 3 \eps T + 2 \eps^2 T \\
+        & \leq T + 3 \eps T + 3 \eps^2 T + \eps^3 T \\
+        & = (1 + \eps)^3 T \leq T'
+    \end{align*}
+    endet. $\tilde{f}$ hat Bedarf
+    $|\tilde{f}| = \frac{|f|}{1+\eps} = (1 + \eps) D$ und ebenso
+    Kosten $c(\tilde{f}) \leq (1 + \eps) C$.
+    
+    Da $\tau'$ und $T'$ nach Konstruktion ganzzahlig durch
+    $\Delta$ teilbar sind, lässt sich $\tilde{f}$ als statischer Fluss $x$ in
+    $\redNetw{T'}{\Delta}$ interpretieren, der die gewünschten
+    Eigenschaften hat.
+    
+    \item ...
+    
+    \end{enumerate}
+    
+\end{standaloneProof}
+

@@ -33,8 +33,8 @@
 }
 \makeatother
 
-\usepackage[final]{pdfpages}
-%\usepackage[draft]{pdfpages}
+%\usepackage[final]{pdfpages}
+\usepackage[draft]{pdfpages}
 
 \newtheoremstyle{note} % name
                 {10pt} %Space above               
@@ -82,6 +82,7 @@
 \theoremstyle{definition}
 %\newtheorem{definition}{Definition}[chapter]
 \newtheorem{definition}{Definition}[section]
+\newtheorem*{standaloneProof}{\proofName}
 
 \theoremstyle{theorem}
 \newtheorem{theorem}[definition]{\theoremName}
@@ -98,11 +99,11 @@
 \renewcommand{\proofname}{\proofName}
 
 %%% named references
-\newcommand{\refRemark}[1]{\remarkName \ref{#1}}
-\newcommand{\theoRef}[1]{\theoremName \ref{theo:#1}}
-\newcommand{\corRef}[1]{\corollaryName \ref{cor:#1}}
-\newcommand{\lemRef}[1]{\lemmaName \ref{lem:#1}}
-\newcommand{\probRef}[1]{\problemName \ref{prob:#1}}
+\newcommand{\refRemark}[1]{\remarkName \ \ref{#1}}
+\newcommand{\theoRef}[1]{\theoremName \ \ref{theo:#1}}
+\newcommand{\corRef}[1]{\corollaryName \ \ref{cor:#1}}
+\newcommand{\lemRef}[1]{\lemmaName \ \ref{lem:#1}}
+\newcommand{\probRef}[1]{\problemName \ \ref{prob:#1}}
 
 %%% Highlighting and indexing of terms
 \newcommand{\term}[1]{\emph{#1}\index{#1}}
@@ -117,10 +118,10 @@
 
 \graphicspath{{images/}}
 
-\title{Snake Charmer's Problem}
+\title{Quickest flows over time}
 \author{Henning Basold}
-\date{October 17th, 2011}
-\dozent{Dr. Iris Reinbacher}
+%\date{October 17th, 2011}
+%\dozent{Dr. Iris Reinbacher}
 %\betreuer{Matthias Hanke}
 
 \renewcommand{\purposename}{Purpose}
@@ -143,10 +144,10 @@
 
 \starttext
 \input{intro}
-\input{conf}
-\input{solution_descr}
-\input{solution}
-\input{glossary}
+\input{uniform_condense}
+%\input{solution_descr}
+%\input{solution}
+%\input{glossary}
 
 \nocite{*}
 \bibliography{lit}
