@@ -105,7 +105,7 @@ Das führt zu den \term{skalierten Netzwerken}:
     auf $c(e) \cdot \Delta$ und $u(e) \cdot \Delta$ korrigiert werden.
 \end{definition}
 
-\begin{lemma}
+\begin{lemma}\label{lem:reduced_static_dyn_conv}
     Sei $0 < \Delta$ und $\graph$ wie oben. Dann entspricht ein statischer Fluss $x$
     in $\redNetw{T}{\Delta}$ einem Fluss $\func{f(e)}{\ropen{0, T}}{\R_+}$ in
     $\graph$ mit gleichen Kosten und umgekehrt.
@@ -117,8 +117,48 @@ Das führt zu den \term{skalierten Netzwerken}:
     \end{proof}
 \end{lemma}
 
+Wenn $p(\Delta) \in O(T)$ mit einem Polynom $p$ gewählt werden kann, funktioniert
+dieses Verfahren gut. Leider wird dies in den meisten Fällen nicht möglich sein.
+Die Idee ist nun, $\Delta$ so zu wählen, dass man $\tau(e)$ „vernünftig“ zum
+nächsten Vielfachen von $\Delta$ runden kann. Damit könnte man
+\lemRef{reduced_static_dyn_conv} anwenden. Allerdings kann ein solches
+Runden zu Problemen führen. Diese sollen in den nächsten beiden Beispielen
+veranschaulicht und daraus Bedingungen an $\Delta$ gestellt werden.
 
+\begin{example}
+    TODO
+    \begin{figure}[htb]
+    \centering
+    \includegraphics[width=0.6\textwidth]{ex_inc_time_1}
+    \caption{Awesome Image}
+    \label{fig:ex3_1}
+    \end{figure}
 
+    \begin{figure}[htb]
+    \centering
+    \includegraphics[width=0.6\textwidth]{ex_inc_time_2}
+    \caption{Awesome Image}
+    \label{fig:ex3_2}
+    \end{figure}
+\end{example}
 
+Daraus ergibt sich die erste Bedingung, die an $(\graph, \tau)$ gestellt wird:
+\begin{enumerate}[label={(A\arabic*)}]
+    \item Die optimale Laufzeit in $(\graph, \widetilde{\tau})$ approximiert die optimale
+        Laufzeit in $(\graph, \tau)$, d.h. $\widetilde{T}^* \leq (1 + \eps) T^*$,
+        wenn $|\widetilde{\tau}(e) - \tau(e)| \leq (1 + \eps)$.
+\end{enumerate}
+
+\begin{example}
+    
+\end{example}
+
+Aus diesem Beispiel ergibt sich die zweite Bedingung:
+\begin{enumerate}[resume, label={(A\arabic*)}]
+    \item Eine Lösung $\widetilde{f}$ in $(\graph, \widetilde{\tau})$ muss
+        ohne großen Verlust in einen Fluss $f$ in $(\graph, \tau)$
+        umgewandelt werden können: $||\widetilde{f}| - |f|| \leq (1+\eps)$.
+\end{enumerate}
+TODO: stimmt die Definition in der Art? Simpel: $|\widetilde{f}| \approx |f|$.
 
 

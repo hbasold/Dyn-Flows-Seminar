@@ -39,7 +39,7 @@ $(text).ps: $(text).dvi *.tex *.bib *.cfg
 
 $(text).pdf: $(tex_files) $(indices)/*.bib *.cfg $(images)
 	mkdir -p $(working_dir)
-	make --directory=content/images pdf
+	make --directory=content/images pdf working_dir="../../$(working_dir)"
 	# epstopdf --outfile=$(working_dir)/tu-logo.pdf tu-logo.eps
 	epstopdf --outfile=$(working_dir)/tu-logo-4c.pdf tu-logo-4c.eps
 	$(PDFLATEX) -output-directory $(working_dir) $(text)
