@@ -126,20 +126,51 @@ Runden zu Problemen führen. Diese sollen in den nächsten beiden Beispielen
 veranschaulicht und daraus Bedingungen an $\Delta$ gestellt werden.
 
 \begin{example}
-    TODO
-    \begin{figure}[htb]
-    \centering
-    \includegraphics[width=0.6\textwidth]{ex_inc_time_1}
-    \caption{Awesome Image}
-    \label{fig:ex3_1}
+    Sei $(\graph, \tau)$ mit einem Teil wie in \figRef{ex_inc_time_1} gegeben.
+    Die Kapazitäten seien dabei überall $1$. Außerdem in der Abbildung die
+    beiden möglichen Pfade über die Kante $e_3$ dargestellt.
+
+    \newsavebox{\tempbox}
+    \begin{figure}[H]
+    \sbox{\tempbox}{\includegraphics[width=0.5\textwidth]{ex_inc_time_1}}
+    \subfloat{\usebox{\tempbox}}%
+    \qquad
+    \subfloat{\vbox to \ht\tempbox{%
+      \vfil
+        \begin{tabular}{ l| c c c c c }
+          t (in $\Delta/2$) & 0 & 1 & 2 & 3 & 4 \\ \hline
+          f($e_1$)          & \textcolor{red}{1} & 0 & 0 & 0 & 0 \\
+          f($e_2$)          & \textcolor{green}{1} & 0 & 0 & 0 & 0 \\
+          f($e_3$)          & 0 & \textcolor{red}{1} & \textcolor{green}{1} & 0 & 0 \\
+          L($e_3$)          & 0 & 1 & 2 & 1 & 0
+        \end{tabular}
+      \vfil}}%
+      \caption{Netzwerk, in dem ein maximaler Fluss sich beim Aufrunden staut;
+        dazu ein Verlauf dieses maximalen Flusses}\label{fig:ex_inc_time_1}
     \end{figure}
 
-    \begin{figure}[htb]
+    Die nachfolgende Tabelle gibt den Zeitverlauf eines maximalen Flusses
+    $f$ an. $L$ ist dabei die Last auf einer Kante (der Fluss, der sich
+    derzeit auf der Kante befindet).
+
+    Wie man sieht, befinden sich zum Zeitpunkt $2$ zwei Flusseinheiten gleichzeitig
+    auf $e_3$. Werden nun die Zeiten zu $\Delta$ aufgerundet, ergibt sich der
+    Netzwerkausschnitt aus \figRef{ex_inc_time_2}.
+
+    \begin{figure}[H]
     \centering
-    \includegraphics[width=0.6\textwidth]{ex_inc_time_2}
+    \includegraphics[width=0.5\textwidth]{ex_inc_time_2}
     \caption{Awesome Image}
-    \label{fig:ex3_2}
+    \label{fig:ex_inc_time_2}
     \end{figure}
+
+     Überträgt man den Fluss $x$ nun
+    in dieses Netzwerk, muss $x$ auf $e_1$ oder $e_2$ verzögert werden, da $P_1$
+    und $P_2$ an dieser Stelle nicht gleichzeitig benutzt werden können.
+    Auf $e_3$ „staut“ sich der Fluss.
+
+    Insgesamt benötigt der Fluss dann $2\Delta$ statt lediglich $\frac{3}{2}\Delta$
+    Zeiteinheiten.
 \end{example}
 
 Daraus ergibt sich die erste Bedingung, die an $(\graph, \tau)$ gestellt wird:
