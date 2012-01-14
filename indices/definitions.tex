@@ -1,9 +1,11 @@
+\newcommand{\N}{\mathbb{N}}
 \newcommand{\R}{\mathbb{R}}
 \newcommand{\Rd}{\R^d}
 \newcommand{\Sd}[1]{\mathbb{S}_{#1}}
 \newcommand{\Bd}{\mathbb{B}_{d}}
 \newcommand{\I}{[0,1]}
 \newcommand{\RdEx}{\widehat{\mathbb{R}}^d}
+\newcommand{\REx}{\widehat{\R}}
 
 \newcommand{\ointerv}[1]{\ensuremath{\left]#1\right[}}
 \newcommand{\lopen}[1]{\ensuremath{\left]#1\right]}}
@@ -11,6 +13,8 @@
 \newcommand{\func}[3]{\ensuremath{{#1} \colon {#2} \to {#3}}}
 
 \newcommand{\eps}{\varepsilon}
+\newcommand{\timeDom}{\mathcal{T}}
+\newcommand{\disjUnion}{\ensuremath{\dot{\cup}}}
 
 \newcommand{\outEdges}{\delta^+}
 \newcommand{\inEdges}{\delta^-}
@@ -18,7 +22,8 @@
 %% Graphs
 \newcommand{\graph}{\mathcal{N}}
 \newcommand{\A}{A}
-\newcommand{\redNetw}[2]{\graph^{#1}/{#2}}
+\newcommand{\tExp}[1]{\ensuremath{\graph^{#1}}}
+\newcommand{\redNetw}[2]{\tExp{#1}\!/{#2}}
 \newcommand{\pathSet}{\mathcal{P}}
 
 %% Möbius groups

@@ -1,5 +1,9 @@
 \section{Gleichförmig reduzierte zeit-expandierte Netzwerke}\label{sec:unif_cond}
 
+TODO: Definiere Fluss auf Pfaden!
+
+\subsection{Quickest Transshipment mit einer Ware (singlecommodity)}
+
 Zu QTP:
 \begin{theorem}\label{theo:qtp_flow_ex}
     Sei $T \geq T^*$. Setze $\Delta := \frac{\eps^2 T}{n}$ und
@@ -66,9 +70,7 @@ Zu QTP:
      (Corollary 4.5).
 \end{theorem}
 
-\begin{standaloneProof}[\theoRef{qtp_flow_ex}]
-    \begin{enumerate}
-        \item 
+\begin{standaloneProof}[\theoRef{qtp_flow_ex}a]
     Nach \theoRef{qtp_opt_flow} existiert ein optimaler Fluss $f^*$, der
     keinen Speicher benötigt und nur auf Pfaden verläuft.
     Setze $\delta = (1 + \eps)^2$ und wende \lemRef{relaxed_flow} mit
@@ -97,9 +99,71 @@ Zu QTP:
     $\redNetw{T'}{\Delta}$ interpretieren, der die gewünschten
     Eigenschaften hat.
     
-    \item ...
-    
-    \end{enumerate}
-    
+    \begin{flushright}\qed \end{flushright}
 \end{standaloneProof}
+
+\begin{lemma}\label{lem:path_decomp}
+    Eine Pfadzerlegung $\pathSet$ von einem statischen Fluss $x$ in
+    $\redNetw{T'}{\Delta}$ kann in eine Pfadzerlegung $\pathSet'$ des
+    zugehörigen dynamischen Flusses $f'$ in $(\graph, \tau')$ 
+    transformiert werden. Dabei wird $\ropen{0, T'}$ in $T'/\Delta$
+    disjunkte Teilintervalle zerlegt, auf den $f'(P)$ auf allen $P \in \pathSet'$
+    konstant ist.
+    
+    \begin{proof}
+        TODO: in Tex
+    \end{proof}
+\end{lemma}
+
+\begin{standaloneProof}[\theoRef{qtp_flow_ex}b]
+    Der Fluss $x$ in $\redNetw{T'}{\Delta}$ induziert einen Fluss $f'$ in
+    $(\graph, \tau')$:
+    \begin{align*}
+        & \func{f'(e)}{\ropen{0,T'}}{\R_+} \\
+        & f'(e)(t) = x(e)(\lfloor t \rfloor) \\
+        & \quad \text{ (d.h. } f'(e)(\theta) = x(e)(t)
+            \text{ für alle } \theta \in \ropen{t, t+1} \text{ ) }
+    \end{align*}
+    Offensichtlich ist $f'$ ein zulässiger Fluss in $(\graph, \tau')$ und
+    hat die gleichen Eigenschaften wie $x$ (Bedarf $(1+\eps)D$, Kosten $(1+\eps)C$).
+    
+    Mit \lemRef{path_decomp} bekommen wir eine Pfadzerlegung $\pathSet'$.
+    Der erste Teil von \theoRef{slow_flow} liefert uns wieder einen Fluss
+    $f$ auf $\ropen{0, (1 + \eps)T'}$ mit Bedarf $D$ und Kosten
+    $c(f) \leq C$.
+    
+    TODO: evtl. \theoRef{slow_flow} aufteilen.
+    
+    \begin{flushright}\qed \end{flushright}
+\end{standaloneProof}
+
+TODO: Laufzeitanalyse
+
+\begin{remark}
+    Alles was wir für den Beweis von \theoRef{qtp_flow_ex} benutzt haben, ist
+    unabhängig von einem speziellen Flussproblem gültig
+    (bis auf \theoRef{qtp_opt_flow}). Dies liefert uns also ein „Framework“
+    zur Konstruktion von Algorithmen und entsprechenden Beweisen.
+\end{remark}
+
+\subsection*{Quickest Transshipment mit mehren Waren (multicommodity)}
+Dies wollen wir direkt ausnutzen, um ein das obige Verfahren auf mehrere
+Waren zu verallgemeinern. Die Approximation hiervon ohne Speicher ist allerdings
+NP-hart (TODO: Quelle [19] dazu betrachten), da eine optimale Lösung ohne Speicher
+Zyklen enthalten kann. Mit Speicher kann allerdings einfach gewartet werden,
+anstatt einen Zyklus zu benutzen.
+
+Allerdings kann aus einem Pfad, auf dem Speicher verwendet wird, nicht mehr wie
+in dem Beweis von \theoRef{slow_flow} der Fluss auf Kanten rekonstruiert werden.
+Das kommt daher, dass dort erwartet wird, das sich die Laufzeit eines Flusses
+direkt aus $\tau$ ergibt. Mit Speicher ist dies aber nicht der Fall
+(s. dazu Definition von $\tau(P \downarrow e)$).
+
+TODO: definiere $P^\delta$ und $\tau(P^\delta \downarrow e)$, lasse dabei $\delta$
+eine Funktion $V \to \R_+$ sein.
+
+TODO: verallgemeinere \theoRef{slow_flow}, um Speicher mit dieser Definition zuzulassen
+und setze in den Beweisen im letzten Abschnitt $\delta = 0$
+
+Dann folgt dies alles als Korollar.
 
