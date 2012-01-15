@@ -174,10 +174,10 @@ veranschaulicht und daraus Bedingungen an $\Delta$ gestellt werden.
 \end{example}
 
 Daraus ergibt sich die erste Bedingung, die an $(\graph, \tau)$ gestellt wird:
-\begin{enumerate}[label={(A\arabic*)}]
+\begin{enumerate}[label={\textbf{(A\arabic*)}}]
     \item Die optimale Laufzeit in $(\graph, \widetilde{\tau})$ approximiert die optimale
         Laufzeit in $(\graph, \tau)$, d.h. $\widetilde{T}^* \leq (1 + \eps) T^*$,
-        wenn $|\widetilde{\tau}(e) - \tau(e)| \leq (1 + \eps)$. \label{a1}
+        wenn $|\widetilde{\tau}(e) - \tau(e)| \leq \eps$. \label{a1}
 \end{enumerate}
 
 \begin{example}
@@ -199,7 +199,8 @@ Daraus ergibt sich die erste Bedingung, die an $(\graph, \tau)$ gestellt wird:
     Man sieht, dass man einen Fluss $f$ auf allen Kanten gleichzeitig losschicken
     kann, dann kommt dieser versetzt am Knoten $v$ an. Siehe dazu auch
     $f(e)$ in der Tabelle. Soll dieser Fluss wieder im Originalnetzwerk
-    interpretiert werden, muss fast der komplette Fluss verworfen werden.
+    interpretiert werden, muss fast der komplette Fluss verworfen werden, denn
+    sonst wäre $f(e) = k > 1 = u(e)$, wenn $k > 1$.
     
     % \newsavebox{\tempbox}
     \begin{figure}[H]
@@ -225,11 +226,47 @@ Daraus ergibt sich die erste Bedingung, die an $(\graph, \tau)$ gestellt wird:
 \end{example}
 
 Aus diesem Beispiel ergibt sich die zweite Bedingung:
-\begin{enumerate}[resume, label={(A\arabic*)}]
+\begin{enumerate}[resume, label={\textbf{(A\arabic*)}}]
     \item Eine Lösung $\widetilde{f}$ in $(\graph, \widetilde{\tau})$ muss
         ohne großen Verlust in einen Fluss $f$ in $(\graph, \tau)$
-        umgewandelt werden können: $||\widetilde{f}| - |f|| \leq (1+\eps)$.
+        umgewandelt werden können: $||\widetilde{f}| - |f|| \leq \eps$.
+        \label{a2}
 \end{enumerate}
 TODO: stimmt die Definition in der Art? Simpel: $|\widetilde{f}| \approx |f|$.
+
+Diese beiden Eigenschaften sind hinreichend für eine beliebig genaue Approximation:
+\begin{corollary}
+    Seien $\graph$ ein Netzwerk mit zwei Laufzeiten $\tau_1$ und $\tau_2$, so dass
+    \ref{a1} und \ref{a2} erfüllt sind. Sei also $\eps > 0$ und
+    $\tau_2 - \tau_1 \leq \eps$ und seien $f_1^*$ und $f_2^*$ jeweils optimale
+    Flüsse, die bei $T_1^*$ bzw. $T_2^*$ enden.
+
+    Dann kann $f_1^*$ in $(\graph, \tau_2)$ approximiert werden, wenn $f_2^*$ in
+    $(\graph, \tau_2)$ approximiert werden kann.
+
+    \begin{proof}
+        Nach \ref{a1} ist $T_2^* \leq (1+\eps)T_1^*$. Sei $\widetilde{f}$ eine
+        Approximation von $f_2^*$ in $(\graph, \tau_2)$ mit
+        $||f| - |f_2^*|| \leq \eps$ und Ende $T \leq (1 + \eps)T_2^*$.
+
+        Dann kann $\widetilde{f}$ als ein Fluss $f$ in $(\graph, \tau_1)$
+        interpretiert werden. Es gilt nach \ref{a2}:
+        \begin{align*}
+            ||f| - |f_1^*|| & \leq ||f| - (|f_2^* + \eps)| \\
+                            & \leq ||\widetilde{f}| + \eps - (|f_2^* + \eps)| \\
+                            & = ||\widetilde{f}| - |f_2^*|| \\
+                            & \leq \eps
+        \end{align*}
+        und
+        \begin{align*}
+            T   & \leq (1 + \eps) T_2^* \\
+                & \leq (1 + \eps)^2 T_1^*
+        \end{align*}
+    \end{proof}
+\end{corollary}
+
+\begin{observation}
+    TODO: Beobachtung 5, zur Realisierung von \ref{a1} und \ref{a2} mit Speicher.
+\end{observation}
 
 
