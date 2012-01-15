@@ -177,11 +177,51 @@ Daraus ergibt sich die erste Bedingung, die an $(\graph, \tau)$ gestellt wird:
 \begin{enumerate}[label={(A\arabic*)}]
     \item Die optimale Laufzeit in $(\graph, \widetilde{\tau})$ approximiert die optimale
         Laufzeit in $(\graph, \tau)$, d.h. $\widetilde{T}^* \leq (1 + \eps) T^*$,
-        wenn $|\widetilde{\tau}(e) - \tau(e)| \leq (1 + \eps)$.
+        wenn $|\widetilde{\tau}(e) - \tau(e)| \leq (1 + \eps)$. \label{a1}
 \end{enumerate}
 
 \begin{example}
+
+    Wir betrachten nun ein Netzwerk, in dem die Situation genau umgekehrt ist:
+    im Netzwerk mit aufgerundeten Zeiten lässt sich ein viel besserer Fluss
+    konstruieren, als im Originalnetzwerk. Wir betrachten dazu das Netzwerk
+    in \figRef{ex_val_red_1}. Dort verlaufen alle Pfade $s-t$ über die
+    Kante $e$. Wenn nun die Laufzeiten zu $\Delta$ aufgerundet werden,
+    ergibt sich das Netzwerk in Abbildung \figRef{ex_val_red_2}.
+
+    \begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{ex_val_red_1}
+    \caption{Awesome Image}
+    \label{fig:ex_val_red_1}
+    \end{figure}
     
+    Man sieht, dass man einen Fluss $f$ auf allen Kanten gleichzeitig losschicken
+    kann, dann kommt dieser versetzt am Knoten $v$ an. Siehe dazu auch
+    $f(e)$ in der Tabelle. Soll dieser Fluss wieder im Originalnetzwerk
+    interpretiert werden, muss fast der komplette Fluss verworfen werden.
+    
+    % \newsavebox{\tempbox}
+    \begin{figure}[H]
+    \sbox{\tempbox}{\includegraphics[width=0.5\textwidth]{ex_val_red_2}}
+    \subfloat{\usebox{\tempbox}}%
+    \qquad
+    \subfloat{\vbox to \ht\tempbox{%
+      \vfil
+        \begin{tabular}{ l| c c c c c c c }
+          t (in $\Delta/2$) & 0 & 1 & 2 & 3 & \ldots & k & \ldots \\ \hline
+          f($P_1$)          & \textcolor{red}{1} & 0 & 0 & 0 & \ldots & \textcolor{red}{1} & \\
+          f($P_2$)          & \textcolor{green}{1} & 0 & 0 & 0 & \ldots & \textcolor{green}{1} & \\
+          f($P_3$)          & \textcolor{yellow}{1} & 0 & 0 & 0 & \ldots & \textcolor{yellow}{1} & \\
+          \vdots            & \vdots & & & & & \vdots \\
+          f($P_k$)          & \textcolor{blue}{1} & 0 & 0 & 0 & \ldots & \textcolor{blue}{1} & \\
+          f($e$)            & 0 & \textcolor{red}{1} & \textcolor{green}{1}
+                            & \textcolor{yellow}{1} & \ldots & \textcolor{blue}{1} &
+        \end{tabular}        
+      \vfil}}%
+      \caption{Netzwerk $(\graph, \tau')$, in dem nach Aufrunden ein viel größerer
+        Fluss möglich ist}\label{fig:ex_val_red_2}
+    \end{figure}    
 \end{example}
 
 Aus diesem Beispiel ergibt sich die zweite Bedingung:
