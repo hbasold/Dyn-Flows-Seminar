@@ -41,10 +41,10 @@ hat im Gegensatz zum dynamischen keine Zeitkomponente.
     Wenn $S^+ = \{s\}$ und $S^- = \{t\}$, dann schreiben wir kurz $d = D(s) = -D(t)$.
 \end{definition}
 
-\begin{definition}[Statischer Fluss]
+\begin{definition}[Statischer Fluss mit einer Ware]
     Ein statischer Fluss ist eine Abbildung $x : \A \rightarrow \R_+$ mit
     \[ \sum_{e \in \outEdges(v)} x(e) - \sum_{e \in \inEdges(v)} x(e) = 0 \quad, \text{alle } v \in V \setminus S. \]
-    
+
     Ein solcher Fluss sollte im Allgemeinen Folgende Eigenschaften erfüllen:
     \begin{itemize}
         \item Erfüllung von Bedarf und Zulauf:
@@ -52,7 +52,34 @@ hat im Gegensatz zum dynamischen keine Zeitkomponente.
         \item Zulässigkeit:
             \[ x(e) \leq u(e) \quad, \text{alle } e \in \A \]
     \end{itemize}
-    
+
     Einem Fluss können außerdem die nötigen Kosten zugeordnet werden:
         \[ c(x) = \sum_{e \in \A} c(e) \cdot x(e). \]
+\end{definition}
+
+\begin{definition}[Mehrere Waren]
+    $K = \{1, \ldots, k\}$, $S_i = S_i^+ \disjUnion S_i^-$ Terminale
+\end{definition}
+
+\begin{definition}[dynamischer Fluss]
+    Familie von Funktionen $\func{f_i}{\A \times \ropen{0,T}}{\R_+}$ mit $i \in K$.
+    $f_i(e,t)$ ist die \term{Flussrate}, die zur Zeit $t$ an der Kante $e$ anliegt.
+    Der Fluss $f_i(e,t)$ kommt zur Zeit $t + \tau(e)$ bei $head(e)$ an.
+
+    Schreibe auch: $\func{f_i(e)}{\ropen{0,T}}{\R_+}$.
+
+    Flusswert einer Ware:
+    \[
+        F_i(v, t) =
+            \int_0^t \left(
+                \sum_{e \in \outEdges(v)} f_i(e, \theta) -
+                \sum_{e \in \inEdges(v)} f_i(e, \theta - \tau(e)) \right) \;d\theta
+    \]
+
+    Flusswert:
+    \[
+        |f| = \sum_{i \in K} \sum_{v \in S_i^+} F_i(v,T).
+    \]
+
+    TODO: Rest von S.3 - 5.
 \end{definition}
