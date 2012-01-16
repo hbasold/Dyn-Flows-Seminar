@@ -40,10 +40,30 @@ bevor wir den Satz beweisen.
 
 TODO: Einbettung in Suchframework
 
+\begin{lemma}\label{lem:flow_avg}
+    Sei $\func{f}{\A \times \ropen{0, T + \delta}}{\R_+}$ ein dynamischer Fluss in
+    $(\graph, \tau)$ mit einer endlichen Pfadzerlegung $\pathSet$.
+    Sei $\eps > 0$ gegeben. Setze
+    \[
+    \bar{f}(P)(t) := \frac{1}{\eps T}
+                            \int_{t - \eps T}^{t} f(P)(\theta) \; d\theta \text{ .}
+    \]
+    Dann endet $\bar{f}$ bei $\delta + T + \eps T$,
+    d.h. $\func{\bar{f}}{\ropen{0, \delta + (1+\eps)T}}{\R+}$, ist zulässig und hat Wert
+    $|\bar{f}| = |f|$ und Kosten $c(\bar{f}) = c(f)$.
+
+    $\bar{f}$ ist der \term{Mittelwert} von $f$.
+
+    \begin{proof}
+        TODO: in Tex und Anpassung an $T + \delta$.
+        (Im Wesentlichen Bildung des Mittels von $f$).
+    \end{proof}
+\end{lemma}
+
 \begin{theorem}\label{theo:slow_flow}
-    Sei $\func{f(e)}{\ropen{0, T + \delta}}{\R_+}$ ein dynamischer Fluss in $(\graph, \tau)$
-    mit $|f| = D$ und $c(f) \leq C$ und einer endlichen Zerlegung in Flüsse $f(P)$
-    auf Pfaden $P \in \pathSet$. Sei $\eps > 0$ und $(\graph, \tau')$ das
+    Sei $\func{f}{\A \times \ropen{0, T + \delta}}{\R_+}$ ein dynamischer Fluss in
+    $(\graph, \tau)$ mit $|f| = D$ und $c(f) \leq C$ und einer endlichen
+    Pfadzerlegung $\pathSet$. Sei $\eps > 0$ und $(\graph, \tau')$ das
     gleiche Netzwerk mit geänderten Zeiten, für die
     $\left|\tau(e) - \tau'(e)\right| \leq \frac{\eps^2T}{n}$ gilt. Definiere
     einen Fluss in $(\graph, \tau')$
@@ -51,7 +71,7 @@ TODO: Einbettung in Suchframework
     \tilde{f}(P)(t) := \frac{1}{1+\eps} \frac{1}{\eps T}
                             \int_{t - \eps T}^{t} f(P)(\theta) \; d\theta \text{ .}
     \]
-    Dann gilt für $\tilde{f}$:
+    Dann ist $\tilde{f}$ zulässig und es gilt:
     \begin{enumerate}
         \item $\tilde{f}$ endet bei $\delta + T + \eps T + \eps^2 T$
         \item $\tilde{f}$ verläuft nur auf Pfaden aus $\pathSet$
@@ -60,7 +80,17 @@ TODO: Einbettung in Suchframework
     \end{enumerate}
     
     \begin{proof}
-        TODO: in Tex und Anpassung an $T + \delta$.
+        Da $\widetilde{f} = \frac{1}{1 + \eps} \bar{f}$ liefert \lemRef{flow_avg}
+        in $(\graph, \tau)$, dass dort $\bar{f}$ bei $\delta + T + \eps T$ endet
+        und Wert $|\bar{f}| = |f|$ und Kosten $c(\bar{f}) = c(f)$ hat.
+
+        TODO: Rechung $|\tau(P) - \tau'(P)| \leq \frac{\eps^2T}{2}$.
+
+        Interpretiere $\bar{f}$ als $\widehat{f}$ in $(\graph, \tau')$. Dann endet
+        $\widehat{f}$ offensichtlich bei $\delta + T + \eps T + \frac{\eps^2T}{2}$.
+
+        TODO: Rest in Tex (S. 22), es fehlt die Rechnung, dass
+            $\widehat{f}(e) \leq (1+\eps)u(e)$.
     \end{proof}
 \end{theorem}
 
@@ -142,12 +172,9 @@ Zu QTP:
     (Bedarf $(1+\eps)D$, Kosten $(1+\eps)C$) hat.
     
     Mit \lemRef{path_decomp} bekommen wir eine Pfadzerlegung $\pathSet'$.
-    Der erste Teil von \theoRef{slow_flow} liefert uns wieder einen Fluss
-    $f$ auf $\ropen{0, (1 + \eps)T'}$ mit Bedarf $D$ und Kosten
-    $c(f) \leq C$.
-    
-    TODO: evtl. \theoRef{slow_flow} aufteilen.
-    
+    $f = \frac{1}{1+\eps} \bar{f}$ aus \lemRef{flow_avg} liefert uns, dass
+    $f$ auf $\ropen{0, (1 + \eps)T'}$ definiert ist und Bedarf $D$ und Kosten
+    $c(f) \leq C$ hat.
     \begin{flushright}\qed \end{flushright}
 \end{standaloneProof}
 
