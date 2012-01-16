@@ -9,7 +9,7 @@ Zu QTP:
     Sei $T \geq T^*$. Setze $\Delta := \frac{\eps^2 T}{n}$ und
     $T' := \lceil (1+\eps)^3 T / \Delta \rceil \Delta$.
     Dann gilt:
-    \begin{enumerate}
+    \begin{enumerate}[label={\alph*)}]
         \item in $\redNetw{T'}{\Delta}$ existiert ein statischer Fluss $x$ mit
             Bedarf $|x| = (1 + \eps)D$ und Kosten $c(x) \leq (1+\eps)C$.
         \item aus $x$ kann ein dynamischer Fluss $f$ in $\graph$ berechnet werden,
@@ -133,12 +133,13 @@ Zu QTP:
     $(\graph, \tau')$:
     \begin{align*}
         & \func{f'(e)}{\ropen{0,T'}}{\R_+} \\
-        & f'(e)(t) = x(e)(\lfloor t \rfloor) \\
-        & \quad \text{ (d.h. } f'(e)(\theta) = x(e)(t)
+        & f'(e)(t) = x(e_{\lfloor t \rfloor}) \\
+        & \quad \text{ (d.h. } f'(e)(\theta) = x(e_t)
             \text{ für alle } \theta \in \ropen{t, t+1} \text{ ) }
     \end{align*}
-    Offensichtlich ist $f'$ ein zulässiger Fluss in $(\graph, \tau')$ und
-    hat die gleichen Eigenschaften wie $x$ (Bedarf $(1+\eps)D$, Kosten $(1+\eps)C$).
+    \lemRef{static_dyn_conv} liefert, dass $f'$ ein zulässiger Fluss in
+    $(\graph, \tau')$ ist und die gleichen Eigenschaften wie $x$
+    (Bedarf $(1+\eps)D$, Kosten $(1+\eps)C$) hat.
     
     Mit \lemRef{path_decomp} bekommen wir eine Pfadzerlegung $\pathSet'$.
     Der erste Teil von \theoRef{slow_flow} liefert uns wieder einen Fluss
