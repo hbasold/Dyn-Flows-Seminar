@@ -9,10 +9,12 @@ Zunächst betrachten wir folgendes Problem:
 
 \begin{problem}[Quickest Transshipment mit einer Ware und begrenzten Kosten]
 \label{prob:qtp_single}
-    Sei ein Netzwerk $(\graph, \tau)$ gegeben. Seien weiterhin $D > 0$ und $C > 0$
-    gegeben. Gesucht ist ein Fluss $\func{f^*}{\ropen{0,T^*}}{\R_+}$ in $\graph$,
-    so dass $|f| = D$ und $c(f) \leq C$ und $T^*$ minimal für alle Flüsse, die
-    diese Eigenschaften haben.
+    Sei ein Netzwerk $(\graph, \tau)$ mit $K=\{1\}$ gegeben.
+    Seien weiterhin $D > 0$ und $C > 0$ gegeben.
+    
+    Gesucht ist ein Fluss $\func{f^*}{\ropen{0,T^*}}{\R_+}$ in $\graph$,
+    so dass $|f^*| = D$ und $c(f^*) \leq C$ und $T^*$ minimal für alle Flüsse,
+    die diese Eigenschaften haben.
 \end{problem}
 
 Wir können eine Lösung mit Hilfe der reduzierten Netzwerke approximieren:
