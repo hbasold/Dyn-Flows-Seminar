@@ -87,7 +87,7 @@ Flüssen $x$ in $\tExp{T}$ wechseln können:
 
 Dieser Sachverhalt macht zwar sehr einfach, hat allerdings das Problem, dass das
 Netzwerk $\tExp{T}$ sehr groß wird. Denn $|V^T| = |V| \cdot |\timeDom| = n \cdot T$.
-Da aber $T$ in der Größe $log T$ kodiert wird, hängt $V^T$ nicht mehr polynomiell
+Da aber $T$ in der Größe $\log T$ kodiert wird, hängt $V^T$ nicht mehr polynomiell
 von der Eingabe ab.
 
 Die Idee ist nun, das Netzwerk $\tExp{T}$ wieder zu verkleinern, so dass es wieder
@@ -176,7 +176,7 @@ veranschaulicht und daraus Bedingungen an $\Delta$ gestellt werden.
 Daraus ergibt sich die erste Bedingung, die an $(\graph, \tau)$ gestellt wird:
 \begin{enumerate}[label={\textbf{(A\arabic*)}}]
     \item Die optimale Laufzeit in $(\graph, \widetilde{\tau})$ approximiert die optimale
-        Laufzeit in $(\graph, \tau)$, d.h. $\widetilde{T}^* \leq (1 + \eps) T^*$,
+        Laufzeit in $(\graph, \tau)$, d.h. $|\widetilde{T}^* - T^*| \leq \eps$,
         wenn $|\widetilde{\tau}(e) - \tau(e)| \leq \eps$. \label{a1}
 \end{enumerate}
 
@@ -237,31 +237,36 @@ TODO: stimmt die Definition in der Art? Simpel: $|\widetilde{f}| \approx |f|$.
 Diese beiden Eigenschaften sind hinreichend für eine beliebig genaue Approximation:
 \begin{corollary}
     Seien $\graph$ ein Netzwerk mit zwei Laufzeiten $\tau_1$ und $\tau_2$, so dass
-    \ref{a1} und \ref{a2} erfüllt sind. Sei also $\eps > 0$ und
-    $\tau_2 - \tau_1 \leq \eps$ und seien $f_1^*$ und $f_2^*$ jeweils optimale
-    Flüsse, die bei $T_1^*$ bzw. $T_2^*$ enden.
+    \ref{a1} und \ref{a2} erfüllt sind.
+    Dann kann ein optimaler Fluss $f_1^*$ in $(\graph, \tau_2)$ approximiert werden,
+    wenn ein optimaler Fluss $f_2^*$ in $(\graph, \tau_2)$ approximiert werden kann.
 
-    Dann kann $f_1^*$ in $(\graph, \tau_2)$ approximiert werden, wenn $f_2^*$ in
-    $(\graph, \tau_2)$ approximiert werden kann.
-
-    \begin{proof}
-        Nach \ref{a1} ist $T_2^* \leq (1+\eps)T_1^*$. Sei $\widetilde{f}$ eine
+    \begin{proof}    
+        Sei also $\eps > 0$ und
+        $\tau_2 - \tau_1 \leq \eps$ und seien $f_1^*$ und $f_2^*$ jeweils optimale
+        Flüsse, die bei $T_1^*$ bzw. $T_2^*$ enden.
+    
+        Nach \ref{a1} ist $T_2^* - T_1^*\leq \eps$. Sei $f_2$ eine
         Approximation von $f_2^*$ in $(\graph, \tau_2)$ mit
-        $||f| - |f_2^*|| \leq \eps$ und Ende $T \leq (1 + \eps)T_2^*$.
+        $||f_2| - |f_2^*|| \leq \eps$ und Ende $T_2 - T_2^* \leq \eps$.
 
-        Dann kann $\widetilde{f}$ als ein Fluss $f$ in $(\graph, \tau_1)$
-        interpretiert werden. Es gilt nach \ref{a2}:
+        Dann kann $f_2$ als ein Fluss $f_1$ in $(\graph, \tau_1)$
+        mit Ende $T_1$ interpretiert werden. Es gilt nach \ref{a2}:
         \begin{align*}
-            ||f| - |f_1^*|| & \leq ||f| - (|f_2^* + \eps)| \\
-                            & \leq ||\widetilde{f}| + \eps - (|f_2^* + \eps)| \\
-                            & = ||\widetilde{f}| - |f_2^*|| \\
-                            & \leq \eps
+            ||f_1| - |f_1^*|| & \leq ||f_1| - |f_2^*| + \eps| \\
+                            & \leq ||f_2| + \eps - |f_2^*| + \eps| \\
+                            & \leq ||f_2| - |f_2^*|| + 2 \eps \\
+                            & \leq 3 \eps
         \end{align*}
         und
         \begin{align*}
-            T   & \leq (1 + \eps) T_2^* \\
-                & \leq (1 + \eps)^2 T_1^*
+            T_1 - T_1^*  & \leq T_2 + \eps - T_2^* + \eps \\
+                & \leq \eps + 2\eps \\
+                & = 3 \eps
         \end{align*}
+        
+        Wähle als $\delta = \frac{\eps}{3}$. Dann kann $f_1^*$ in
+        $(\graph, \tau_2)$ beliebig genau approximiert werden.
     \end{proof}
 \end{corollary}
 
