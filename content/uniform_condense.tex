@@ -1,8 +1,22 @@
 \section{Gleichförmig reduzierte zeit-expandierte Netzwerke}\label{sec:unif_cond}
+Wir wollen nun die Netzwerke $\redNetw{T}{\Delta}$ verwenden, um spezielle
+Probleme zu lösen. Dabei werden wir etwas Arbeit leisten müssen, um
+$\Delta$ so zu wählen, dass \ref{a1} und \ref{a2} erfüllt sind.
+Allerdings kann einiges von den Beweisen wieder verwendet werden.
 
 \subsection{Quickest Transshipment mit einer Ware (singlecommodity)}
+Zunächst betrachten wir folgendes Problem:
 
-Zu QTP:
+\begin{problem}[Quickest Transshipment mit einer Ware und begrenzten Kosten]
+\label{prob:qtp_single}
+    Sei ein Netzwerk $(\graph, \tau)$ gegeben. Seien weiterhin $D > 0$ und $C > 0$
+    gegeben. Gesucht ist ein Fluss $\func{f^*}{\ropen{0,T^*}}{\R_+}$ in $\graph$,
+    so dass $|f| = D$ und $c(f) \leq C$ und $T^*$ minimal für alle Flüsse, die
+    diese Eigenschaften haben.
+\end{problem}
+
+Wir können eine Lösung mit Hilfe der reduzierten Netzwerke approximieren:
+
 \begin{theorem}\label{theo:qtp_flow_ex}
     Sei $T \geq T^*$. Setze $\Delta := \frac{\eps^2 T}{n}$ und
     $T' := \lceil (1+\eps)^3 T / \Delta \rceil \Delta$.
@@ -86,12 +100,15 @@ TODO: Einbettung in Suchframework
     dies ist/tut.
 \end{lemma}
 
-Zu QTP:
+Diese beiden Aussagen können wir für das Quickest-Transshipment-Problem
+nutzen:
 \begin{theorem}\label{theo:qtp_opt_flow}
-    TODO: Existenz optimaler Fluss mit Pfadzerlegung und ohne Speicher
-     (Corollary 4.5).
+    Quickest Transshipment mit einer Ware (\probRef{qtp_single})
+    hat eine optimale Lösung mit endlicher Pfadzerlegung,
+    die keinen Speicher verwendet (siehe \cite[Corollary 4.5]{fleischerSiam}).
 \end{theorem}
 
+Damit ergibt sich dann:
 \begin{standaloneProof}[\theoRef{qtp_flow_ex}a]
     Nach \theoRef{qtp_opt_flow} existiert ein optimaler Fluss $f^*$, der
     keinen Speicher benötigt und nur auf Pfaden verläuft.
@@ -153,7 +170,15 @@ Zu QTP:
     \begin{flushright}\qed \end{flushright}
 \end{standaloneProof}
 
-TODO: Laufzeitanalyse
+\begin{theorem}
+    Sei $\eps > 0$. $\redNetw{T'}{\Delta}$ aus \theoRef{qtp_flow_ex} hat
+    $O(n^2/\eps^2)$ Knoten und $O(mn/\eps^2)$ Kanten. Mit $O(\log(1/\eps))$
+    Aufrufen von \algRef{qtp_core} kann eine $(1+\eps)$-Approximation
+    für \probRef{qtp_single} bestimmt werden.
+    \begin{proof}
+        TODO: kurze Diskussion.
+    \end{proof}
+\end{theorem}
 
 \begin{remark}
     Alles was wir für den Beweis von \theoRef{qtp_flow_ex} benutzt haben, ist
