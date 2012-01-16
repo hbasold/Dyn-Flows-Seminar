@@ -18,12 +18,25 @@ Zu QTP:
     \end{enumerate}
 \end{theorem}
 
-Bevor wir diesen Satz beweisen, folgern wir daraus den Algorithmus:
+Also erfüllt das damit konstruierte Netzwerk $(\graph, \tau')$ die Eigenschaften
+\ref{a1} und \ref{a2}. Aus dem Satz lässt sich auch sofort der Algorithmus
+zur Bestimmung eines solchen Flusses folgern. Dies wollen wir noch tun,
+bevor wir den Satz beweisen.
 
-TODO:
-\begin{theorem}
-    QTP-FPTAS-Core
-\end{theorem}
+\begin{algorithm}
+\caption{QTP-FPTAS-Core}
+\label{alg:qtp_core}
+\begin{algorithmic}[1]
+    \REQUIRE $\graph, u, c, \tau, D, C, T, \eps > 0$
+    \ENSURE Entweder zulässiger Fluss $f$ mit $f(t) = 0$, $t > (1+\eps) T'$
+        und $|f| = D$ und $c(f) \leq C$ oder nichts. Das bedeutet, dass
+        $T < T^*$.
+    \STATE $\Delta, T$ wie in \theoRef{qtp_flow_ex}.
+    \STATE Versuche Fluss $x$ in $\redNetw{T'}{\Delta}$ wie in \theoRef{qtp_flow_ex}
+        zu berechnen. Wenn dieser nicht existiert: Ende.
+    \STATE Berechne aus $x$ einen Fluss $f$ in $\graph$.
+\end{algorithmic}
+\end{algorithm}
 
 TODO: Einbettung in Suchframework
 
