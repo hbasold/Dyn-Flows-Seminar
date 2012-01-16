@@ -1,7 +1,30 @@
-%\chapter{Erster Anhang}
+\section{Beweise}
 
-%\chapter{Zweiter Anhang}
+\begin{standaloneProof}[\lemRef{flow_avg}]
+    TODO: in Tex und Anpassung an $T + \delta$.
+    (Im Wesentlichen Bildung des Mittels von $f$).
+\end{standaloneProof}
 
-%\section{Ein Abschnitt}
+\begin{standaloneProof}[\theoRef{slow_flow}]
+    Da $\widetilde{f} = \frac{1}{1 + \eps} \bar{f}$ liefert \lemRef{flow_avg}
+    in $(\graph, \tau)$, dass dort $\bar{f}$ bei $\delta + T + \eps T$ endet
+    und Wert $|\bar{f}| = |f|$ und Kosten $c(\bar{f}) = c(f)$ hat.
+
+    TODO: Rechung $|\tau(P) - \tau'(P)| \leq \frac{\eps^2T}{2}$.
+
+    Interpretiere $\bar{f}$ als $\widehat{f}$ in $(\graph, \tau')$. Dann endet
+    $\widehat{f}$ offensichtlich bei $\delta + T + \eps T + \frac{\eps^2T}{2}$.
+
+    TODO: Rest in Tex (S. 22), es fehlt die Rechnung, dass
+        $\widehat{f}(e) \leq (1+\eps)u(e)$.
+\end{standaloneProof}
+
+\begin{standaloneProof}[\lemRef{relaxed_flow}]
+    TODO: in Tex.
+\end{standaloneProof}
+
+\begin{standaloneProof}[\lemRef{path_decomp}]
+    TODO: in Tex.
+\end{standaloneProof}
 
 \endinput
