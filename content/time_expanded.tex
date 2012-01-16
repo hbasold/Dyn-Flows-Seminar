@@ -71,9 +71,9 @@ konstruieren wollen, müssen wir zwischen Flüssen $f$ in $\graph$ und
 Flüssen $x$ in $\tExp{T}$ wechseln können:
 
 \begin{lemma}\label{lem:static_dyn_conv}
-    Ein statischer Fluss $x$ in $\tExp{T}$ entspricht einem dynamischen Fluss
-    $\func{f(e)}{\ropen{0,T}}{\R_+}$ in $\graph$ mit gleichem Flusswert und Kosten
-    und umgekehrt. Dabei gilt:
+    Ein statischer Fluss $\func{x}{\A^T}{\R_+}$ in $\tExp{T}$ entspricht einem
+    dynamischen Fluss $\func{f}{\A \times \ropen{0,T}}{\R_+}$ in $\graph$
+    mit gleichem Flusswert und Kosten und umgekehrt. Dabei gilt:
     \begin{enumerate}
         \item $f_i(e,t) := x_i(e_{\lfloor t \rfloor})$ und
         \item $x_i(e_t) := \int_t^{t+1} f_i(e, \theta) d\theta$
@@ -92,22 +92,23 @@ Das führt zu den \term{skalierten Netzwerken}:
 \begin{definition}
     Sei $(\graph, \tau)$ Netzwerk und $0 < \Delta$, so dass $T/\Delta \in \N$
     und $\tau(e)/\Delta \in \N$ für alle $e \in \A$. Wir setzen
-    $\tau'(e) := \tau(e)/\Delta$ für alle $e \in \A$
+    $\tau' := \tau/\Delta$ für alle $e \in \A$
     und dann $\redNetw{T}{\Delta} := \tExp{T/\Delta}$ für $(\graph, \tau')$.
     
     Ein Knoten $v_t$ entspricht dann einem Zeitverlauf im Intervall
     $\ropen{t \Delta, (t+1) \Delta}$. Daher müssen die Kosten und Kapazitäten
-    auf $c(e) \cdot \Delta$ und $u(e) \cdot \Delta$ korrigiert werden.
+    auf $c' := c \cdot \Delta$ und $u' := u \cdot \Delta$ korrigiert werden.
 \end{definition}
 
 \begin{lemma}\label{lem:reduced_static_dyn_conv}
-    Sei $0 < \Delta$ und $\graph$ wie oben. Dann entspricht ein statischer Fluss $x$
-    in $\redNetw{T}{\Delta}$ einem Fluss $\func{f(e)}{\ropen{0, T}}{\R_+}$ in
-    $\graph$ mit gleichen Kosten und umgekehrt.
+    Sei $0 < \Delta$ und $(\graph, \tau)$ wie oben. Dann entspricht ein statischer
+    Fluss $x$ in $\redNetw{T}{\Delta}$ einem Fluss
+    $\func{f}{\A \times \ropen{0, T}}{\R_+}$ in $\graph$ mit gleichen Kosten
+    und umgekehrt.
     
     \begin{proof}
         Wende \lemRef{static_dyn_conv} auf $x$, dies ergibt einen Fluss
-        $\func{\hat{f}(e)}{\ropen{0, T/\Delta}}{\R_+}$. Mit Skalierung der
+        $\func{\hat{f}}{\A \times \ropen{0, T/\Delta}}{\R_+}$. Mit Skalierung der
         Zeit um $\Delta$ ergibt sich $f$. Der Rest ist klar.
     \end{proof}
 \end{lemma}
@@ -227,9 +228,9 @@ Aus diesem Beispiel ergibt sich die zweite Bedingung:
         umgewandelt werden können: $||\widetilde{f}| - |f|| \leq \eps$.
         \label{a2}
 \end{enumerate}
-TODO: stimmt die Definition in der Art? Simpel: $|\widetilde{f}| \approx |f|$.
 
-Diese beiden Eigenschaften sind hinreichend für eine beliebig genaue Approximation:
+Diese beiden Eigenschaften sind auch hinreichend für eine beliebig genaue
+Approximation:
 \begin{corollary}
     Seien $\graph$ ein Netzwerk mit zwei Laufzeiten $\tau_1$ und $\tau_2$, so dass
     \ref{a1} und \ref{a2} erfüllt sind.
@@ -237,12 +238,11 @@ Diese beiden Eigenschaften sind hinreichend für eine beliebig genaue Approximat
     wenn ein optimaler Fluss $f_2^*$ in $(\graph, \tau_2)$ approximiert werden kann.
 
     \begin{proof}    
-        Sei also $\eps > 0$ und
-        $\tau_2 - \tau_1 \leq \eps$ und seien $f_1^*$ und $f_2^*$ jeweils optimale
-        Flüsse, die bei $T_1^*$ bzw. $T_2^*$ enden.
-    
-        Nach \ref{a1} ist $T_2^* - T_1^*\leq \eps$. Sei $f_2$ eine
-        Approximation von $f_2^*$ in $(\graph, \tau_2)$ mit
+        Sei $\eps > 0$ und $\tau_2 - \tau_1 \leq \eps$ und seien
+        $f_1^*$ und $f_2^*$ jeweils optimale Flüsse, die bei
+        $T_1^*$ bzw. $T_2^*$ enden. Nach \ref{a1} ist $T_2^* - T_1^*\leq \eps$.
+
+        Sei $f_2$ eine Approximation von $f_2^*$ in $(\graph, \tau_2)$ mit
         $||f_2| - |f_2^*|| \leq \eps$ und Ende $T_2 - T_2^* \leq \eps$.
 
         Dann kann $f_2$ als ein Fluss $f_1$ in $(\graph, \tau_1)$
