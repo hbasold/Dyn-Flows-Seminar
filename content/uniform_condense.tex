@@ -2,7 +2,7 @@
 Wir wollen nun die Netzwerke $\redNetw{T}{\Delta}$ verwenden, um spezielle
 Probleme zu lösen. Dabei werden wir etwas Arbeit leisten müssen, um
 $\Delta$ so zu wählen, dass \ref{a1} und \ref{a2} erfüllt sind.
-Allerdings kann einiges von den Beweisen wieder verwendet werden.
+Allerdings kann einiges von den Beweisen wiederverwendet werden.
 
 \subsection{Quickest Transshipment mit einer Ware (singlecommodity)}
 Zunächst betrachten wir folgendes Problem:
@@ -41,18 +41,62 @@ bevor wir den Satz beweisen.
 \caption{QTP-FPTAS-Core}
 \label{alg:qtp_core}
 \begin{algorithmic}[1]
-    \REQUIRE $\graph, u, c, \tau, D, C, T, \eps > 0$
+    \REQUIRE Netzwerk $(\graph, \tau)$, Bedarf $D \geq 0$, Kostenlimit $C \geq 0$,
+        geschätzter Zeithorizont $T \geq 0$, Genauigkeit $\eps > 0$
     \ENSURE Entweder zulässiger Fluss $f$ mit $f(t) = 0$, $t > (1+\eps) T'$
         und $|f| = D$ und $c(f) \leq C$ oder nichts. Das bedeutet, dass
         $T < T^*$.
     \STATE $\Delta, T$ wie in \theoRef{qtp_flow_ex}.
     \STATE Versuche Fluss $x$ in $\redNetw{T'}{\Delta}$ wie in \theoRef{qtp_flow_ex}
         zu berechnen. Wenn dieser nicht existiert: Ende.
-    \STATE Berechne aus $x$ einen Fluss $f$ in $\graph$.
+    \STATE Berechne aus $x$ einen Fluss $f$ in $\graph$. TODO: Averaging verwenden.
 \end{algorithmic}
 \end{algorithm}
 
-TODO: Einbettung in Suchframework
+Wir wollen noch kurz beschreiben, wie QTP-FPTAS-Core zur Approximation von
+$T^*$ verwendet werden kann.
+
+Dazu bestimmen wir zunächst mit Hilfe von Bisektion (Intervallhalbierung)
+und der Verwendung von \algRef{qtp_core} alss Test kann ein Intervall mit
+$T^* \in \interv{L,U}$. Dabei muss lediglich $U \in O(L)$ gelten.
+Dies lässt sich in $\log T^*$ realisieren.
+
+Als nächstes soll $T^*$ durch $T$ approximiert werden,
+d.h. $T^* \leq T \leq (1+\eps) T^*$. Dies kann ebenfalls durch eine Art binäre Suche
+realisiert werden. Diese wird in \cite[Abschnitt 4]{Hassin} beschrieben. Auch hier
+wird lediglich eine Funktion, die angibt, ob für eine Schätzung
+$T < T^*$ oder $T \geq T^*$ gilt, benötigt. Dies leistet \algRef{qtp_core}.
+Hierbei ergeben sich nochmals $O(\log(1/\eps))$ Aufrufe des Algorithmus.
+
+Zuletzt betrachten wir noch die Laufzeit von QTP-FPTAS-Core selbst.
+
+\begin{theorem}
+    Sei $\eps > 0$. $\redNetw{T'}{\Delta}$ aus \theoRef{qtp_flow_ex} hat
+    $O(n^2/\eps^2)$ Knoten und $O(mn/\eps^2)$ Kanten. Mit $O(\log(1/\eps))$
+    Aufrufen von \algRef{qtp_core} kann eine $(1+\eps)$-Approximation
+    für \probRef{qtp_single} bestimmt werden.
+    \begin{proof}
+        Den zweiten Teil haben wir oben bereits diskutiert.
+
+        Die Größe von $\redNetw{T'}{\Delta}$ ist auch klar:
+        $\redNetw{T'}{\Delta}$ enthält
+        \begin{align*}
+            n T'/\Delta & = n \lceil (1 + \eps)^3 T/\Delta \rceil \\
+                        & = n (1 + \lfloor (1 + \eps)^3 T/\Delta \rfloor \\
+                        & \leq n + \frac{n(1 + \eps)^3T}{(\eps^2T/n)} \\
+                        & = n + \frac{n^2(1 + \eps)^3}{\eps^2} \\
+                        & \text{TODO: } \in O(n^2/\eps^2)
+        \end{align*}
+        Knoten. Und genauso für die Zahl der Kanten.
+
+        Zuletzt bleibt noch die Bestimmung von $f$ in Schritt 3. Wie wir aber
+        sehen werden, ist $f$ auf einer Zerlegung in $T'/\Delta$ Intervalle
+        jeweils konstant (s. \lemRef{path_decomp}). Daher ist das Integral einfach
+        zu berechnen.
+    \end{proof}
+\end{theorem}
+
+Wir beginnen nun mit den Vorarbeiten zum Beweis von \theoRef{qtp_flow_ex}.
 
 \begin{lemma}\label{lem:flow_avg}
     Sei $\func{f}{\A \times \ropen{0, T + \delta}}{\R_+}$ ein dynamischer Fluss in
@@ -170,16 +214,6 @@ Damit ergibt sich dann:
     $c(f) \leq C$ hat.
     \begin{flushright}\qed \end{flushright}
 \end{standaloneProof}
-
-\begin{theorem}
-    Sei $\eps > 0$. $\redNetw{T'}{\Delta}$ aus \theoRef{qtp_flow_ex} hat
-    $O(n^2/\eps^2)$ Knoten und $O(mn/\eps^2)$ Kanten. Mit $O(\log(1/\eps))$
-    Aufrufen von \algRef{qtp_core} kann eine $(1+\eps)$-Approximation
-    für \probRef{qtp_single} bestimmt werden.
-    \begin{proof}
-        TODO: kurze Diskussion.
-    \end{proof}
-\end{theorem}
 
 \begin{remark}
     Alles was wir für den Beweis von \theoRef{qtp_flow_ex} benutzt haben, ist
