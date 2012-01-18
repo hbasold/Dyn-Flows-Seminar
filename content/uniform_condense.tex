@@ -1,4 +1,5 @@
 \section{Gleichförmig reduzierte zeit-expandierte Netzwerke}\label{sec:unif_cond}
+% BjH: Ab hier wird aus ``zeiterweitert'' ``zeit-expandiert''.
 Wir wollen nun die Netzwerke $\redNetw{T}{\Delta}$ verwenden, um spezielle
 Probleme zu lösen. Dabei werden wir etwas Arbeit leisten müssen, um
 $\Delta$ so zu wählen, dass \ref{a1} und \ref{a2} erfüllt sind.
@@ -34,7 +35,7 @@ Wir können eine Lösung mit Hilfe der reduzierten Netzwerke approximieren:
 
 Also erfüllt das damit konstruierte Netzwerk $(\graph, \tau')$ die Eigenschaften
 \ref{a1} und \ref{a2}. Aus dem Satz lässt sich auch sofort der Algorithmus
-zur Bestimmung eines solchen Flusses folgern. Dies wollen wir noch tun,
+zur Bestimmung eines solchen Flusses folgern. Dies wollen wir tun,
 bevor wir den Satz beweisen.
 
 \begin{algorithm}[H]
@@ -62,7 +63,8 @@ Wir wollen noch kurz beschreiben, wie QTP-FPTAS-Core zur Approximation von
 $T^*$ verwendet werden kann.
 
 Dazu bestimmen wir zunächst mit Hilfe von Bisektion (Intervallhalbierung)
-und der Verwendung von \algRef{qtp_core} alss Test kann ein Intervall mit
+und der Verwendung von \algRef{qtp_core} als Test kann ein Intervall mit
+% BjH: Satzbau
 $T^* \in \interv{L,U}$. Dabei muss lediglich $U \in O(L)$ gelten.
 Dies lässt sich in $\log T^*$ realisieren.
 
@@ -89,11 +91,15 @@ Zuletzt betrachten wir noch die Laufzeit von QTP-FPTAS-Core selbst.
             n T'/\Delta & = n \lceil (1 + \eps)^3 T/\Delta \rceil \\
                         & = n \left(1 + \left\lfloor \frac{(1 + \eps)^3 T}{\Delta}
                             -\frac{1}{2} \right\rfloor \right) \\
+                        % BjH: Diese Zeile scheint nicht zu stimmen (setze mal 1,1 als zu rundenden Wert oben ein). Wenn du sie streichst, stimmt die folgende Ungleichung aber wieder.
                         & \leq n + \frac{n(1 + \eps)^3T}{(\eps^2T/n)} \\
                         & = n + \frac{n^2(1 + \eps)^3}{\eps^2} \\
                         & \in O(n^2/\eps^2), \text{wenn } 0 < \eps \leq 1
         \end{align*}
         Knoten. Und genauso für die Zahl der Kanten.
+        % BjH: Wenn du die Herleitung f\"ur die Anzahl der Kanten machst und dann sagst, bei den Knoten muss $m$ durch $n$ ersetzt werden, wird deutlicher, warum zumindest ein $n$ in beiden Ausdr\"ucken steht.
+
+        % BjH: Hier ist der Beiweis schon zuende.
 
         Zuletzt bleibt noch die Bestimmung von $f$ in Schritt 3. Wie wir aber
         sehen werden, ist $f'$ auf einer Zerlegung in $T'/\Delta$ Intervalle
@@ -133,6 +139,7 @@ Wir beginnen nun mit den Vorarbeiten zum Beweis von \theoRef{qtp_flow_ex}.
     \[
     \tilde{f} := \frac{1}{1+\eps} \bar{f} \text{ .}
     \]
+    % BjH: Hier w\"urde ich erg\"anzen, dass $\bar{f}$ gem\"a\ss{} dem letzten Lemma definiert sein soll, da alle anderen Gr\"o\ss{}en auch nochmal innerhalb dieses Satzes definiert wurden.
     Dann ist $\tilde{f}$ zulässig und es gilt:
     \begin{enumerate}
         \item $\tilde{f}$ endet bei $\delta + T + \eps T + \eps^2 T$
@@ -229,20 +236,21 @@ Damit ergibt sich dann:
 \end{remark}
 
 \subsection*{Quickest Transshipment mit mehren Waren (multicommodity)}
-Dies wollen wir direkt ausnutzen, um ein das obige Verfahren auf mehrere
+Dies wollen wir direkt ausnutzen, um das obige Verfahren auf mehrere
+% BjH: Worauf bezieht sich ``Dies'' genau?
 Waren zu verallgemeinern. Die Approximation hiervon ohne Speicher ist allerdings
 NP-hart (s. \cite{fleischerSiam}), da eine optimale Lösung ohne Speicher
 Zyklen enthalten kann. Mit Speicher kann allerdings einfach gewartet werden,
 anstatt einen Zyklus zu benutzen.
 
-\begin{problem}[Quickest Transshipment mit mehreren Ware und begrenzten Kosten]
+\begin{problem}[Quickest Transshipment mit mehreren Waren und begrenzten Kosten]
 \label{prob:qtp_multi}
     Sei ein Netzwerk $(\graph, \tau)$ mit endlicher Menge von Waren $K$ gegeben.
     Seien weiterhin $\func{D}{K}{\R_+}$ und $C > 0$ gegeben.
 
     Gesucht ist ein Fluss $\func{f_i^*}{\ropen{0,T^*}}{\R_+}$ in $\graph$,
     so dass $|f_i^*| = D(i)$ für alle $i \in K$ und
-    $c(f^*) \leq C$ und $T^*$ minimal für alle Flüsse,
+    $c(f^*) \leq C$ und $T^*$ minimal ist für alle Flüsse,
     die diese Eigenschaften haben.
 \end{problem}
 
@@ -251,6 +259,7 @@ in dem Beweis von \theoRef{slow_flow} der Fluss auf Kanten rekonstruiert werden.
 Das kommt daher, dass dort erwartet wird, das sich die Laufzeit eines Flusses
 direkt aus $\tau$ ergibt. Mit Speicher ist dies aber nicht der Fall
 (s. dazu Definition von $\tau(P \downarrow e)$).
+% BjH: Wo war diese Definition? Ohne zumindest eine Seitenzahl ist die Referenz f\"ur Leser kaum brauchbar.
 
 Daher erweitern wir hier \defRef{path_flow}. Dazu ordnen wir einer Pfadzerlegung
 Verzögerungen $\{\func{\delta_P}{V}{\R_+}\}_{P \in \pathSet}$ zu. Diese sagen aus,
@@ -270,6 +279,7 @@ Nun ist der Fluss auf einer Kante analog wie in \defRef{path_flow} gegeben durch
 
 Alles was wir im letzten Abschnitt getan haben, funktioniert nun mit $\tau^{\delta}$
 nun genauso.
+% BjH: ``nun'' doppelt.
 
 %TODO: verallgemeinere \theoRef{slow_flow}, um Speicher mit dieser Definition
 %zuzulassen und setze in den Beweisen im letzten Abschnitt $\delta = 0$
