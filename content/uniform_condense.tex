@@ -46,10 +46,15 @@ bevor wir den Satz beweisen.
     \ENSURE Entweder zulässiger Fluss $f$ mit $f(t) = 0$, $t > (1+\eps) T'$
         und $|f| = D$ und $c(f) \leq C$ oder nichts. Das bedeutet, dass
         $T < T^*$.
-    \STATE $\Delta, T$ wie in \theoRef{qtp_flow_ex}.
-    \STATE Versuche Fluss $x$ in $\redNetw{T'}{\Delta}$ wie in \theoRef{qtp_flow_ex}
+    \STATE $\Delta := \frac{\eps^2 T}{n}$ und
+        $T' := \lceil (1+\eps)^3 T / \Delta \rceil \Delta$ (s. \theoRef{qtp_flow_ex}).
+    \STATE Versuche Fluss $x$ in $\redNetw{T'}{\Delta}$ (\defRef{red_network})
         zu berechnen. Wenn dieser nicht existiert: Ende.
-    \STATE Berechne aus $x$ einen Fluss $f$ in $\graph$. TODO: Averaging verwenden.
+    \STATE Berechne aus $x$ einen Fluss $f$ in $\graph$. Dieser ergibt sich mit
+        $f(P)(t) = \frac{1}{\eps T'}
+                            \int_{t - \eps T'}^{t} f'(P)(\theta) \; d\theta$,
+        wobei $f'$ die Interpretation von $x$ in $(\graph, \tau')$ ist
+        (s. \lemRef{static_dyn_conv} und Beweis von \theoRef{qtp_flow_ex}b).
 \end{algorithmic}
 \end{algorithm}
 
