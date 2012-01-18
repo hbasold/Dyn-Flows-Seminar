@@ -79,7 +79,7 @@ Zuletzt betrachten wir noch die Laufzeit von QTP-FPTAS-Core selbst.
     Sei $\eps > 0$. $\redNetw{T'}{\Delta}$ aus \theoRef{qtp_flow_ex} hat
     $O(n^2/\eps^2)$ Knoten und $O(mn/\eps^2)$ Kanten. Mit $O(\log(1/\eps))$
     Aufrufen von \algRef{qtp_core} kann eine $(1+\eps)$-Approximation
-    für \probRef{qtp_single} bestimmt werden.
+    für \probRef{qtp_single} in polynomieller Zeit bestimmt werden.
     \begin{proof}
         Den zweiten Teil haben wir oben bereits diskutiert.
 
@@ -87,15 +87,16 @@ Zuletzt betrachten wir noch die Laufzeit von QTP-FPTAS-Core selbst.
         $\redNetw{T'}{\Delta}$ enthält
         \begin{align*}
             n T'/\Delta & = n \lceil (1 + \eps)^3 T/\Delta \rceil \\
-                        & = n (1 + \lfloor (1 + \eps)^3 T/\Delta \rfloor \\
+                        & = n \left(1 + \left\lfloor \frac{(1 + \eps)^3 T}{\Delta}
+                            -\frac{1}{2} \right\rfloor \right) \\
                         & \leq n + \frac{n(1 + \eps)^3T}{(\eps^2T/n)} \\
                         & = n + \frac{n^2(1 + \eps)^3}{\eps^2} \\
-                        & \text{TODO: } \in O(n^2/\eps^2)
+                        & \in O(n^2/\eps^2), \text{wenn } 0 < \eps \leq 1
         \end{align*}
         Knoten. Und genauso für die Zahl der Kanten.
 
         Zuletzt bleibt noch die Bestimmung von $f$ in Schritt 3. Wie wir aber
-        sehen werden, ist $f$ auf einer Zerlegung in $T'/\Delta$ Intervalle
+        sehen werden, ist $f'$ auf einer Zerlegung in $T'/\Delta$ Intervalle
         jeweils konstant (s. \lemRef{path_decomp}). Daher ist das Integral einfach
         zu berechnen.
     \end{proof}
