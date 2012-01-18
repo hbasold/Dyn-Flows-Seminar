@@ -1,20 +1,21 @@
 \section{Zeiterweiterte Netzwerke}
 
 Unser Ziel ist ein polynomielles Approximationsschema für Quickest-Flow-Probleme.
-Die Idee dabei ist, ein Netzwerk $\graph$ in ein \term{zeit-erweitertes Netzwerk}
+Die Idee dabei ist, ein Netzwerk $\graph$ in ein \term{zeiterweitertes Netzwerk}
 umzuwandeln. Dazu werden für jeden Zeitschritt Kopien der Knoten von $\graph$
 angelegt. Dabei gibt die Zeitkomponente den Zeitpunkt eines Flusses an. Daher
-werden in dem neuen Graph zwei Knoten verbunden, genau dann wenn die Knoten
+werden in dem neuen Graph zwei Knoten genau dann verbunden, wenn die Knoten
 im ursprünglichen Graphen durch eine Kante $e \in \A$ verbunden gewesen sind und
 sie $\tau(e)$ Zeitschritte entfernt sind. Zusätzlich müssen wir noch Kanten
 zwischen den einzelnen Zeitschritten der Quellen und Senken einfügen, damit
 der Fluss auch am Ende der Zeit des Flusses verfügbar ist, denn wir werden
 die Kopien der Senken zum Zeitpunkt $T-1$ als neue Senken erklären.
+% BjH: Der letzte Satz ist kaum verst\"andlich.
 
 Wir nehmen dabei an, dass die Zeiten ganzzahlig sind. Dies ist durch Skalierung
 der Zeit auf die gewünschte Genauigkeit für Anwendungen problemlos möglich.
 
-\begin{definition}[zeiterweitertes Netzwerk]
+\begin{definition}[Zeiterweitertes Netzwerk]
     Sei $(\graph, \tau)$ ein Netzwerk mit $\tau(e) \in \N$ für alle $e \in \A$
     und $T \in \N$. Setze $\timeDom = \{0, 1, \ldots, T-1\}$.
     Wir definieren damit das \term{zeiterweiterte Netzwerk} $\tExp{T} = (V^T, \A^T)$
@@ -41,6 +42,7 @@ der Zeit auf die gewünschte Genauigkeit für Anwendungen problemlos möglich.
         \item $S_i^{+,T} = \setDef{v_0 \in V^T}{v \in S_i^+}$, \\
                 $S_i^{-,T} = \setDef{v_{T-1} \in V^T}{v \in S_i^-}$ und damit \\
                 $S_i^T = S_i^{+,T} \disjUnion S_i^{-,T}$
+% BjH: Hier fehlt immer noch die Definition von $i$.
     \end{itemize}
     Sollte Speicher an Knoten $V \setminus S$ zugelassen sein, dann müssen analog
     zu $H$ weitere Speicherkanten eingefügt werden.
