@@ -16,8 +16,10 @@ werden. Dazu werden die nötigen Begriffe definiert.
     \begin{itemize}
         \item $\head : \A \rightarrow V$, $(u,v) \mapsto v$
         \item $\tail : \A \rightarrow V$, $(u,v) \mapsto u$
-        \item $\outEdges : V \rightarrow 2^\A$, $v \mapsto \setDef{e \in \A}{tail(e) = v}$
-        \item $\inEdges : V \rightarrow 2^\A$, $v \mapsto \setDef{e \in \A}{head(e) = v}$
+        \item $\outEdges : V \rightarrow 2^\A$,
+            $v \mapsto \setDef{e \in \A}{tail(e) = v}$
+        \item $\inEdges : V \rightarrow 2^\A$,
+            $v \mapsto \setDef{e \in \A}{head(e) = v}$
     \end{itemize}
     
     Der Graph wird mit Funktionen angereichert, die mit als Eingabe
@@ -25,7 +27,8 @@ werden. Dazu werden die nötigen Begriffe definiert.
     \begin{itemize}
         \item $\tau : \A \rightarrow \R$, $e \mapsto \tau_e$ -- \term{Laufzeit}
         \item $u : \A \rightarrow \R$, $e \mapsto u_e$ -- \term{Kapazität}
-        \item $c : \A \rightarrow \R$, $e \mapsto c_e$ -- \term{Kosten} pro Flusseinheit
+        \item $c : \A \rightarrow \R$, $e \mapsto c_e$
+            -- \term{Kosten} pro Flusseinheit
     \end{itemize}
 \end{definition}
 
@@ -48,12 +51,14 @@ hat im Gegensatz zum dynamischen keine Zeitkomponente.
 
 \begin{definition}[Statischer Fluss mit einer Ware]
     Ein statischer Fluss ist eine Abbildung $x : \A \rightarrow \R_+$ mit
-    \[ \sum_{e \in \outEdges(v)} x(e) - \sum_{e \in \inEdges(v)} x(e) = 0 \quad, \text{alle } v \in V \setminus S. \]
+    \[ \sum_{e \in \outEdges(v)} x(e) - \sum_{e \in \inEdges(v)} x(e) = 0
+        \quad, \text{alle } v \in V \setminus S. \]
 
     Ein solcher Fluss sollte im Allgemeinen Folgende Eigenschaften erfüllen:
     \begin{itemize}
         \item Erfüllung von Bedarf und Zulauf:
-            \[ \sum_{e \in \outEdges(v)} x(e) - \sum_{e \in \inEdges(v)} x(e) = D(v) \quad, \text{alle } v \in S. \]
+            \[ \sum_{e \in \outEdges(v)} x(e) - \sum_{e \in \inEdges(v)} x(e) = D(v)
+                \quad, \text{alle } v \in S. \]
         \item Zulässigkeit:
             \[ x(e) \leq u(e) \quad, \text{alle } e \in \A \]
     \end{itemize}
@@ -63,31 +68,133 @@ hat im Gegensatz zum dynamischen keine Zeitkomponente.
 \end{definition}
 
 \begin{definition}[Mehrere Waren]
-    $K = \{1, \ldots, k\}$, $S_i = S_i^+ \disjUnion S_i^-$ Terminale
+    Die oben definierten Flüsse können lediglich einen Bedarf erfüllen, will
+    man unterschiedliche Waren zulassen, geht man zu sogenannten
+    \term{Multicommodity}-Problemen über.
+
+    Dazu wird eine Menge von Waren $K = \{1, \ldots, k\}$ sowie die jeweiligen
+    Terminale $S_i = S_i^+ \disjUnion S_i^- \subseteq V$ festgelegt. Für diese
+    Terminale muss dann jeweils der Bedarf angegeben werden:
+    \begin{enumerate}
+        \item $\func{D_i}{S_i^+}{\R_+}$ -- Zulauf
+        \item $\func{D_i}{S_i^-}{\R_-}$ -- Bedarf
+    \end{enumerate}
+
+    Wir setzen $S := \bigcup\limits_{i \in K} S_i$.
 \end{definition}
 
-\begin{definition}[dynamischer Fluss]
-    Familie von Funktionen $\func{f_i}{\A \times \ropen{0,T}}{\R_+}$ mit $i \in K$.
+\begin{definition}[Statischer Fluss mit mehreren Waren]
+    Die Waren induzieren eine Familie von statischen Flüssen
+    $x = \{\func{x_i}{\A}{\R_+}\}_{i \in K}$. Dabei ist $x$ zulässig, wenn die
+    Kapazität durch den Transport aller Waren nicht verletzt wird:
+    \begin{align*}
+        & \sum_{i \in K} x_i(e) \leq u(e) \quad \text{, alle } e \in \A.
+    \end{align*}
+
+    Die Kosten werden entsprechend auch über alle Waren aufsummiert,
+    wobei die Kosten auch hier durch eine Familie von Funktionen
+    $\{\func{c_i}{\A}{\R_+}\}_{i \in K}$ bestimmt werden.
+    \begin{align*}
+        & c(x) = \sum_{e \in A} \sum_{i \in K} c_i(e) \cdot x_i(e)
+    \end{align*}
+\end{definition}
+
+Nachdem wir nun statische Flüsse ohne Zeitkomponente kennengelernt haben,
+wollen wir Flüsse über Zeit (dynamische Flüsse) betrachten. Werden direkt
+die allgemeinere Definition mit mehreren Waren geben.
+
+\begin{definition}
+    Ein \term{dynamischer Fluss} ist eine Familie von Funktionen
+    $\{\func{f_i}{\A \times \ropen{0,T}}{\R_+}\}_{i \in K}$.
     $f_i(e,t)$ ist die \term{Flussrate}, die zur Zeit $t$ an der Kante $e$ anliegt.
-    Der Fluss $f_i(e,t)$ kommt zur Zeit $t + \tau(e)$ bei $head(e)$ an.
+    Dabei muss $\lim_{t \to T} f_i(e,t) = 0$ gelten. Dann kann $f$ stetig
+    auf $\ropen{T, +\infty}$ fortgesetzt werden.
 
-    Schreibe auch: $\func{f_i(e)}{\ropen{0,T}}{\R_+}$.
+    Schreibe auch: $\func{f_i(e)}{\ropen{0,T}}{\R_+}$ mit $f_i(e)(t) = f_i(e,t)$.
 
-    Flusswert einer Ware:
+    Um das Verhalten eines Flusses zu analysieren, definieren wir uns die Last an
+    einem Knoten durch
     \[
         F_i(v, t) =
             \int_0^t \left(
                 \sum_{e \in \outEdges(v)} f_i(e, \theta) -
-                \sum_{e \in \inEdges(v)} f_i(e, \theta - \tau(e)) \right) \;d\theta
+                \sum_{e \in \inEdges(v)} f_i(e, \theta - \tau(e)) \right) \;d\theta .
     \]
 
-    Flusswert:
+    Der Fluss muss dann folgendes erfüllen:
+    \begin{itemize}
+        \item $F_i(v, t) \leq 0$ für alle $v \in S_i^-$ (Senken)
+            und $t \in \ropen{0,T}$
+        \item $F_i(v, t) = 0$ für alle $v \in V \setminus S$ und $t \in \ropen{0,T}$
+            ohne Speicher bzw. $F_i(v, t) \leq 0$ wenn Speicher zugelassen ist.
+            Dann muss aber auch $\lim_{t \to T} F_i(v, t) = 0$,
+            damit kein Fluss zurückbleibt.
+    \end{itemize}
+
+    %Der Gesamtfluss auf einer Kante ist die Summe über alle Warenflüsse:
+    %\[
+    %    f(e, t) := \sum_{i \in K} f_i(e,t)
+    %\]
+
+    Ein dynamischer Fluss wird \term{zulässig} genannt, wenn der Gesamtfluss
+    die Kapazität nicht übersteigt:
     \[
-        |f| = \sum_{i \in K} \sum_{v \in S_i^+} F_i(v,T).
+        \sum_{i \in K} f_i(e,t) \leq u(e) \quad \text{, alle } e \in \A
+                                                \text{ und } t \in \ropen{0,T}.
     \]
 
-    TODO: Rest von S.3 - 5.
+    Auch einem dynamischen Fluss werden wieder Kosten zugeordnet:
+    \[
+        c(f) = \sum_{i \in K} \sum_{e \in \A} c_i(e) \int_0^T f_i(e,t) \: dt.
+    \]
 \end{definition}
 
+\begin{remark}
+    Der Fluss $f_i(e,t)$ kommt zur Zeit $t + \tau(e)$ bei $head(e)$ an. Daher folgt
+    sofort, dass $f_i(e,t) = 0$, wenn $t \in \ropen{T - \tau(e), T}$.
+\end{remark}
 
-TODO: Definiere Fluss auf Pfaden!
+Nun wollen wir uns dem \term{Flusswert} zuwenden. Dieser ist insofern wichtig,
+als dass er angibt, ob der Bedarf für eine Ware erfüllt ist.
+
+\begin{definition}
+    Seien $x$ ein statischer und $f$ ein dynamischer Fluss. Der \term{Flusswert}
+    ist dann jeweils definiert durch
+
+    \[
+        |x| = \sum_{i \in K} \sum_{v \in S_i^+} \sum_{e \in \inEdges(v)} x_i(e)
+    \]
+    und
+    \[
+        |f| = \sum_{i \in K} \sum_{v \in S_i^+}
+                \sum_{e \in \inEdges(v)} \int_0^T f_i(e,t) \: dt
+            = \sum_{i \in K} \sum_{v \in S_i^+} F_i(v,T).
+    \]
+    Die zweite Gleichung gilt dabei, da ein Fluss eine Senke nicht wieder
+    verlässt und Summe und Integral dann vertauscht werden dürfen.
+\end{definition}
+
+Das letzte Werkzeug, das wir benötigen werden, sind \term{Pfadzerlegungen}
+von Flüssen.
+
+\begin{definition}
+    Seien $x$ ein statischer und $f$ ein dynamischer Fluss.
+    Sei weiterhin $\pathSet$ eine endliche Menge von Pfaden von $S_i^+$ nach
+    $S_i^-$. Wenn es eine Familie $\{\func{x_i}{\pathSet}{\R_+}\}_{i \in K}$
+    bzw. $\{\func{f_i}{\pathSet \times \ropen{0,T}}{\R_+}\}_{i \in K}$ gibt,
+    dann ist $\pathSet$ eine \term{Pfadzerlegung}, wenn gilt
+    \[
+        x_i(e) = \sum_{P \in \pathSet : e \in P} x(P) \quad \text{, für alle } e \in \A
+    \]
+    bzw.
+    \[
+        f_i(e, t) = \sum_{P \in \pathSet : e \in P} f(P, t - \tau(P \downarrow e)) .
+    \]
+    Dabei ist $P \downarrow e$ die Einschränkung von $P$ auf die Kanten \emph{vor} $e$
+    und $\tau(P) = \sum_{e \in P} \tau(e)$ die natürliche Erweiterung von $\tau$ auf
+    Pfade.
+
+    Wenn Speicher zugelassen ist, müssen Verzögerungen bei dynamischen Flüssen
+    mit einbezogen werden.
+\end{definition}
+
