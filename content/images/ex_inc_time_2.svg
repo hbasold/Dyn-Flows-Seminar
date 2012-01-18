@@ -14,7 +14,7 @@
    id="svg2985"
    version="1.1"
    inkscape:version="0.48.0 r9654"
-   sodipodi:docname="ex3_2svg.svg">
+   sodipodi:docname="ex_inc_time_2.svg">
   <sodipodi:namedview
      id="base"
      pagecolor="#ffffff"
@@ -24,7 +24,7 @@
      inkscape:pageshadow="2"
      inkscape:zoom="1.4754961"
      inkscape:cx="404.12668"
-     inkscape:cy="290.41534"
+     inkscape:cy="283.97683"
      inkscape:current-layer="layer1"
      inkscape:document-units="px"
      showgrid="false"
@@ -97,7 +97,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -319,5 +319,17 @@
          style="font-size:20px">τ(e<tspan
    style="font-size:65.00091553%;baseline-shift:sub"
    id="tspan5266">3</tspan>)=Δ</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:22px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
+       x="430.35797"
+       y="159.84126"
+       id="text4714-84"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan4716-3"
+         x="430.35797"
+         y="159.84126"
+         style="font-size:20px">u≡1</tspan></text>
   </g>
 </svg>
