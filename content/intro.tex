@@ -49,6 +49,23 @@ hat im Gegensatz zum dynamischen keine Zeitkomponente.
     Wenn $S^+ = \{s\}$ und $S^- = \{t\}$, dann schreiben wir kurz $d = D(s) = -D(t)$.
 \end{definition}
 
+\begin{remark}
+    Um die Betrachtungen zu vereinfachen, wollen wir die Terminalknoten
+    für jede Ware durch jeweils einen Knoten ersetzen. Dazu können
+    Knoten $\setDef{s_i}{i \in K}$ und $\setDef{t_i}{i \in K}$ zu dem
+    Netzwerk hinzugefügt werden. Diese werden mit den jeweiligen
+    Terminalknoten verbunden: $(s_i, v)$ für alle $v \in S_i^+$ und
+    $(v,t_i)$ für alle $v \in S_i^-$. Diesen Knoten wird die Kapazität $\infty$
+    und Laufzeit $0$ zugeordnet. Diese Knoten werden zu den neuen Terminalen
+    erklärt.
+
+    Dann lassen sich die Bedarfsfunktionen pro Ware definieren:
+    $D(i) = \sum_{v \in S_i^+} D(vi)$.
+
+    Wir werden also lediglich Netzwerke betrachten, die pro Ware nur eine
+    Quelle und Senke haben.
+\end{remark}
+
 \begin{definition}[Statischer Fluss mit einer Ware]
     Ein statischer Fluss ist eine Abbildung $x : \A \rightarrow \R_+$ mit
     \[ \sum_{e \in \outEdges(v)} x(e) - \sum_{e \in \inEdges(v)} x(e) = 0
@@ -107,7 +124,7 @@ die allgemeinere Definition mit mehreren Waren geben.
     Ein \term{dynamischer Fluss} ist eine Familie von Funktionen
     $\{\func{f_i}{\A \times \ropen{0,T}}{\R_+}\}_{i \in K}$.
     $f_i(e,t)$ ist die \term{Flussrate}, die zur Zeit $t$ an der Kante $e$ anliegt.
-    Dabei muss $\lim_{t \to T} f_i(e,t) = 0$ gelten. Dann kann $f$ stetig
+    Dabei muss \\ $\lim_{t \to T} f_i(e,t) = 0$ gelten. Dann kann $f$ stetig
     auf $\ropen{T, +\infty}$ fortgesetzt werden.
 
     Schreibe auch: $\func{f_i(e)}{\ropen{0,T}}{\R_+}$ mit $f_i(e)(t) = f_i(e,t)$.
@@ -177,7 +194,7 @@ als dass er angibt, ob der Bedarf für eine Ware erfüllt ist.
 Das letzte Werkzeug, das wir benötigen werden, sind \term{Pfadzerlegungen}
 von Flüssen.
 
-\begin{definition}
+\begin{definition}\label{def:path_flow}
     Seien $x$ ein statischer und $f$ ein dynamischer Fluss.
     Sei weiterhin $\pathSet$ eine endliche Menge von Pfaden von $S_i^+$ nach
     $S_i^-$. Wenn es eine Familie $\{\func{x_i}{\pathSet}{\R_+}\}_{i \in K}$

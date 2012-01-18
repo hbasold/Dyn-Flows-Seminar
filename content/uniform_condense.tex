@@ -235,17 +235,53 @@ NP-hart (s. \cite{fleischerSiam}), da eine optimale Lösung ohne Speicher
 Zyklen enthalten kann. Mit Speicher kann allerdings einfach gewartet werden,
 anstatt einen Zyklus zu benutzen.
 
+\begin{problem}[Quickest Transshipment mit mehreren Ware und begrenzten Kosten]
+\label{prob:qtp_multi}
+    Sei ein Netzwerk $(\graph, \tau)$ mit endlicher Menge von Waren $K$ gegeben.
+    Seien weiterhin $\func{D}{K}{\R_+}$ und $C > 0$ gegeben.
+
+    Gesucht ist ein Fluss $\func{f_i^*}{\ropen{0,T^*}}{\R_+}$ in $\graph$,
+    so dass $|f_i^*| = D(i)$ für alle $i \in K$ und
+    $c(f^*) \leq C$ und $T^*$ minimal für alle Flüsse,
+    die diese Eigenschaften haben.
+\end{problem}
+
 Allerdings kann aus einem Pfad, auf dem Speicher verwendet wird, nicht mehr wie
 in dem Beweis von \theoRef{slow_flow} der Fluss auf Kanten rekonstruiert werden.
 Das kommt daher, dass dort erwartet wird, das sich die Laufzeit eines Flusses
 direkt aus $\tau$ ergibt. Mit Speicher ist dies aber nicht der Fall
 (s. dazu Definition von $\tau(P \downarrow e)$).
 
-TODO: definiere $P^\delta$ und $\tau(P^\delta \downarrow e)$, lasse dabei $\delta$
-eine Funktion $V \to \R_+$ sein.
+Daher erweitern wir hier \defRef{path_flow}. Dazu ordnen wir einer Pfadzerlegung
+Verzögerungen $\{\func{\delta_P}{V}{\R_+}\}_{P \in \pathSet}$ zu. Diese sagen aus,
+dass ein Fluss $\delta_P(v)$ Zeit an $v$ gespeichert wird, bevor er auf die nächste
+Kante auf dem Pfad geschickt wird.
 
-TODO: verallgemeinere \theoRef{slow_flow}, um Speicher mit dieser Definition zuzulassen
-und setze in den Beweisen im letzten Abschnitt $\delta = 0$
+Damit definieren wir wieder eine Erweiterung von $\tau$ durch
+\[
+    \tau^{\delta}(P) := \sum_{e \in P} \tau(e) + \delta_P(\head(e)).
+\]
 
-Dann folgt dies alles als Korollar.
+Nun ist der Fluss auf einer Kante analog wie in \defRef{path_flow} gegeben durch
+\[
+    f_i(e, t) = \sum_{P \in \pathSet : e \in P}
+                    f(P, t - \tau^{\delta}(P \downarrow e)) .
+\]
+
+Alles was wir im letzten Abschnitt getan haben, funktioniert nun mit $\tau^{\delta}$
+nun genauso.
+
+%TODO: verallgemeinere \theoRef{slow_flow}, um Speicher mit dieser Definition
+%zuzulassen und setze in den Beweisen im letzten Abschnitt $\delta = 0$
+%Dann folgt dies alles als Korollar.
+%Vorerst nur Fließtext.
+
+
+\begin{theorem}
+    Sei $\eps > 0$. \probRef{qtp_multi} kann mit $O(\log(1/\eps))$
+    Berechnungen von statischen Flüssen in einem Netzwerk mit
+    $O(n^2/\eps^2)$ Knoten und $O(mn/\eps^2)$ Kanten
+    in polynomieller Zeit $(1+\eps)$-approximiert werden.
+\end{theorem}
+
 
