@@ -1,3 +1,49 @@
-\section{Nicht-Gleichförmig reduzierte zeit-expandierte Netzwerke}\label{sec:nonunif_cond}
-TODO: kurzen Ausblick geben, für mehr ist ohnehin kein Platz (und Zeit eh nicht,
-vermutlich).
+\section{Nicht gleichförmig reduzierte zeit-expandierte Netzwerke}\label{sec:nonunif_cond}
+Die gleichmäßige Unterteilung der Zeit durch $\timeDom = \{0,1, \ldots, T-1\}$ kann bei
+anderen Problemen zu schlechten Ergebnissen führen. Wir wollen dazu kurz das Problem
+des „Earliest Arrival Flows“ und dazu ein kritisches Beispiel betrachten.
+
+TODO: Problem
+
+TODO: Beispiel + Bild
+
+Man kann dieses Problem umgehen, indem man den Zeitverlauf anders unterteilt. In dem
+Beispiel würde die Unterteilung in Intervalle der Größe $\frac{1}{2}$
+genügen ($\timeDom = \{0, \frac{1}{2}, 1\}$). Wir wollen uns für diesen Fall nur
+die entsprechende Definition des zeitertweiterten Netzwerks ansehen.
+
+\begin{definition}[zeiterweitertes Netzwerk mit beliebigen Zeitintervallen]
+    Sei $(\graph, \tau)$ und $L = (\theta_q)_{q \in R}$, wobei $R = \{0, \ldots, r\}$,
+    sodass
+    \[
+        0 = \theta_0 < \theta_1 < \ldots < \theta_r < T.
+    \]
+    Setze $\theta_{r+1} = T$.
+    Dann ist das \term{L-zeitexpandierte Netzwerk} $\tExp{L} = (V^L, \A^L)$
+    gegeben durch
+    \begin{itemize}
+        \item $V^L = V \times R$ (schreibe $v_q = (v, q)$ und
+            $V_q = \{v_q \in V^L\}$)
+        \item $\A^L = \setDef{e_q = (v_q, u_{m(e, q)})}
+                        {e = (v, u) \in \A, q \in R, \theta_q + \tau(e) \leq \theta_r}
+                    \cup H$, \\
+            \text{ wobei } $H = \setDef{(v_q, v_{q+1})}
+                                    {v \in S_i \text{ und } q, q+1 \in R}$
+    \end{itemize}
+
+    Dabei ist $\func{m}{\A \times R}{R}$ definiert durch
+    \[
+        m(e, q) := \min \setDef{q' \in R}{\theta_q + \tau(e) \leq \theta_{q'}}.
+    \]
+    $m$ bestimmt also das Intervall, zwischen welchen die Kante $e$ transportiert.
+    Die Rest ist analog wie bei den ursprünglichen zeiterweiterten Netzwerken
+    definiert.
+\end{definition}
+
+\begin{remark}
+    Offensichtlich ergibt sich mit einer Unterteilung $L = (0, 1, \ldots, T-1)$
+    wieder $\tExp{T} = \tExp{L}$. Also sind L-zeiterweiterte Netzwerke
+    eine Verallgemeinerung.
+\end{remark}
+
+TODO: wie werden diese benutzt?
