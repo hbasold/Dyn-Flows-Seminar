@@ -7,7 +7,7 @@ angelegt. Dabei gibt die Zeitkomponente den Zeitpunkt eines Flusses an. Daher
 werden in dem neuen Graph zwei Knoten verbunden, genau dann wenn die Knoten
 im ursprünglichen Graphen durch eine Kante $e \in \A$ verbunden gewesen sind und
 sie $\tau(e)$ Zeitschritte entfernt sind. Zusätzlich müssen wir noch Kanten
-zwischen den einzelnen Zeitschritte der Quellen und Senken einfügen, damit
+zwischen den einzelnen Zeitschritten der Quellen und Senken einfügen, damit
 der Fluss auch am Ende der Zeit des Flusses verfügbar ist, denn wir werden
 die Kopien der Senken zum Zeitpunkt $T-1$ als neue Senken erklären.
 
@@ -71,29 +71,29 @@ konstruieren wollen, müssen wir zwischen Flüssen $f$ in $\graph$ und
 Flüssen $x$ in $\tExp{T}$ wechseln können:
 
 \begin{lemma}\label{lem:static_dyn_conv}
-    Ein statischer Fluss $\func{x}{\A^T}{\R_+}$ in $\tExp{T}$ entspricht einem
-    dynamischen Fluss $\func{f}{\A \times \ropen{0,T}}{\R_+}$ in $\graph$
+    Ein statischer Fluss $\func{x_i}{\A^T}{\R_+}$ in $\tExp{T}$ entspricht einem
+    dynamischen Fluss $\func{f_i}{\A \times \ropen{0,T}}{\R_+}$ in $\graph$
     mit gleichem Flusswert und Kosten und umgekehrt. Dabei gilt:
     \begin{enumerate}
         \item $f_i(e,t) := x_i(e_{\lfloor t \rfloor})$ und
-        \item $x_i(e_t) := \int_t^{t+1} f_i(e, \theta) d\theta$
+        \item $x_i(e_t) := \int_t^{t+1} f_i(e, \theta) \: d\theta$
     \end{enumerate}
 \end{lemma}
 
-Dieser Sachverhalt macht zwar sehr einfach, hat allerdings das Problem, dass das
+Dieser Sachverhalt ist zwar sehr einfach, hat allerdings das Problem, dass das
 Netzwerk $\tExp{T}$ sehr groß wird. Denn $|V^T| = |V| \cdot |\timeDom| = n \cdot T$.
 Da aber $T$ in der Größe $\log T$ kodiert wird, hängt $V^T$ nicht mehr polynomiell
 von der Eingabe ab.
 
-Die Idee ist nun, das Netzwerk $\tExp{T}$ wieder zu verkleinern, so dass es wieder
+Die Idee ist nun, das Netzwerk $\tExp{T}$ wieder zu verkleinern, so dass es
 eine polynomielle Größe erreicht, indem unnötige Zeitschritte entfernt werden.
 Das führt zu den \term{skalierten Netzwerken}:
 
 \begin{definition}
     Sei $(\graph, \tau)$ Netzwerk und $0 < \Delta$, so dass $T/\Delta \in \N$
     und $\tau(e)/\Delta \in \N$ für alle $e \in \A$. Wir setzen
-    $\tau' := \tau/\Delta$ für alle $e \in \A$
-    und dann $\redNetw{T}{\Delta} := \tExp{T/\Delta}$ für $(\graph, \tau')$.
+    $\tau' := \tau/\Delta$ und damit
+    $\redNetw{T}{\Delta} := \tExp{T/\Delta}$ für $(\graph, \tau')$.
     
     Ein Knoten $v_t$ entspricht dann einem Zeitverlauf im Intervall
     $\ropen{t \Delta, (t+1) \Delta}$. Daher müssen die Kosten und Kapazitäten
@@ -102,13 +102,13 @@ Das führt zu den \term{skalierten Netzwerken}:
 
 \begin{lemma}\label{lem:reduced_static_dyn_conv}
     Sei $0 < \Delta$ und $(\graph, \tau)$ wie oben. Dann entspricht ein statischer
-    Fluss $x$ in $\redNetw{T}{\Delta}$ einem Fluss
-    $\func{f}{\A \times \ropen{0, T}}{\R_+}$ in $\graph$ mit gleichen Kosten
+    Fluss $x_i$ in $\redNetw{T}{\Delta}$ einem Fluss
+    $\func{f_i}{\A \times \ropen{0, T}}{\R_+}$ in $\graph$ mit gleichen Kosten
     und umgekehrt.
     
     \begin{proof}
-        Wende \lemRef{static_dyn_conv} auf $x$ an, dies ergibt einen Fluss
-        $\func{\hat{f}}{\A \times \ropen{0, T/\Delta}}{\R_+}$. Mit Skalierung der
+        Wende \lemRef{static_dyn_conv} auf $x_i$ an, dies ergibt einen Fluss
+        $\func{\hat{f}_i}{\A \times \ropen{0, T/\Delta}}{\R_+}$. Mit Skalierung der
         Zeit um $\Delta$ ergibt sich $f$. Der Rest ist klar.
     \end{proof}
 \end{lemma}
@@ -123,7 +123,7 @@ veranschaulicht und daraus Bedingungen an $\Delta$ gestellt werden.
 
 \begin{example}
     Sei $(\graph, \tau)$ mit einem Teil wie in \figRef{ex_inc_time_1} gegeben.
-    Die Kapazitäten seien dabei überall $1$. Außerdem in der Abbildung die
+    Die Kapazitäten seien dabei überall $1$. Außerdem sind in der Abbildung die
     beiden möglichen Pfade über die Kante $e_3$ dargestellt.
 
     \newsavebox{\tempbox}
@@ -135,9 +135,9 @@ veranschaulicht und daraus Bedingungen an $\Delta$ gestellt werden.
       \vfil
         \begin{tabular}{ l| c c c c c }
           t (in $\Delta/2$) & 0 & 1 & 2 & 3 & 4 \\ \hline
-          f($e_1$)          & \textcolor{red}{1} & 0 & 0 & 0 & 0 \\
-          f($e_2$)          & \textcolor{green}{1} & 0 & 0 & 0 & 0 \\
-          f($e_3$)          & 0 & \textcolor{red}{1} & \textcolor{green}{1} & 0 & 0 \\
+          f($e_1$)          & \red{1} & 0 & 0 & 0 & 0 \\
+          f($e_2$)          & \green{1} & 0 & 0 & 0 & 0 \\
+          f($e_3$)          & 0 & \red{1} & \green{1} & 0 & 0 \\
           L($e_3$)          & 0 & 1 & 2 & 1 & 0
         \end{tabular}
       \vfil}}%
@@ -145,7 +145,7 @@ veranschaulicht und daraus Bedingungen an $\Delta$ gestellt werden.
         dazu ein Verlauf dieses maximalen Flusses}\label{fig:ex_inc_time_1}
     \end{figure}
 
-    Die nachfolgende Tabelle gibt den Zeitverlauf eines maximalen Flusses
+    Die Tabelle in \figRef{ex_inc_time_1} gibt den Zeitverlauf eines maximalen Flusses
     $f$ an. $L$ ist dabei die Last auf einer Kante (der Fluss, der sich
     derzeit auf der Kante befindet).
 
@@ -170,11 +170,14 @@ veranschaulicht und daraus Bedingungen an $\Delta$ gestellt werden.
 \end{example}
 
 Daraus ergibt sich die erste Bedingung, die an $(\graph, \tau)$ gestellt wird:
-\begin{enumerate}[label={\textbf{(A\arabic*)}}]
-    \item Die optimale Laufzeit in $(\graph, \widetilde{\tau})$ approximiert die optimale
-        Laufzeit in $(\graph, \tau)$, d.h. $|\widetilde{T}^* - T^*| \leq \eps$,
+\begin{framed}
+\begin{enumerate}[label={(A\arabic*)}]
+    \item Die optimale Laufzeit in $(\graph, \widetilde{\tau})$ approximiert
+        die optimale Laufzeit in $(\graph, \tau)$,
+        d.h. $|\widetilde{T}^* - T^*| \leq \eps$,
         wenn $|\widetilde{\tau}(e) - \tau(e)| \leq \eps$. \label{a1}
 \end{enumerate}
+\end{framed}
 
 \begin{example}
 
@@ -207,14 +210,13 @@ Daraus ergibt sich die erste Bedingung, die an $(\graph, \tau)$ gestellt wird:
       \vfil
         \begin{tabular}{ l| c c c c c c c }
           t (in $\Delta/2$) & 0 & 1 & 2 & 3 & \ldots & k & \ldots \\ \hline
-          f($P_1$)          & \textcolor{red}{1} & 0 & 0 & 0 & \ldots & \textcolor{red}{1} & \\
-          f($P_2$)          & \textcolor{green}{1} & 0 & 0 & 0 & \ldots & \textcolor{green}{1} & \\
-          f($P_3$)          & \textcolor{yellow}{1} & 0 & 0 & 0 & \ldots & \textcolor{yellow}{1} & \\
-          \vdots            & \vdots & & & & & \vdots \\
-          f($P_k$)          & \textcolor{blue}{1} & 0 & 0 & 0 & \ldots & \textcolor{blue}{1} & \\
-          f($e$)            & 0 & \textcolor{red}{1} & \textcolor{green}{1}
-                            & \textcolor{yellow}{1} & \ldots & \textcolor{blue}{1} &
-        \end{tabular}        
+          f($P_1$)  & \red{1} & 0 & 0 & 0 & \ldots & \red{1} & \\
+          f($P_2$)  & \green{1} & 0 & 0 & 0 & \ldots & \green{1} & \\
+          f($P_3$)  & \yellow{1} & 0 & 0 & 0 & \ldots & \yellow{1} & \\
+          \vdots    & \vdots & & & & & \vdots & \ldots \\
+          f($P_k$)  & \blue{1} & 0 & 0 & 0 & \ldots & \blue{1} & \\
+          f($e$)    & 0 & \red{1} & \green{1} & \yellow{1} & \ldots & \blue{1} &
+        \end{tabular}
       \vfil}}%
       \caption{Netzwerk $(\graph, \tau')$, in dem nach Aufrunden ein viel größerer
         Fluss möglich ist}\label{fig:ex_val_red_2}
@@ -222,12 +224,14 @@ Daraus ergibt sich die erste Bedingung, die an $(\graph, \tau)$ gestellt wird:
 \end{example}
 
 Aus diesem Beispiel ergibt sich die zweite Bedingung:
-\begin{enumerate}[resume, label={\textbf{(A\arabic*)}}]
+\begin{framed}
+\begin{enumerate}[start=2, label={(A\arabic*)}]
     \item Eine Lösung $\widetilde{f}$ in $(\graph, \widetilde{\tau})$ muss
         ohne großen Verlust in einen Fluss $f$ in $(\graph, \tau)$
         umgewandelt werden können: $||\widetilde{f}| - |f|| \leq \eps$.
         \label{a2}
 \end{enumerate}
+\end{framed}
 
 Diese beiden Eigenschaften sind auch hinreichend für eine beliebig genaue
 Approximation:

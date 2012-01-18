@@ -1,15 +1,18 @@
 %\chapter{Mathematical Foundations}\label{chap:math}
 
 \section{Grundlegende Definitionen und Problembeschreibung}\label{sec:problem}
-%TODO: Einleitung erweitern
+
+TODO: Einleitung erweitern
+
 In diesem Abschnitt soll kurz in die zu behandelnde Problematik eingeführt
 werden. Dazu werden die nötigen Begriffe definiert.
 
 \begin{definition}
     Wir verwenden übliche \term{Netzwerke} bzw. gerichtete, endliche \term{Graphen}
-    $\graph = (V, \A)$ aus Knoten und Kanten wobei $n := |V|$ und $m := |\A|$.
+    $\graph = (V, \A)$ bestehend aus Knoten und Kanten,
+    wobei $n := |V|$ und $m := |\A|$.
     
-    Zu einem Graphen gibt es einige nützliche Funktionen:
+    Einem solchen Netzwerk werden einige Funktionen zugeordnet:
     \begin{itemize}
         \item $\head : \A \rightarrow V$, $(u,v) \mapsto v$
         \item $\tail : \A \rightarrow V$, $(u,v) \mapsto u$
@@ -17,7 +20,7 @@ werden. Dazu werden die nötigen Begriffe definiert.
         \item $\inEdges : V \rightarrow 2^\A$, $v \mapsto \setDef{e \in \A}{head(e) = v}$
     \end{itemize}
     
-    Der Graph wird mit einigen Funktionen angereichert, die mit als Eingabe
+    Der Graph wird mit Funktionen angereichert, die mit als Eingabe
     für die Probleme dienen.
     \begin{itemize}
         \item $\tau : \A \rightarrow \R$, $e \mapsto \tau_e$ -- \term{Laufzeit}
@@ -36,7 +39,9 @@ hat im Gegensatz zum dynamischen keine Zeitkomponente.
         \item $D : S^+ \rightarrow \R_+$ -- \term{Zulauf}
         \item $D : S^- \rightarrow \R_-$ -- \term{Bedarf}
     \end{itemize}
-    die $\sum_{v \in S} D(v) = 0$ erfüllen.
+    die $\sum_{v \in S} D(v) = 0$ erfüllen. Wir nehmen dabei an, dass keine Kanten in
+    Quellen hineinführen und keine aus Senken heraus: $\inEdges(S^+) = \emptyset$ und
+    $\outEdges(S^-) = \emptyset$.
     
     Wenn $S^+ = \{s\}$ und $S^- = \{t\}$, dann schreiben wir kurz $d = D(s) = -D(t)$.
 \end{definition}

@@ -37,7 +37,7 @@ Also erfüllt das damit konstruierte Netzwerk $(\graph, \tau')$ die Eigenschafte
 zur Bestimmung eines solchen Flusses folgern. Dies wollen wir noch tun,
 bevor wir den Satz beweisen.
 
-\begin{algorithm}
+\begin{algorithm}[H]
 \caption{QTP-FPTAS-Core}
 \label{alg:qtp_core}
 \begin{algorithmic}[1]
@@ -81,8 +81,7 @@ TODO: Einbettung in Suchframework
     $\left|\tau(e) - \tau'(e)\right| \leq \frac{\eps^2T}{n}$ gilt. Definiere
     einen Fluss in $(\graph, \tau')$
     \[
-    \tilde{f}(P)(t) := \frac{1}{1+\eps} \frac{1}{\eps T}
-                            \int_{t - \eps T}^{t} f(P)(\theta) \; d\theta \text{ .}
+    \tilde{f} := \frac{1}{1+\eps} \bar{f} \text{ .}
     \]
     Dann ist $\tilde{f}$ zulässig und es gilt:
     \begin{enumerate}
