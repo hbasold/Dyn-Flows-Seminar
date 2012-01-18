@@ -2,10 +2,26 @@
 
 \section{Grundlegende Definitionen und Problembeschreibung}\label{sec:problem}
 
-TODO: Einleitung erweitern
+\subsection{Einleitung}
 
-In diesem Abschnitt soll kurz in die zu behandelnde Problematik eingeführt
-werden. Dazu werden die nötigen Begriffe definiert.
+In diesem Seminar wird ein Verfahren vorgestellt, mit dem allgemeine dynamische
+Flussprobleme in Netzwerken approximiert werden können. Ein dynamischer Fluss
+besitzt im
+Gegensatz zu einem statischen Fluss eine Zeitkomponente. Diese gibt an, wie
+lange ein Fluss benötigt, um über eine Kante zu gelangen. Der erste Ansatz
+dazu war, dass die Zeit genügend fein zu unterteilen (kleinere Zeitintervalle
+als Transportzeiten) und für jeden Zeitschritt die Knoten zu replizieren und
+entsprechend den Transportzeiten Kanten einzufügen. Hier können dann die
+bekannten Flussalgorithmen verwendet werden. Allerdings führt diese Art
+zu sehr großen Netzwerken. Trotzdem werden wir diese Idee weiter verfolgen.
+Dabei werden wir eine Approximation angeben, sodass die Größe des Netzwerks
+polynomiell in der Zeit sein wird.
+
+Wir werden diese Technik auf das Quickest-Transshipment-Problem anwenden,
+das in einem anderen Seminarvortrag vorgestellt wird.
+
+\subsection{Begriffe}
+Zunächst soll die verwendete Notation geklärt werden.
 
 \begin{definition}
     Wir verwenden übliche \term{Netzwerke} bzw. gerichtete, endliche \term{Graphen}
