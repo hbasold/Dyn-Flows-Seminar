@@ -4,7 +4,7 @@ Probleme zu lösen. Dabei werden wir etwas Arbeit leisten müssen, um
 $\Delta$ so zu wählen, dass \ref{a1} und \ref{a2} erfüllt sind.
 Allerdings kann einiges von den Beweisen wiederverwendet werden.
 
-\subsection{Quickest Transshipment mit einer Ware (singlecommodity)}
+\subsection{Quickest Transshipment mit einer Ware (single-commodity)}
 Zunächst betrachten wir folgendes Problem:
 
 \begin{problem}[Quickest Transshipment mit einer Ware und begrenzten Kosten]
@@ -69,8 +69,8 @@ Dies lässt sich in $\log T^*$ realisieren.
 Als nächstes soll $T^*$ durch $T$ approximiert werden,
 d.h. $T^* \leq T \leq (1+\eps) T^*$. Dies kann ebenfalls durch eine Art binäre Suche
 realisiert werden. Diese wird in \cite[Abschnitt 4]{Hassin} beschrieben. Auch hier
-wird lediglich eine Funktion, die angibt, ob für eine Schätzung
-$T < T^*$ oder $T \geq T^*$ gilt, benötigt. Dies leistet \algRef{qtp_core}.
+wird lediglich eine Funktion benötigt, die angibt, ob für eine Schätzung
+$T < T^*$ oder $T \geq T^*$ gilt. Dies leistet \algRef{qtp_core}.
 Hierbei ergeben sich nochmals $O(\log(1/\eps))$ Aufrufe des Algorithmus.
 
 Zuletzt betrachten wir noch die Laufzeit von QTP-FPTAS-Core selbst.
@@ -197,11 +197,11 @@ Damit ergibt sich dann:
 \end{standaloneProof}
 
 \begin{lemma}\label{lem:path_decomp}
-    Eine Pfadzerlegung $\pathSet$ von einem statischen Fluss $x$ in
+    Eine Pfadzerlegung $\pathSet$ eines statischen Flusses $x$ in
     $\redNetw{T'}{\Delta}$ kann in eine Pfadzerlegung $\pathSet'$ des
     zugehörigen dynamischen Flusses $f'$ in $(\graph, \tau')$ 
     transformiert werden. Dabei wird $\ropen{0, T'}$ in $T'/\Delta$
-    disjunkte Teilintervalle zerlegt, auf den $f'(P)$ auf allen $P \in \pathSet'$
+    disjunkte Teilintervalle zerlegt, auf denen $f'(P)$ für alle $P \in \pathSet'$
     konstant ist.
 \end{lemma}
 
@@ -226,13 +226,13 @@ Damit ergibt sich dann:
 \end{standaloneProof}
 
 \begin{remark}\label{rem:reuse}
-    Alles was wir für den Beweis von \theoRef{qtp_flow_ex} benutzt haben, ist
+    Alles, was wir für den Beweis von \theoRef{qtp_flow_ex} benutzt haben, ist
     unabhängig von einem speziellen Flussproblem gültig
     (bis auf \theoRef{qtp_opt_flow}). Dies liefert uns also ein „Framework“
     zur Konstruktion von Algorithmen und entsprechenden Beweisen.
 \end{remark}
 
-\subsection{Quickest Transshipment mit mehren Waren (multicommodity)}
+\subsection{Quickest Transshipment mit mehren Waren (multi-commodity)}
 \remRef{reuse} wollen wir direkt ausnutzen, um das obige Verfahren auf mehrere
 Waren zu verallgemeinern. Die Approximation hiervon ohne Speicher ist allerdings
 NP-hart (s. \cite{fleischerSiam}), da eine optimale Lösung ohne Speicher
@@ -252,14 +252,14 @@ anstatt einen Zyklus zu benutzen.
 
 Allerdings kann aus einem Pfad, auf dem Speicher verwendet wird, nicht mehr wie
 in dem Beweis von \theoRef{slow_flow} der Fluss auf Kanten rekonstruiert werden.
-Das kommt daher, dass dort erwartet wird, das sich die Laufzeit eines Flusses
+Das kommt daher, dass dort erwartet wird, dass sich die Laufzeit eines Flusses
 direkt aus $\tau$ ergibt. Mit Speicher ist dies aber nicht der Fall
 (zu $\tau(P \downarrow e)$ siehe \defRef{path_flow}).
 
 Daher erweitern wir hier \defRef{path_flow}. Dazu ordnen wir einer Pfadzerlegung
 Verzögerungen $\{\func{\delta_P}{V}{\R_+}\}_{P \in \pathSet}$ zu. Diese sagen aus,
-dass ein Fluss $\delta_P(v)$ Zeit an $v$ gespeichert wird, bevor er auf die nächste
-Kante auf dem Pfad geschickt wird.
+dass ein Fluss für die Zeit $\delta_P(v)$ bei $v$ gespeichert wird,
+bevor er auf die nächste Kante auf dem Pfad geschickt wird.
 
 Damit definieren wir wieder eine Erweiterung von $\tau$ durch
 \[
@@ -272,8 +272,8 @@ Nun ist der Fluss auf einer Kante analog wie in \defRef{path_flow} gegeben durch
                     f(P, t - \tau^{\delta}(P \downarrow e)) .
 \]
 
-Alles was wir im letzten Abschnitt getan haben, funktioniert mit $\tau^{\delta}$
-nun genauso.
+Alles was wir im letzten Abschnitt getan haben, funktioniert nun mit $\tau^{\delta}$
+genauso.
 
 %TODO: verallgemeinere \theoRef{slow_flow}, um Speicher mit dieser Definition
 %zuzulassen und setze in den Beweisen im letzten Abschnitt $\delta = 0$

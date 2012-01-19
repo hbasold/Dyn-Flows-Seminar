@@ -11,8 +11,8 @@ Gegensatz zu einem statischen Fluss eine Zeitkomponente. Diese gibt an, wie
 lange ein Fluss benötigt, um über eine Kante zu gelangen. Der erste Ansatz
 dazu war, die Zeit genügend fein zu unterteilen (kleinere Zeitintervalle
 als Transportzeiten) und für jeden Zeitschritt die Knoten zu replizieren und
-entsprechend den Transportzeiten Kanten einzufügen. Hier können dann die
-bekannten Flussalgorithmen verwendet werden. Allerdings führt diese Art
+Kanten entsprechend den Transportzeiten einzufügen. Hier können dann die
+bekannten Flussalgorithmen verwendet werden. Allerdings führt dieser Ansatz
 zu sehr großen Netzwerken. Trotzdem werden wir diese Idee weiter verfolgen.
 Dabei werden wir eine Approximation angeben, sodass die Größe des Netzwerks
 polynomiell in der Zeit sein wird.
@@ -135,9 +135,8 @@ hat im Gegensatz zum dynamischen keine Zeitkomponente.
 \end{definition}
 
 Nachdem wir nun statische Flüsse ohne Zeitkomponente kennengelernt haben,
-wollen wir Flüsse über Zeit (dynamische Flüsse) betrachten. Werden direkt
-die allgemeinere Definition mit mehreren Waren geben.
-% BjH: Im letzten Satz fehlt ein Wort.
+wollen wir Flüsse über Zeit (dynamische Flüsse) betrachten. Dabei sehen
+wir uns direkt Flüsse mit mehreren Waren an.
 
 \begin{definition}
     Ein \term{dynamischer Fluss} ist eine Familie von Funktionen
