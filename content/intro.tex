@@ -65,25 +65,6 @@ hat im Gegensatz zum dynamischen keine Zeitkomponente.
     Wenn $S^+ = \{s\}$ und $S^- = \{t\}$, dann schreiben wir kurz $d = D(s) = -D(t)$.
 \end{definition}
 
-\begin{remark}
-    Um die Betrachtungen zu vereinfachen, wollen wir die Terminalknoten
-    für jede Ware durch jeweils einen Knoten ersetzen. Dazu können
-    Knoten $\setDef{s_i}{i \in K}$ und $\setDef{t_i}{i \in K}$ zu dem
-    Netzwerk hinzugefügt werden. Diese werden mit den jeweiligen
-    Terminalknoten verbunden: $(s_i, v)$ für alle $v \in S_i^+$ und
-    $(v,t_i)$ für alle $v \in S_i^-$. Diesen Knoten wird die Kapazität $\infty$
-    und Laufzeit $0$ zugeordnet. Diese Knoten werden zu den neuen Terminalen
-    erklärt.
-
-    Dann lassen sich die Bedarfsfunktionen pro Ware definieren:
-    $D(i) = \sum_{v \in S_i^+} D(vi)$.
-
-    Wir werden also lediglich Netzwerke betrachten, die pro Ware nur eine
-    Quelle und Senke haben.
-
-    % BjH: Diese Bemerkung bezieht sich auf mehrere Waren, was aber erst weiter unten eingeführt wird (insbesondere auch die Symbole mit den $i$-Indizes).
-\end{remark}
-
 \begin{definition}[Statischer Fluss mit einer Ware]
     Ein statischer Fluss ist eine Abbildung $x : \A \rightarrow \R_+$ mit
     \[ \sum_{e \in \outEdges(v)} x(e) - \sum_{e \in \inEdges(v)} x(e) = 0
@@ -118,6 +99,23 @@ hat im Gegensatz zum dynamischen keine Zeitkomponente.
     Wir setzen $S := \bigcup\limits_{i \in K} S_i$.
 \end{definition}
 
+\begin{remark}
+    Um die Betrachtungen zu vereinfachen, wollen wir die Terminalknoten
+    für jede Ware durch jeweils einen Knoten ersetzen. Dazu können
+    Knoten $\setDef{s_i}{i \in K}$ und $\setDef{t_i}{i \in K}$ zu dem
+    Netzwerk hinzugefügt werden. Diese werden mit den jeweiligen
+    Terminalknoten verbunden: $(s_i, v)$ für alle $v \in S_i^+$ und
+    $(v,t_i)$ für alle $v \in S_i^-$. Diesen Knoten wird die Kapazität $\infty$
+    und Laufzeit $0$ zugeordnet. Diese Knoten werden zu den neuen Terminalen
+    erklärt.
+
+    Dann lassen sich die Bedarfsfunktionen pro Ware definieren:
+    $D(i) = \sum_{v \in S_i^+} D(vi)$.
+
+    Wir werden also lediglich Netzwerke betrachten, die pro Ware nur eine
+    Quelle und Senke haben.
+\end{remark}
+
 \begin{definition}[Statischer Fluss mit mehreren Waren]
     Die Waren induzieren eine Familie von statischen Flüssen
     $x = \{\func{x_i}{\A}{\R_+}\}_{i \in K}$. Dabei ist $x$ zulässig, wenn die
@@ -142,9 +140,10 @@ wir uns direkt Flüsse mit mehreren Waren an.
     Ein \term{dynamischer Fluss} ist eine Familie von Funktionen
     $\{\func{f_i}{\A \times \ropen{0,T}}{\R_+}\}_{i \in K}$.
     $f_i(e,t)$ ist die \term{Flussrate}, die zur Zeit $t$ an der Kante $e$ anliegt.
-    Dabei muss \\ $\lim_{t \to T} f_i(e,t) = 0$ gelten. Dann kann $f$ stetig
-    auf $\ropen{T, +\infty}$ fortgesetzt werden.
-    % BjH: Wo kommt das $\lim_{t \to T}$ her? Zumindest kann ich es im Paper nicht finden. Ein Limes setzt Konvergenz voraus; darf die Flussrate nicht pl\"otzlich auf Null gehen? (siehe auch lim unten.)
+    $f$ kann auf $\ropen{0, +\infty}$ mit $f(t) = 0$ für $t \in \ropen{T, +\infty}$
+    fortgesetzt werden.
+    % HB: meine Erwartung ist nur, dass der Fluss irgendwann zu Ende ist.
+    %    Aber so sollte es auch reichen.
 
     Schreibe auch: $\func{f_i(e)}{\ropen{0,T}}{\R_+}$ mit $f_i(e)(t) = f_i(e,t)$.
 
@@ -163,8 +162,8 @@ wir uns direkt Flüsse mit mehreren Waren an.
             und $t \in \ropen{0,T}$
         \item $F_i(v, t) = 0$ für alle $v \in V \setminus S$ und $t \in \ropen{0,T}$
             ohne Speicher bzw. $F_i(v, t) \leq 0$ wenn Speicher zugelassen ist.
-            Dann muss aber auch $\lim_{t \to T} F_i(v, t) = 0$,
-            damit kein Fluss zurückbleibt.
+            Dann muss aber auch $F_i(v, T) = 0$, damit kein Fluss zurückbleibt.
+            % HB: sollte es eigentlich tun
     \end{itemize}
 
     %Der Gesamtfluss auf einer Kante ist die Summe über alle Warenflüsse:
