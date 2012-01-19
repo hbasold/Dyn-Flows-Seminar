@@ -23,8 +23,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="2.0866666"
-     inkscape:cx="194.72164"
-     inkscape:cy="309.00155"
+     inkscape:cx="110.37659"
+     inkscape:cy="441.20877"
      inkscape:current-layer="layer2"
      inkscape:document-units="px"
      showgrid="false"
@@ -1474,7 +1474,7 @@
        transform="translate(0.112664,0)">
       <path
          style="fill:none;stroke:#d200df;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#marker3052R)"
-         d="m 71.639177,163.89775 25.394881,0"
+         d="m 71.526513,163.89775 25.394881,0"
          id="path3104-4"
          inkscape:connector-type="polyline"
          inkscape:connector-curvature="0" />
@@ -1491,23 +1491,22 @@
            sodipodi:role="line">:H</tspan></text>
     </g>
     <g
-       id="g3187"
-       transform="translate(1.305866,-20.127796)">
+       id="g3187">
       <path
          style="fill:none;stroke:#d200df;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:3, 3;stroke-dashoffset:0;marker-end:url(#marker3052R)"
-         d="m 70.445975,215.52702 25.39488,0"
+         d="m 70.445975,195.39923 25.39488,0"
          id="path3104-4-2"
          inkscape:connector-type="polyline"
          inkscape:connector-curvature="0" />
       <text
          sodipodi:linespacing="125%"
          id="text4882-4"
-         y="221.59636"
-         x="99.38871"
+         y="201.46857"
+         x="100.69457"
          style="font-size:22px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Bitstream Vera Sans"
          xml:space="preserve"><tspan
-           y="221.59636"
-           x="99.38871"
+           y="201.46857"
+           x="100.69457"
            id="tspan4884-3"
            sodipodi:role="line">:Speicher</tspan></text>
     </g>
