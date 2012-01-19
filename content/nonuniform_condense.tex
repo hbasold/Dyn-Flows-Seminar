@@ -1,12 +1,24 @@
 \section{Nicht gleichförmig reduzierte zeiterweiterte Netzwerke}\label{sec:nonunif_cond}
 Die gleichmäßige Unterteilung der Zeit durch $\timeDom = \{0,1, \ldots, T-1\}$ kann bei
 anderen Problemen zu schlechten Ergebnissen führen. Wir wollen dazu kurz das Problem
-des „Earliest Arrival Flows“ und dazu ein kritisches Beispiel betrachten.
+des „Earliest-Arrival-Flows“ und dazu ein kritisches Beispiel betrachten.
 
-TODO: Problem
+\begin{problem}[Earliest-Arrival-Flow]
+\label{prob:qtp_single}
+    Sei ein Netzwerk $(\graph, \tau)$ mit $K=\{1\}$ und einer Senke $t$, sowie
+    $T > 0$ gegeben.
+
+    Gesucht ist ein Fluss $f^*$, der zu jedem Zeitpunkt $t \in \ropen{0,T}$
+    maximal ist.
+\end{problem}
+
+Wir haben gesehen, dass ein statischer Fluss in $\tExp{T}$ als dynamischer Fluss
+interpretiert werden kann. Dies ergibt einen Fluss, der stückweise konstant ist.
+Danach wurde ein solcher Fluss über ein Zeitintervall verteilt. Dies kann
+aber zu Problemen führen:
 
 \begin{example}
-TODO: Beispiel + Bild
+    Wir betrachten das Netzwerk aus \figRef{ex_non_uniform}.
     \begin{figure}[H]
     \centering
     \includegraphics[width=0.4\textwidth]{ex_non_uniform}
@@ -14,6 +26,20 @@ TODO: Beispiel + Bild
                 Zahlen unterteilt werden kann}
     \label{fig:ex_non_uniform}
     \end{figure}
+    Um den Bedarf zu erfüllen und möglichst früh den höchsten Fluss
+    zu haben, wäre
+    \[
+        f(t) = \begin{cases}
+            2, t \in \ropen{0,\frac{1}{2}} \vspace{3pt} \\
+            0, t \in \ropen{\frac{1}{2}, 1}
+        \end{cases}
+    \]
+    eine Lösung für das Earliest-Arrival-Problem.
+
+    Wählen wir als Zeitunterteilung Intervalle der Länge $1$, muss dieser Fluss
+    über einen Zeitraum von $1$ gemittelt werden. Also ergibt sich der Fluss
+    $\widetilde{f}(t) = 1$. Dieser weicht aber um den Faktor $2$ von der
+    besten Lösung ab.
 \end{example}
 
 Man kann dieses Problem umgehen, indem man den Zeitverlauf anders unterteilt. In dem
@@ -55,4 +81,6 @@ die entsprechende Definition des zeitertweiterten Netzwerks ansehen.
     eine Verallgemeinerung.
 \end{remark}
 
-TODO: wie werden diese benutzt?
+Mit dieser Konstruktion kann auch für Earliest-Arrival-Flows eine
+$(1+\eps)$-Approximation bestimmt werden.
+% TODO: wie werden diese benutzt?
