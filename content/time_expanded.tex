@@ -17,10 +17,11 @@ Wir nehmen dabei an, dass die Zeiten ganzzahlig sind. Dies ist durch Skalierung
 der Zeit auf die gewünschte Genauigkeit für Anwendungen problemlos möglich.
 
 \begin{definition}[Zeiterweitertes Netzwerk]
-    Sei $(\graph, \tau)$ ein Netzwerk mit $\tau(e) \in \N$ für alle $e \in \A$
-    und $T \in \N$. Setze $\timeDom = \{0, 1, \ldots, T-1\}$.
-    Wir definieren damit das \term{zeiterweiterte Netzwerk} $\tExp{T} = (V^T, \A^T)$
-    mit
+    Sei $(\graph, \tau)$ ein Netzwerk mit Waren $K$. Seien außerdem
+    $\tau(e) \in \N$ für alle $e \in \A$ und $T \in \N$.
+
+    Setze $\timeDom := \{0, 1, \ldots, T-1\}$. Wir definieren damit das
+    \term{zeiterweiterte Netzwerk} $\tExp{T} = (V^T, \A^T)$ durch
     \begin{itemize}
         \item $V^T = V \times \timeDom$ (schreibe $v_t = (v, t)$ und
             $V_t = \{v_t \in V^T\}$)
@@ -42,8 +43,7 @@ der Zeit auf die gewünschte Genauigkeit für Anwendungen problemlos möglich.
                 \end{cases}$
         \item $S_i^{+,T} = \setDef{v_0 \in V^T}{v \in S_i^+}$, \\
                 $S_i^{-,T} = \setDef{v_{T-1} \in V^T}{v \in S_i^-}$ und damit \\
-                $S_i^T = S_i^{+,T} \disjUnion S_i^{-,T}$
-% BjH: Hier fehlt immer noch die Definition von $i$. $i$ wurde zwar oben schon eingef\"uhrt, aber diese Definition definiert sich alle Symbole erneut.
+                $S_i^T = S_i^{+,T} \disjUnion S_i^{-,T} \text{ für alle } i \in K$
     \end{itemize}
     Sollte Speicher an Knoten $V \setminus S$ zugelassen sein, dann müssen analog
     zu $H$ weitere Speicherkanten eingefügt werden.
@@ -129,8 +129,7 @@ Das führt zu den \term{skalierten Netzwerken}:
     \begin{proof}
         Wende \lemRef{static_dyn_conv} auf $x_i$ an, dies ergibt einen Fluss
         $\func{\hat{f}_i}{\A \times \ropen{0, T/\Delta}}{\R_+}$. Mit Skalierung der
-        Zeit um $\Delta$ ergibt sich $f$. Der Rest ist klar.
-        % BjH: ``klar'' -> ``leicht nachvollziehbar''? Klingt etwas seri\"oser.
+        Zeit um $\Delta$ ergibt sich $f$. Die Kosten ändern sich dabei nicht.
     \end{proof}
 \end{lemma}
 
@@ -201,6 +200,8 @@ bezeichnen dabei mit $T^*$ die jeweils optimale Laufzeit.
         d.h. $|\widetilde{T}^* - T^*| \leq \eps$,
         wenn $|\widetilde{\tau}(e) - \tau(e)| \leq \eps$. \label{a1}
         % BjH: Hier ist mir noch nicht ganz klar. Entlang eines Pfades k\"onnten sich doch die Rundungen \"uber verschiedene Kanten aufsummieren.
+        % HB: tatsächlich verschiebt man den ganzen Fluss überall nur um \eps und damit
+        %       insgesamt auch nur um \eps (sonst würde Lemma 3.4 auch nicht funktionieren)
 \end{enumerate}
 \end{framed}
 
