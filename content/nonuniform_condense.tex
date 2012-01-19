@@ -12,14 +12,14 @@ Beispiel würde die Unterteilung in Intervalle der Größe $\frac{1}{2}$
 genügen ($\timeDom = \{0, \frac{1}{2}, 1\}$). Wir wollen uns für diesen Fall nur
 die entsprechende Definition des zeitertweiterten Netzwerks ansehen.
 
-\begin{definition}[zeiterweitertes Netzwerk mit beliebigen Zeitintervallen]
+\begin{definition}[Zeiterweitertes Netzwerk mit beliebigen Zeitintervallen]
     Sei $(\graph, \tau)$ und $L = (\theta_q)_{q \in R}$, wobei $R = \{0, \ldots, r\}$,
     sodass
     \[
         0 = \theta_0 < \theta_1 < \ldots < \theta_r < T.
     \]
     Setze $\theta_{r+1} = T$.
-    Dann ist das \term{L-zeitexpandierte Netzwerk} $\tExp{L} = (V^L, \A^L)$
+    Dann ist das \term{L-zeiterweiterte Netzwerk} $\tExp{L} = (V^L, \A^L)$
     gegeben durch
     \begin{itemize}
         \item $V^L = V \times R$ (schreibe $v_q = (v, q)$ und
@@ -36,7 +36,7 @@ die entsprechende Definition des zeitertweiterten Netzwerks ansehen.
         m(e, q) := \min \setDef{q' \in R}{\theta_q + \tau(e) \leq \theta_{q'}}.
     \]
     $m$ bestimmt also das Intervall, zwischen welchen die Kante $e$ transportiert.
-    Die Rest ist analog wie bei den ursprünglichen zeiterweiterten Netzwerken
+    Der Rest ist analog wie bei den ursprünglichen zeiterweiterten Netzwerken
     definiert.
 \end{definition}
 
