@@ -6,11 +6,12 @@ umzuwandeln. Dazu werden für jeden Zeitschritt Kopien der Knoten von $\graph$
 angelegt. Dabei gibt die Zeitkomponente den Zeitpunkt eines Flusses an. Daher
 werden in dem neuen Graph zwei Knoten genau dann verbunden, wenn die Knoten
 im ursprünglichen Graphen durch eine Kante $e \in \A$ verbunden gewesen sind und
-sie $\tau(e)$ Zeitschritte entfernt sind. Zusätzlich müssen wir noch Kanten
-zwischen den einzelnen Zeitschritten der Quellen und Senken einfügen, damit
-der Fluss auch am Ende der Zeit des Flusses verfügbar ist, denn wir werden
-die Kopien der Senken zum Zeitpunkt $T-1$ als neue Senken erklären.
-% BjH: Der letzte Satz ist kaum verst\"andlich.
+sie $\tau(e)$ Zeitschritte entfernt sind. Zusätzlich werden sogenannte
+\term{Haltekanten} eingefügt. Diese verbinden jeweils die Kopie eines
+Terminals mit der Kopie vom nächsten Zeitschritt. Diese Stellen den Speicher
+für bisher nicht verschickte bzw. bereits angekommene Waren dar.
+Daher wird dann auch eine Kopie einer Quelle bei Zeit $0$ zur neuen Quelle
+und eine Kopie einer Senke bei Zeit $T-1$ zur neuen Senke erklärt.
 
 Wir nehmen dabei an, dass die Zeiten ganzzahlig sind. Dies ist durch Skalierung
 der Zeit auf die gewünschte Genauigkeit für Anwendungen problemlos möglich.
@@ -67,7 +68,8 @@ der Zeit auf die gewünschte Genauigkeit für Anwendungen problemlos möglich.
     \begin{figure}[H]
     \centering
     \includegraphics[width=0.5\textwidth]{ex_time_expanded_1}
-    \caption{Awesome Image}
+    \caption{Einfaches Netzwerk, mit eingefärbten Kanten, sodass diese im
+                zeiterweiterten wiedererkannt werden können}
     \label{fig:ex_time_expanded_1}
     \end{figure}
 
@@ -79,8 +81,7 @@ der Zeit auf die gewünschte Genauigkeit für Anwendungen problemlos möglich.
     \begin{figure}[H]
     \centering
     \includegraphics[width=0.7\textwidth]{ex_time_expanded_2}
-    \caption{Awesome Image}
-    % BjH: Arbeitstitel hier und bei einigen folgenden Bildern ersetzen.
+    \caption{Beispiel für ein zeiterweitertes Netzwerk}
     \label{fig:ex_time_expanded_2}
     \end{figure}
 \end{example}
@@ -134,8 +135,8 @@ Das führt zu den \term{skalierten Netzwerken}:
 \end{lemma}
 
 Wenn $p(\Delta) \in O(T)$ mit einem Polynom $p$ gewählt werden kann, funktioniert
-% BjH: Verstehe ich nicht ganz.
-dieses Verfahren gut. Leider wird dies in den meisten Fällen nicht möglich sein.
+dieses Verfahren gut, da dann $T/\Delta \in O(T)$. Leider wird dies in den meisten
+Fällen nicht möglich sein.
 Die Idee ist nun, $\Delta$ so zu wählen, dass man $\tau(e)$ „vernünftig“ zum
 nächsten Vielfachen von $\Delta$ runden kann. Damit könnte man
 \lemRef{reduced_static_dyn_conv} anwenden. Allerdings kann ein solches
@@ -190,14 +191,15 @@ veranschaulicht und daraus Bedingungen an $\Delta$ gestellt werden.
     Zeiteinheiten.
 \end{example}
 
-Daraus ergibt sich die erste Bedingung, die an $(\graph, \tau)$ gestellt wird:
+Daraus ergibt sich die erste Bedingung, die an $(\graph, \tau)$ gestellt wird. Wir
+bezeichnen dabei mit $T^*$ die jeweils optimale Laufzeit.
 \begin{framed}
 \begin{enumerate}[label={(A\arabic*)}]
-    \item Die optimale Laufzeit in $(\graph, \widetilde{\tau})$ approximiert
-        die optimale Laufzeit in $(\graph, \tau)$,
+    \item Die optimale Laufzeit $\widetilde{T}^*$ eines Flussproblems in
+        $(\graph, \widetilde{\tau})$ approximiert die optimale Laufzeit $T^*$
+        desselben Problems in $(\graph, \tau)$,
         d.h. $|\widetilde{T}^* - T^*| \leq \eps$,
         wenn $|\widetilde{\tau}(e) - \tau(e)| \leq \eps$. \label{a1}
-        % BjH: Was bedeuten Stern und Tilde hier?
         % BjH: Hier ist mir noch nicht ganz klar. Entlang eines Pfades k\"onnten sich doch die Rundungen \"uber verschiedene Kanten aufsummieren.
 \end{enumerate}
 \end{framed}
@@ -264,9 +266,12 @@ Approximation:
     Dann kann ein optimaler Fluss $f_1^*$ in $(\graph, \tau_2)$ approximiert werden,
     wenn ein optimaler Fluss $f_2^*$ in $(\graph, \tau_2)$ approximiert werden kann.
     % BjH: Wo ist $\tau_1$ geblieben?
+    % HB: das ist schon so gemeint: ich kann f_1^* in (N, tau_2) approximieren.
+    %       Das wollen wir ja gerade: Zeiten runden (tau_2) und dann für
+    %       das ursprüngliche Netzwerk approximieren.
 
     \begin{proof}    
-        Sei $\eps > 0$ und $\tau_2 - \tau_1 \leq \eps$ und seien
+        Sei $\eps > 0$ und o.B.d.A. $\tau_2 - \tau_1 \leq \eps$ und seien
         $f_1^*$ und $f_2^*$ jeweils optimale Flüsse, die bei
         $T_1^*$ bzw. $T_2^*$ enden. Nach \ref{a1} ist $T_2^* - T_1^*\leq \eps$.
 
@@ -281,6 +286,7 @@ Approximation:
                             & \leq ||f_2| - |f_2^*|| + 2 \eps \\
                             & \leq 3 \eps
             % BjH: Sollte Epsilon hier nicht immer au\ss{}erhalb des Betrags stehen? Wenn die Differenz innerhalb des Betrags negativ ist, kann das Epsilon den Absolutwert verkleinern.
+            % HB: Ich habe hier nur ersetzt, was in (A1) steht : |f_1^*| \leq |f_2^*| - \eps
         \end{align*}
         und
         \begin{align*}
@@ -288,11 +294,10 @@ Approximation:
                 & \leq \eps + 2\eps \\
                 & = 3 \eps
             % BjH: Hier und oben fehlen vermutlich die Betr\"age.
+            % HB: habs oben hinzugeschrieben: Annahme ist, dass tau_2 nach oben aufrundet.
         \end{align*}
         
-        Wähle als $\delta = \frac{\eps}{3}$. Dann kann $f_1^*$ in
-        $(\graph, \tau_2)$ beliebig genau approximiert werden.
-        % BjH: Was ist $\delta$?
+        Somit kann $f_1^*$ in $(\graph, \tau_2)$ beliebig genau approximiert werden.
     \end{proof}
 \end{corollary}
 

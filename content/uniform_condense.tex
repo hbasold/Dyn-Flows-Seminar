@@ -62,8 +62,7 @@ Wir wollen noch kurz beschreiben, wie QTP-FPTAS-Core zur Approximation von
 $T^*$ verwendet werden kann.
 
 Dazu bestimmen wir zunächst mit Hilfe von Bisektion (Intervallhalbierung)
-und der Verwendung von \algRef{qtp_core} als Test kann ein Intervall mit
-% BjH: Satzbau
+und der Verwendung von \algRef{qtp_core} als Test ein Intervall mit
 $T^* \in \interv{L,U}$. Dabei muss lediglich $U \in O(L)$ gelten.
 Dies lässt sich in $\log T^*$ realisieren.
 
@@ -88,17 +87,17 @@ Zuletzt betrachten wir noch die Laufzeit von QTP-FPTAS-Core selbst.
         $\redNetw{T'}{\Delta}$ enthält
         \begin{align*}
             n T'/\Delta & = n \lceil (1 + \eps)^3 T/\Delta \rceil \\
-                        & = n \left(1 + \left\lfloor \frac{(1 + \eps)^3 T}{\Delta}
-                            -\frac{1}{2} \right\rfloor \right) \\
-                        % BjH: Diese Zeile scheint nicht zu stimmen (setze mal 1,1 als zu rundenden Wert oben ein). Wenn du sie streichst, stimmt die folgende Ungleichung aber wieder.
-                        & \leq n + \frac{n(1 + \eps)^3T}{(\eps^2T/n)} \\
+                        & = n \left\lceil \frac{(1 + \eps)^3T}{(\eps^2T/n)} \right\rceil \\
+                        & = n \left\lceil \frac{n(1 + \eps)^3}{\eps^2} \right\rceil \\
+                        & \leq n (1 + \frac{n(1 + \eps)^3}{\eps^2}) \\
                         & = n + \frac{n^2(1 + \eps)^3}{\eps^2} \\
                         & \in O(n^2/\eps^2), \text{wenn } 0 < \eps \leq 1
         \end{align*}
-        Knoten. Und genauso für die Zahl der Kanten.
-        % BjH: Wenn du die Herleitung f\"ur die Anzahl der Kanten machst und dann sagst, bei den Knoten muss $m$ durch $n$ ersetzt werden, wird deutlicher, warum zumindest ein $n$ in beiden Ausdr\"ucken steht.
+        Knoten. Für die Zahl der Kanten, kann $n$ durch $m$ ersetzt werden.
 
         % BjH: Hier ist der Beiweis schon zuende.
+        % HB: wenn der letzte Schritt exponentiell wäre, dann nützt auch ein
+        %       kleines Netzwerk nicht.
 
         Zuletzt bleibt noch die Bestimmung von $f$ in Schritt 3. Wie wir aber
         sehen werden, ist $f'$ auf einer Zerlegung in $T'/\Delta$ Intervalle
@@ -136,9 +135,8 @@ Wir beginnen nun mit den Vorarbeiten zum Beweis von \theoRef{qtp_flow_ex}.
     $\left|\tau(e) - \tau'(e)\right| \leq \frac{\eps^2T}{n}$ gilt. Definiere
     einen Fluss in $(\graph, \tau')$
     \[
-    \tilde{f} := \frac{1}{1+\eps} \bar{f} \text{ .}
+    \tilde{f} := \frac{1}{1+\eps} \bar{f} \text{(s. \lemRef{flow_avg}) .}
     \]
-    % BjH: Hier w\"urde ich erg\"anzen, dass $\bar{f}$ gem\"a\ss{} dem letzten Lemma definiert sein soll, da alle anderen Gr\"o\ss{}en auch nochmal innerhalb dieses Satzes definiert wurden.
     Dann ist $\tilde{f}$ zulässig und es gilt:
     \begin{enumerate}
         \item $\tilde{f}$ endet bei $\delta + T + \eps T + \eps^2 T$
@@ -227,7 +225,7 @@ Damit ergibt sich dann:
     \begin{flushright}\qed \end{flushright}
 \end{standaloneProof}
 
-\begin{remark}
+\begin{remark}\label{rem:reuse}
     Alles was wir für den Beweis von \theoRef{qtp_flow_ex} benutzt haben, ist
     unabhängig von einem speziellen Flussproblem gültig
     (bis auf \theoRef{qtp_opt_flow}). Dies liefert uns also ein „Framework“
@@ -235,8 +233,7 @@ Damit ergibt sich dann:
 \end{remark}
 
 \subsection{Quickest Transshipment mit mehren Waren (multicommodity)}
-Dies wollen wir direkt ausnutzen, um das obige Verfahren auf mehrere
-% BjH: Worauf bezieht sich ``Dies'' genau?
+\remRef{reuse} wollen wir direkt ausnutzen, um das obige Verfahren auf mehrere
 Waren zu verallgemeinern. Die Approximation hiervon ohne Speicher ist allerdings
 NP-hart (s. \cite{fleischerSiam}), da eine optimale Lösung ohne Speicher
 Zyklen enthalten kann. Mit Speicher kann allerdings einfach gewartet werden,
@@ -257,8 +254,7 @@ Allerdings kann aus einem Pfad, auf dem Speicher verwendet wird, nicht mehr wie
 in dem Beweis von \theoRef{slow_flow} der Fluss auf Kanten rekonstruiert werden.
 Das kommt daher, dass dort erwartet wird, das sich die Laufzeit eines Flusses
 direkt aus $\tau$ ergibt. Mit Speicher ist dies aber nicht der Fall
-(s. dazu Definition von $\tau(P \downarrow e)$).
-% BjH: Wo war diese Definition? Ohne zumindest eine Seitenzahl ist die Referenz f\"ur Leser kaum brauchbar.
+(zu $\tau(P \downarrow e)$ siehe \defRef{path_flow}).
 
 Daher erweitern wir hier \defRef{path_flow}. Dazu ordnen wir einer Pfadzerlegung
 Verzögerungen $\{\func{\delta_P}{V}{\R_+}\}_{P \in \pathSet}$ zu. Diese sagen aus,
@@ -276,9 +272,8 @@ Nun ist der Fluss auf einer Kante analog wie in \defRef{path_flow} gegeben durch
                     f(P, t - \tau^{\delta}(P \downarrow e)) .
 \]
 
-Alles was wir im letzten Abschnitt getan haben, funktioniert nun mit $\tau^{\delta}$
+Alles was wir im letzten Abschnitt getan haben, funktioniert mit $\tau^{\delta}$
 nun genauso.
-% BjH: ``nun'' doppelt.
 
 %TODO: verallgemeinere \theoRef{slow_flow}, um Speicher mit dieser Definition
 %zuzulassen und setze in den Beweisen im letzten Abschnitt $\delta = 0$
