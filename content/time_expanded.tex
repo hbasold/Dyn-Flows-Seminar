@@ -1,20 +1,21 @@
 \section{Zeiterweiterte Netzwerke}
 
 Unser Ziel ist ein polynomielles Approximationsschema für Quickest-Flow-Probleme.
-Die Idee dabei ist, ein Netzwerk $\graph$ in ein \term{zeit-erweitertes Netzwerk}
+Die Idee dabei ist, ein Netzwerk $\graph$ in ein \term{zeiterweitertes Netzwerk}
 umzuwandeln. Dazu werden für jeden Zeitschritt Kopien der Knoten von $\graph$
 angelegt. Dabei gibt die Zeitkomponente den Zeitpunkt eines Flusses an. Daher
-werden in dem neuen Graph zwei Knoten verbunden, genau dann wenn die Knoten
+werden in dem neuen Graph zwei Knoten genau dann verbunden, wenn die Knoten
 im ursprünglichen Graphen durch eine Kante $e \in \A$ verbunden gewesen sind und
 sie $\tau(e)$ Zeitschritte entfernt sind. Zusätzlich müssen wir noch Kanten
 zwischen den einzelnen Zeitschritten der Quellen und Senken einfügen, damit
 der Fluss auch am Ende der Zeit des Flusses verfügbar ist, denn wir werden
 die Kopien der Senken zum Zeitpunkt $T-1$ als neue Senken erklären.
+% BjH: Der letzte Satz ist kaum verst\"andlich.
 
 Wir nehmen dabei an, dass die Zeiten ganzzahlig sind. Dies ist durch Skalierung
 der Zeit auf die gewünschte Genauigkeit für Anwendungen problemlos möglich.
 
-\begin{definition}[zeiterweitertes Netzwerk]
+\begin{definition}[Zeiterweitertes Netzwerk]
     Sei $(\graph, \tau)$ ein Netzwerk mit $\tau(e) \in \N$ für alle $e \in \A$
     und $T \in \N$. Setze $\timeDom = \{0, 1, \ldots, T-1\}$.
     Wir definieren damit das \term{zeiterweiterte Netzwerk} $\tExp{T} = (V^T, \A^T)$
@@ -41,6 +42,7 @@ der Zeit auf die gewünschte Genauigkeit für Anwendungen problemlos möglich.
         \item $S_i^{+,T} = \setDef{v_0 \in V^T}{v \in S_i^+}$, \\
                 $S_i^{-,T} = \setDef{v_{T-1} \in V^T}{v \in S_i^-}$ und damit \\
                 $S_i^T = S_i^{+,T} \disjUnion S_i^{-,T}$
+% BjH: Hier fehlt immer noch die Definition von $i$. $i$ wurde zwar oben schon eingef\"uhrt, aber diese Definition definiert sich alle Symbole erneut.
     \end{itemize}
     Sollte Speicher an Knoten $V \setminus S$ zugelassen sein, dann müssen analog
     zu $H$ weitere Speicherkanten eingefügt werden.
@@ -78,11 +80,12 @@ der Zeit auf die gewünschte Genauigkeit für Anwendungen problemlos möglich.
     \centering
     \includegraphics[width=0.7\textwidth]{ex_time_expanded_2}
     \caption{Awesome Image}
+    % BjH: Arbeitstitel hier und bei einigen folgenden Bildern ersetzen.
     \label{fig:ex_time_expanded_2}
     \end{figure}
 \end{example}
 
-Da wir dynamische Flüsse in mit Hilfe von Algorithmen für statische Flüsse
+Da wir dynamische Flüsse mit Hilfe von Algorithmen für statische Flüsse
 konstruieren wollen, müssen wir zwischen Flüssen $f$ in $\graph$ und
 Flüssen $x$ in $\tExp{T}$ wechseln können:
 
@@ -126,10 +129,12 @@ Das führt zu den \term{skalierten Netzwerken}:
         Wende \lemRef{static_dyn_conv} auf $x_i$ an, dies ergibt einen Fluss
         $\func{\hat{f}_i}{\A \times \ropen{0, T/\Delta}}{\R_+}$. Mit Skalierung der
         Zeit um $\Delta$ ergibt sich $f$. Der Rest ist klar.
+        % BjH: ``klar'' -> ``leicht nachvollziehbar''? Klingt etwas seri\"oser.
     \end{proof}
 \end{lemma}
 
 Wenn $p(\Delta) \in O(T)$ mit einem Polynom $p$ gewählt werden kann, funktioniert
+% BjH: Verstehe ich nicht ganz.
 dieses Verfahren gut. Leider wird dies in den meisten Fällen nicht möglich sein.
 Die Idee ist nun, $\Delta$ so zu wählen, dass man $\tau(e)$ „vernünftig“ zum
 nächsten Vielfachen von $\Delta$ runden kann. Damit könnte man
@@ -192,6 +197,8 @@ Daraus ergibt sich die erste Bedingung, die an $(\graph, \tau)$ gestellt wird:
         die optimale Laufzeit in $(\graph, \tau)$,
         d.h. $|\widetilde{T}^* - T^*| \leq \eps$,
         wenn $|\widetilde{\tau}(e) - \tau(e)| \leq \eps$. \label{a1}
+        % BjH: Was bedeuten Stern und Tilde hier?
+        % BjH: Hier ist mir noch nicht ganz klar. Entlang eines Pfades k\"onnten sich doch die Rundungen \"uber verschiedene Kanten aufsummieren.
 \end{enumerate}
 \end{framed}
 
@@ -202,7 +209,7 @@ Daraus ergibt sich die erste Bedingung, die an $(\graph, \tau)$ gestellt wird:
     konstruieren, als im Originalnetzwerk. Wir betrachten dazu das Netzwerk
     in \figRef{ex_val_red_1}. Dort verlaufen alle Pfade $s-t$ über die
     Kante $e$. Wenn nun die Laufzeiten zu $\Delta$ aufgerundet werden,
-    ergibt sich das Netzwerk in Abbildung \figRef{ex_val_red_2}.
+    ergibt sich das Netzwerk in \figRef{ex_val_red_2}.
 
     \begin{figure}[H]
     \centering
@@ -252,10 +259,11 @@ Aus diesem Beispiel ergibt sich die zweite Bedingung:
 Diese beiden Eigenschaften sind auch hinreichend für eine beliebig genaue
 Approximation:
 \begin{corollary}
-    Seien $\graph$ ein Netzwerk mit zwei Laufzeiten $\tau_1$ und $\tau_2$, so dass
+    Sei $\graph$ ein Netzwerk mit zwei Laufzeiten $\tau_1$ und $\tau_2$, so dass
     \ref{a1} und \ref{a2} erfüllt sind.
     Dann kann ein optimaler Fluss $f_1^*$ in $(\graph, \tau_2)$ approximiert werden,
     wenn ein optimaler Fluss $f_2^*$ in $(\graph, \tau_2)$ approximiert werden kann.
+    % BjH: Wo ist $\tau_1$ geblieben?
 
     \begin{proof}    
         Sei $\eps > 0$ und $\tau_2 - \tau_1 \leq \eps$ und seien
@@ -272,16 +280,19 @@ Approximation:
                             & \leq ||f_2| + \eps - |f_2^*| + \eps| \\
                             & \leq ||f_2| - |f_2^*|| + 2 \eps \\
                             & \leq 3 \eps
+            % BjH: Sollte Epsilon hier nicht immer au\ss{}erhalb des Betrags stehen? Wenn die Differenz innerhalb des Betrags negativ ist, kann das Epsilon den Absolutwert verkleinern.
         \end{align*}
         und
         \begin{align*}
             T_1 - T_1^*  & \leq T_2 + \eps - T_2^* + \eps \\
                 & \leq \eps + 2\eps \\
                 & = 3 \eps
+            % BjH: Hier und oben fehlen vermutlich die Betr\"age.
         \end{align*}
         
         Wähle als $\delta = \frac{\eps}{3}$. Dann kann $f_1^*$ in
         $(\graph, \tau_2)$ beliebig genau approximiert werden.
+        % BjH: Was ist $\delta$?
     \end{proof}
 \end{corollary}
 

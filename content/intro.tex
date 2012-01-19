@@ -80,6 +80,8 @@ hat im Gegensatz zum dynamischen keine Zeitkomponente.
 
     Wir werden also lediglich Netzwerke betrachten, die pro Ware nur eine
     Quelle und Senke haben.
+
+    % BjH: Diese Bemerkung bezieht sich auf mehrere Waren, was aber erst weiter unten eingeführt wird (insbesondere auch die Symbole mit den $i$-Indizes).
 \end{remark}
 
 \begin{definition}[Statischer Fluss mit einer Ware]
@@ -87,7 +89,7 @@ hat im Gegensatz zum dynamischen keine Zeitkomponente.
     \[ \sum_{e \in \outEdges(v)} x(e) - \sum_{e \in \inEdges(v)} x(e) = 0
         \quad, \text{alle } v \in V \setminus S. \]
 
-    Ein solcher Fluss sollte im Allgemeinen Folgende Eigenschaften erfüllen:
+    Ein solcher Fluss sollte im Allgemeinen folgende Eigenschaften erfüllen:
     \begin{itemize}
         \item Erfüllung von Bedarf und Zulauf:
             \[ \sum_{e \in \outEdges(v)} x(e) - \sum_{e \in \inEdges(v)} x(e) = D(v)
@@ -135,6 +137,7 @@ hat im Gegensatz zum dynamischen keine Zeitkomponente.
 Nachdem wir nun statische Flüsse ohne Zeitkomponente kennengelernt haben,
 wollen wir Flüsse über Zeit (dynamische Flüsse) betrachten. Werden direkt
 die allgemeinere Definition mit mehreren Waren geben.
+% BjH: Im letzten Satz fehlt ein Wort.
 
 \begin{definition}
     Ein \term{dynamischer Fluss} ist eine Familie von Funktionen
@@ -142,6 +145,7 @@ die allgemeinere Definition mit mehreren Waren geben.
     $f_i(e,t)$ ist die \term{Flussrate}, die zur Zeit $t$ an der Kante $e$ anliegt.
     Dabei muss \\ $\lim_{t \to T} f_i(e,t) = 0$ gelten. Dann kann $f$ stetig
     auf $\ropen{T, +\infty}$ fortgesetzt werden.
+    % BjH: Wo kommt das $\lim_{t \to T}$ her? Zumindest kann ich es im Paper nicht finden. Ein Limes setzt Konvergenz voraus; darf die Flussrate nicht pl\"otzlich auf Null gehen? (siehe auch lim unten.)
 
     Schreibe auch: $\func{f_i(e)}{\ropen{0,T}}{\R_+}$ mit $f_i(e)(t) = f_i(e,t)$.
 
