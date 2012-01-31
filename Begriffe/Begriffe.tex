@@ -1,0 +1,118 @@
+\documentclass[12pt, a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+
+\usepackage{anysize}
+\marginsize{3cm}{2cm}{1cm}{1cm}
+
+\usepackage[english,ngerman]{babel}
+\selectlanguage{ngerman}
+
+\usepackage{amssymb}
+\usepackage{amsmath}
+
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Rd}{\R^d}
+\newcommand{\Sd}[1]{\mathbb{S}_{#1}}
+\newcommand{\Bd}{\mathbb{B}_{d}}
+\newcommand{\I}{[0,1]}
+\newcommand{\RdEx}{\widehat{\mathbb{R}}^d}
+\newcommand{\REx}{\widehat{\R}}
+
+\newcommand{\ointerv}[1]{\ensuremath{\left]#1\right[}}
+\newcommand{\lopen}[1]{\ensuremath{\left]#1\right]}}
+\newcommand{\ropen}[1]{\ensuremath{\left[#1\right[}}
+\newcommand{\interv}[1]{\ensuremath{\left[#1\right]}}
+\newcommand{\func}[3]{\ensuremath{{#1} \colon {#2} \to {#3}}}
+
+%% Graphs
+\newcommand{\graph}{\mathcal{N}}
+\newcommand{\outEdges}{\delta^+}
+\newcommand{\inEdges}{\delta^-}
+\newcommand{\tExp}[1]{\ensuremath{\graph^{#1}}}
+\newcommand{\redNetw}[2]{\tExp{#1}\!/{#2}}
+\newcommand{\pathSet}{\mathcal{P}}
+
+%% Operators %%
+\DeclareMathOperator{\head}{head}
+\DeclareMathOperator{\tail}{tail}
+
+%% Set definitions
+\newcommand{\where}{\:|\:} % for set definitions
+\newcommand{\setDef}[2]{\left\{{#1} \:|\: {#2}\right\}}
+
+
+\title{Notationen}
+\author{Hella Hoffmann \\ Henning Basold}
+\date{02. Februar 2012}
+\begin{document}
+\maketitle
+
+\section*{Gemeinsame Notationen}
+
+\begin{itemize}
+    \item Netzwerk: $\graph = (V, A)$, $|V| = n$, $|A| = m$
+    \item Knoten: $x, y, z \in V$
+    \item Kanten: $e, xy, (x,y) \in A$
+    \item Funktionen des Graphen
+        \begin{itemize}
+            \item $\head(x,y) = y$
+            \item $\tail(x,y) = x$
+            \item $\outEdges(x) = \{(x,y) \in A\}$ -- ausgehende Kanten
+            \item $\inEdges(y) = \{(x,y) \in A\}$ -- eingehende Kanten
+        \end{itemize}
+    \item Label \\
+    	\begin{tabular}{l|l|l}
+    	    & Hella (Indexnotation) & Henning (Funktionen) \\ \hline
+            transit time/Laufzeit & $\tau_e, \tau_{xy} \in \Z$ & $\func{\tau}{A}{\R_+}$ \\
+            capacity/Kapazität & $u_{xy}, u_e \in \R_+$ & $\func{u}{A}{\R_+}$ \\
+            Kosten & -- & $\func{c}{A}{\R_+}$ \\
+    	\end{tabular}
+	\item terminals/Terminale
+	    \begin{itemize}
+	        \item $S = S^+ \cup S^-$
+	        \item $S^+ \subseteq V$ -- sources/Quellen
+	        \item $S^- \subseteq V$ -- sinks/Senken
+	        \item $S^+ \cap S^- = \emptyset$
+	        \item dabei: $\outEdges(S^-) = \emptyset$ und $\inEdges(S^+) = \emptyset$
+	        \item $E^+ = \setDef{e \in A}{c_e > 0}$ (nur bei Hella)
+	    \end{itemize}
+    \item demand/Bedarf: $D$, $D_i$ bzw. $\func{D, D_i}{S}{\R}$
+    \item commodities/Waren: $i \in K = \{1, \ldots, k\}$
+    \item time horizon/Zeithorizont: $T$
+    \item Flüsse \\
+    	\begin{tabular}{l|l|l}
+    		 & Hella & Henning \\ \hline
+    		statisch & $f_e$, $f_{xy}$ & $\func{f, f_i}{A}{\R_+}$ \\
+    		dynamisch & $\left[ \Gamma \right]$, $\left[ \Gamma^T \right]$
+    		            & $\func{\varphi, \varphi_i}{A \times \ropen{0, T}}{\R_+}$ \\
+    		Flusswert & $|f|$, $|f|_x$ & $|\varphi|$, $|f|$ \\
+    		Last an Knoten & -- & $\func{\Phi, \Phi_i}{V \times \ropen{0, T}}{\R}$
+    	\end{tabular}
+	\item Zeitvariablen: $t$, $\theta$
+	\item time expanded graph/zeiterweitertes Netzwerk\\
+    	\begin{tabular}{l|l|l}
+    		& Hella & Henning \\ \hline
+    		& $G(T) = (V(T), A(T))$ & $\tExp{T} = (V^T, A^T)$ \\
+    		Knoten & $x(\theta)$ & $x_t$ \\
+    		Kanten & $x(\theta)x(\theta + \theta')$ & $(x_t, x_{t + t'})$
+    	\end{tabular}
+    
+    
+\end{itemize}
+
+\section*{Spezielle Begriffe}
+\subsection*{Hella}
+\begin{itemize}
+    \item Chain decomposition: $\Gamma$
+\end{itemize}
+
+\subsection*{Henning}
+\begin{itemize}
+    \item Pfadmenge: $\pathSet$ mit $\func{\varphi}{\pathSet \times \ropen{0,T}}{\R_+}$
+    \item reduziertes zeiterweitertes Netzwerk: $\redNetw{T}{\Delta}$
+\end{itemize}
+
+\end{document}
