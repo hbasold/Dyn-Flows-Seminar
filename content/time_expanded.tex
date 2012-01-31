@@ -134,7 +134,7 @@ Das führt zu den \term{skalierten Netzwerken}:
 \end{lemma}
 
 Wenn $p(\Delta) \in O(T)$ mit einem Polynom $p$ gewählt werden kann, funktioniert
-dieses Verfahren gut, da dann $T/\Delta \in O(T)$. Leider wird dies in den meisten
+dieses Verfahren gut, da dann $T/\Delta \in O(\log T)$. Leider wird dies in den meisten
 Fällen nicht möglich sein.
 Die Idee ist nun, $\Delta$ so zu wählen, dass man $\tau(e)$ „vernünftig“ zum
 nächsten Vielfachen von $\Delta$ runden kann. Damit könnte man
@@ -209,44 +209,45 @@ bezeichnen dabei mit $T^*$ die jeweils optimale Laufzeit.
 
     Wir betrachten nun ein Netzwerk, in dem die Situation genau umgekehrt ist:
     im Netzwerk mit aufgerundeten Zeiten lässt sich ein viel besserer Fluss
-    konstruieren, als im Originalnetzwerk. Wir betrachten dazu das Netzwerk
-    in \figRef{ex_val_red_1}. Dort verlaufen alle Pfade $s-t$ über die
+    konstruieren, als im Originalnetzwerk. Wir betrachten dazu das erste Netzwerk
+    in \figRef{ex_val_red}. Dort verlaufen alle Pfade $s-t$ über die
     Kante $e$. Wenn nun die Laufzeiten zu $\Delta$ aufgerundet werden,
-    ergibt sich das Netzwerk in \figRef{ex_val_red_2}.
-
-    \begin{figure}[H]
-    \centering
-    \includegraphics[width=0.6\textwidth]{ex_val_red_1}
-    \caption{Awesome Image}
-    \label{fig:ex_val_red_1}
-    \end{figure}
-    
-    Man sieht, dass wenn man einen Fluss $f$ auf allen Kanten gleichzeitig losschickt,
-    dieser versetzt am Knoten $v$ ankommt. Siehe dazu auch
-    $f(e)$ in der Tabelle. Soll dieser Fluss wieder im Originalnetzwerk
-    interpretiert werden, muss fast der komplette Fluss verworfen werden, denn
-    sonst wäre $f(e) = k > 1 = u(e)$, wenn $k > 1$.
+    ergibt sich das rechte Netzwerk in \figRef{ex_val_red}.
     
     % \newsavebox{\tempbox}
     \begin{figure}[H]
-    \sbox{\tempbox}{\includegraphics[width=0.5\textwidth]{ex_val_red_2}}
+    \sbox{\tempbox}{\includegraphics[width=0.5\textwidth]{ex_val_red_1}}
     \subfloat{\usebox{\tempbox}}%
     \qquad
     \subfloat{\vbox to \ht\tempbox{%
       \vfil
-        \begin{tabular}{ l| c c c c c c c }
-          t (in $\Delta/2$) & 0 & 1 & 2 & 3 & \ldots & k & \ldots \\ \hline
-          f($P_1$)  & \red{1} & 0 & 0 & 0 & \ldots & \red{1} & \\
-          f($P_2$)  & \green{1} & 0 & 0 & 0 & \ldots & \green{1} & \\
-          f($P_3$)  & \yellow{1} & 0 & 0 & 0 & \ldots & \yellow{1} & \\
-          \vdots    & \vdots & & & & & \vdots & \ldots \\
-          f($P_k$)  & \blue{1} & 0 & 0 & 0 & \ldots & \blue{1} & \\
-          f($e$)    & 0 & \red{1} & \green{1} & \yellow{1} & \ldots & \blue{1} &
-        \end{tabular}
+        \includegraphics[width=0.5\textwidth]{ex_val_red_2}
       \vfil}}%
-      \caption{Netzwerk $(\graph, \tau')$, in dem nach Aufrunden ein viel größerer
-        Fluss möglich ist}\label{fig:ex_val_red_2}
-    \end{figure}    
+      \caption{Netzwerk, in dem nach Aufrunden ein viel größerer
+        Fluss möglich ist. An den Kanten ist jeweils $\tau$ angetragen,
+        die Kapazität ist konstant $1$.}\label{fig:ex_val_red}
+    \end{figure}   
+    
+    Man sieht, dass wenn man einen Fluss $f$ auf allen Kanten gleichzeitig losschickt,
+    dieser versetzt am Knoten $v$ ankommt. Siehe dazu auch
+    $f(e)$ in der folgenden Tabelle. Soll dieser Fluss wieder im Originalnetzwerk
+    interpretiert werden, muss fast der komplette Fluss verworfen werden, denn
+    sonst wäre $f(e) = k > 1 = u(e)$, wenn $k > 1$. Man muss aber bemerken,
+    dass der Flusswert durch eine Verzögerung erhalten werden könnte.
+
+    \begin{table}[ht]
+    \centering
+    \begin{tabular}{ l| c c c c c c c c}
+      t (in $\Delta$) & 0 & 1 & 2 & 3 & \ldots & $k$ & $k+1$ & \ldots \\ \hline
+      $f(P_1)$  & \red{1} & 0 & 0 & 0 & \ldots & \red{1} & 0 & \\
+      $f(P_2)$  & \green{1} & 0 & 0 & 0 & \ldots & \green{1} & 0 & \\
+      $f(P_3)$  & \yellow{1} & 0 & 0 & 0 & \ldots & \yellow{1} & 0 & \\
+      \vdots    & \vdots & & & & & \vdots & \vdots & \ldots \\
+      $f(P_k)$  & \blue{1} & 0 & 0 & 0 & \ldots & \blue{1} & 0 & \\ \hline
+      $f(e)$    & 0 & \red{1} & \green{1} & \yellow{1} & \ldots & \blue{1} & \red{1}
+    \end{tabular}
+    \caption{Fluss in Netzwerk mit gerundeten Zeiten aus \figRef{ex_val_red}}
+    \end{table}
 \end{example}
 
 Aus diesem Beispiel ergibt sich die zweite Bedingung:
