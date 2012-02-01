@@ -181,13 +181,14 @@ veranschaulicht und daraus Bedingungen an $\Delta$ gestellt werden.
     \label{fig:ex_inc_time_2}
     \end{figure}
 
-     Überträgt man den Fluss $x$ nun
-    in dieses Netzwerk, muss $x$ auf $e_1$ oder $e_2$ verzögert werden, da $P_1$
+     Überträgt man den Fluss $f$ nun
+    in dieses Netzwerk, muss $f$ auf $e_1$ oder $e_2$ verzögert werden, da $P_1$
     und $P_2$ an dieser Stelle nicht gleichzeitig benutzt werden können.
     Auf $e_3$ „staut“ sich der Fluss.
 
     Insgesamt benötigt der Fluss dann $2\Delta$ statt lediglich $\frac{3}{2}\Delta$
-    Zeiteinheiten.
+    Zeiteinheiten, und ist somit erst bei $3\Delta$ statt bei $2\Delta$ durch
+    $\graph$ geflossen.
 \end{example}
 
 Daraus ergibt sich die erste Bedingung, die an $(\graph, \tau)$ gestellt wird. Wir
@@ -273,33 +274,31 @@ Approximation:
     %       das ursprüngliche Netzwerk approximieren.
 
     \begin{proof}    
-        Sei $\eps > 0$ und o.B.d.A. $\tau_2 - \tau_1 \leq \eps$ und seien
-        $f_1^*$ und $f_2^*$ jeweils optimale Flüsse, die bei
-        $T_1^*$ bzw. $T_2^*$ enden. Nach \ref{a1} ist $T_2^* - T_1^*\leq \eps$.
+        Sei $\frac{\eps}{3} > 0$ und $|\tau_2(e) - \tau_1(e)| \leq \frac{\eps}{3}$,
+        dann ist nach \ref{a1} $|T_2^* - T_1^*| \leq \frac{\eps}{3}$.
+        Seien $f_1^*$ und $f_2^*$ die jeweils optimale Flüsse, die bei
+        $T_1^*$ bzw. $T_2^*$ enden.
 
-        Sei $f_2$ eine Approximation von $f_2^*$ in $(\graph, \tau_2)$ mit
-        $||f_2| - |f_2^*|| \leq \eps$ und Ende $T_2 - T_2^* \leq \eps$.
+        Gegeben ist nun $f_2$ eine Approximation von $f_2^*$ in $(\graph, \tau_2)$
+        mit $||f_2| - |f_2^*|| \leq \frac{\eps}{3}$ und Ende $T_2$, so dass
+        $|T_2 - T_2^*| \leq \frac{\eps}{3}$.
 
-        Dann kann $f_2$ als ein Fluss $f_1$ in $(\graph, \tau_1)$
-        mit Ende $T_1$ interpretiert werden. Es gilt nach \ref{a2}:
+        Interpretiere $f_2$ als ein Fluss $f_1$ in $(\graph, \tau_1)$
+        mit Ende $T_1$. Dann gilt:
         \begin{align*}
-            ||f_1| - |f_1^*|| & \leq ||f_1| - |f_2^*| + \eps| \\
-                            & \leq ||f_2| + \eps - |f_2^*| + \eps| \\
-                            & \leq ||f_2| - |f_2^*|| + 2 \eps \\
-                            & \leq 3 \eps
-            % BjH: Sollte Epsilon hier nicht immer au\ss{}erhalb des Betrags stehen? Wenn die Differenz innerhalb des Betrags negativ ist, kann das Epsilon den Absolutwert verkleinern.
-            % HB: Ich habe hier nur ersetzt, was in (A1) steht : |f_1^*| \leq |f_2^*| - \eps
+            |T_1 - T_1^*| & \leq |T_1 - T_2^*| + \frac{\eps}{3} \\
+                & \leq |T_2 - T_2^*| + 2 \frac{\eps}{3} \\
+                & \leq 3 \frac{\eps}{3} = \eps
         \end{align*}
-        und
+
+        Es gilt nach \ref{a2}:
         \begin{align*}
-            T_1 - T_1^*  & \leq T_2 + \eps - T_2^* + \eps \\
-                & \leq \eps + 2\eps \\
-                & = 3 \eps
-            % BjH: Hier und oben fehlen vermutlich die Betr\"age.
-            % HB: habs oben hinzugeschrieben: Annahme ist, dass tau_2 nach oben aufrundet.
+            ||f_1| - |f_1^*|| & \leq ||f_1| - |f_2^*|| + \frac{\eps}{3} \\
+                            & \leq ||f_2| - |f_2^*|| + 2 \frac{\eps}{3} \\
+                            & \leq 3 \frac{\eps}{3} = \eps.
         \end{align*}
-        
-        Somit kann $f_1^*$ in $(\graph, \tau_2)$ beliebig genau approximiert werden.
+        Also wird $f_1^*$ von $f_1$ approximiert und somit kann
+        $f_1^*$ in $(\graph, \tau_2)$ approximiert werden.
     \end{proof}
 \end{corollary}
 
