@@ -53,7 +53,11 @@
 \section*{Gemeinsame Notationen}
 
 \begin{itemize}
-    \item Netzwerk: $\graph = (V, A)$, $|V| = n$, $|A| = m$
+    \item Netzwerk $\graph$
+        \begin{itemize}
+            \item Knoten $V$, $|V| = n$
+            \item Kanten $E$ (Hella) bzw. $A$ (Henning), $|A| = m$
+        \end{itemize}
     \item Knoten: $x, y, z \in V$
     \item Kanten: $e, xy, (x,y) \in A$
     \item Funktionen des Graphen
@@ -77,7 +81,7 @@
 	        \item $S^- \subseteq V$ -- sinks/Senken
 	        \item $S^+ \cap S^- = \emptyset$
 	        \item dabei: $\outEdges(S^-) = \emptyset$ und $\inEdges(S^+) = \emptyset$
-	        \item $E^+ = \setDef{e \in A}{c_e > 0}$ (nur bei Hella)
+	        \item $E^+ = \setDef{e \in E}{u_e > 0}$ (nur bei Hella)
 	    \end{itemize}
     \item demand/Bedarf: $D$, $D_i$ bzw. $\func{D, D_i}{S}{\R}$
     \item commodities/Waren: $i \in K = \{1, \ldots, k\}$
@@ -85,7 +89,7 @@
     \item Flüsse \\
     	\begin{tabular}{l|l|l}
     		 & Hella & Henning \\ \hline
-    		statisch & $f_e$, $f_{xy}$ & $\func{f, f_i}{A}{\R_+}$ \\
+            statisch & $f$, $f_e$, $f_{xy}$ & $\func{f, f_i}{A}{\R_+}$ \\
     		dynamisch & $\left[ \Gamma \right]$, $\left[ \Gamma^T \right]$
     		            & $\func{\varphi, \varphi_i}{A \times \ropen{0, T}}{\R_+}$ \\
     		Flusswert & $|f|$, $|f|_x$ & $|\varphi|$, $|f|$ \\
@@ -95,9 +99,9 @@
 	\item time expanded graph/zeiterweitertes Netzwerk\\
     	\begin{tabular}{l|l|l}
     		& Hella & Henning \\ \hline
-    		& $G(T) = (V(T), A(T))$ & $\tExp{T} = (V^T, A^T)$ \\
-    		Knoten & $x(\theta)$ & $x_t$ \\
-    		Kanten & $x(\theta)x(\theta + \theta')$ & $(x_t, x_{t + t'})$
+            & $G(T) = (V(T), E(T))$ & $\tExp{T} = (V^T, A^T)$ \\
+            Knoten & $x(\theta)$ & $x_t$ \\
+            Kanten & $x(\theta)y(\theta + \theta')$ & $(x_t, y_{t + t'})$
     	\end{tabular}
     
     
@@ -106,7 +110,8 @@
 \section*{Spezielle Begriffe}
 \subsection*{Hella}
 \begin{itemize}
-    \item Chain decomposition: $\Gamma$
+    \item Chain decomposition: $\Gamma = \{\gamma_1,\ldots,\gamma_k\}$
+    \item $o(A)$: value of a maximum flow from $A \cap S^+$ to $S^- \setminus A$
 \end{itemize}
 
 \subsection*{Henning}
